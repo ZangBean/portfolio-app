@@ -5,9 +5,9 @@ import { Layout } from "antd";
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
-import AppHeader from "./components/common/Header";
-import AppFooter from "./components/common/Footer";
-import Sidebar from "./components/common/Sidebar";
+import AppHeader from "./components/common/Header/Header";
+import AppFooter from "./components/common/Footer/Footer";
+import Sidebar from "./components/common/Sidebar/Sidebar";
 
 const { Content } = Layout;
 
