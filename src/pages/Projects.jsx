@@ -13,7 +13,7 @@ export default function Projects() {
 
   return (
     <List
-      grid={{ gutter: 16, column: 3 }}
+      grid={{ gutter: 16, column: 4 }}
       dataSource={selectedUser ? selectedUser.projects : []}
       renderItem={(item) => (
         <List.Item>

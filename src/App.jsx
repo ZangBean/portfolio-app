@@ -16,7 +16,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <AppHeader />
-        <Layout>
+        <Layout style={{ minHeight: "100vh" }}>
           <Sidebar />
           <Content>
             <Routes>
