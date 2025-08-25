@@ -5,7 +5,7 @@ import { List, Card } from "antd";
 
 export default function Projects() {
   const dispatch = useDispatch();
-  const { data, status } = useSelector((state) => state.projects);
+  const { selectedUser, status } = useSelector((state) => state.projects);
 
   useEffect(() => {
     dispatch(fetchProjects());
@@ -14,7 +14,7 @@ export default function Projects() {
   return (
     <List
       grid={{ gutter: 16, column: 3 }}
-      dataSource={data}
+      dataSource={selectedUser ? selectedUser.projects : []}
       renderItem={(item) => (
         <List.Item>
           <Card title={item.name}>
@@ -23,7 +23,7 @@ export default function Projects() {
           </Card>
         </List.Item>
       )}
-      loading={status === "idle"}
+      loading={status === "loading"}
     />
   );
 }
