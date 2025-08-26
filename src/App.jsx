@@ -1,16 +1,22 @@
 import { useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+} from 'react-router-dom'
 import { Provider, useDispatch } from 'react-redux'
 import { fetchProjects } from './redux/slices/projectsSlice'
 import { store } from './stores'
 import { Layout } from 'antd'
 import Home from './pages/Home/Home'
-import AboutMe from './pages/AboutMe'
+import AboutMe from './pages/About/AboutMe'
 import Projects from './pages/Projects'
 import Skills from './pages/Skills'
 import Experience from './pages/Experience'
 import Contact from './pages/Contact'
 import HeaderMenu from './components/common/Header/HeaderMenu'
+import HeaderUser from './components/common/Header/HeaderUser'
 import AppFooter from './components/common/Footer/Footer'
 
 const { Content } = Layout
