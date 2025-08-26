@@ -6,7 +6,7 @@ import {
   LoginButton,
 } from "./Header.styled.js";
 
-export default function AppHeader() {
+export default function HeaderUser() {
   const items = [
     { key: "home", label: <Link to="/">About Me</Link> },
     { key: "projects", label: <Link to="/projects">Projects</Link> },
