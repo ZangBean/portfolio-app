@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { fetchUsers } from "../../services/api";
 
 export const fetchProjects = createAsyncThunk("projects/fetch", async () => {
-  const res = await fetch("/projects.json");
-  return res.json();
+  const data = await fetchUsers();
+  return data;
 });
 
 const projectsSlice = createSlice({
@@ -19,13 +20,22 @@ const projectsSlice = createSlice({
         state.status = "loading";
       })
       .addCase(fetchProjects.fulfilled, (state, action) => {
-        state.data = action.payload;
-        state.selectedUser = action.payload[0];
+        state.data = Array.isArray(action.payload) ? action.payload : [];
+        state.selectedUser =
+          Array.isArray(action.payload) && action.payload.length > 0
+            ? action.payload[0]
+            : null;
         state.status = "succeeded";
       })
       .addCase(fetchProjects.rejected, (state, action) => {
         state.status = "failed";
-        console.error("Fetch failed:", action.error);
+        state.data = [];
+        state.selectedUser = null;
+        console.error(
+          "Fetch failed:",
+          action.error.message,
+          action.error.stack
+        );
       });
   },
 });

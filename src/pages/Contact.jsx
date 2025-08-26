@@ -9,26 +9,65 @@ export default function Contact() {
   return (
     <Row justify="center">
       <Col span={12}>
-        <Title>Contact</Title>
+        <Title>Liên hệ</Title>
         {selectedUser ? (
           <>
-            <Paragraph>Email: {selectedUser.contact.email}</Paragraph>
-            <Paragraph>Phone: {selectedUser.contact.phone}</Paragraph>
+            <Paragraph>
+              <strong>Họ tên:</strong> {selectedUser.cv.personal_info.name}
+            </Paragraph>
+            <Paragraph>
+              <strong>Email:</strong> {selectedUser.cv.personal_info.email}
+            </Paragraph>
+            <Paragraph>
+              <strong>Điện thoại:</strong> {selectedUser.cv.personal_info.phone}
+            </Paragraph>
+            <Paragraph>
+              <strong>Github:</strong>{" "}
+              <a
+                href={selectedUser.cv.personal_info.github}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {selectedUser.cv.personal_info.github}
+              </a>
+            </Paragraph>
           </>
         ) : (
-          <Paragraph>Loading...</Paragraph>
+          <Paragraph>Đang tải...</Paragraph>
         )}
         <Form layout="vertical">
-          <Form.Item label="Name">
+          <Form.Item
+            label="Họ tên"
+            name="name"
+            rules={[{ required: true, message: "Vui lòng nhập họ tên" }]}
+          >
             <Input />
           </Form.Item>
-          <Form.Item label="Email">
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[
+              {
+                required: true,
+                type: "email",
+                message: "Vui lòng nhập email hợp lệ",
+              },
+            ]}
+          >
             <Input />
           </Form.Item>
-          <Form.Item label="Message">
+          <Form.Item
+            label="Tin nhắn"
+            name="message"
+            rules={[{ required: true, message: "Vui lòng nhập tin nhắn" }]}
+          >
             <Input.TextArea />
           </Form.Item>
-          <Button type="primary">Submit</Button>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Gửi
+            </Button>
+          </Form.Item>
         </Form>
       </Col>
     </Row>

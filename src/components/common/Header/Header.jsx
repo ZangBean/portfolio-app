@@ -8,8 +8,10 @@ import {
 
 export default function AppHeader() {
   const items = [
-    { key: "home", label: <Link to="/">Home</Link> },
+    { key: "home", label: <Link to="/">About Me</Link> },
     { key: "projects", label: <Link to="/projects">Projects</Link> },
+    { key: "skills", label: <Link to="/skills">Skills</Link> },
+    { key: "experience", label: <Link to="/experience">Experience</Link> },
     { key: "contact", label: <Link to="/contact">Contact</Link> },
   ];
 
