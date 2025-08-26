@@ -4,6 +4,7 @@ import { Provider, useDispatch } from "react-redux";
 import { fetchProjects } from "./redux/slices/projectsSlice";
 import { store } from "./stores";
 import { Layout } from "antd";
+import Home from "./pages/Home/Home";
 import AboutMe from "./pages/AboutMe";
 import Projects from "./pages/Projects";
 import Skills from "./pages/Skills";
@@ -27,11 +28,12 @@ function AppContent() {
       <Layout style={{ minHeight: "100vh" }}>
         <Content>
           <Routes>
-            <Route path="/" element={<AboutMe />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/skills" element={<Skills />} />
-            <Route path="/experience" element={<Experience />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/about/:id" element={<AboutMe />} />
+            <Route path="/projects/:id" element={<Projects />} />
+            <Route path="/skills/:id" element={<Skills />} />
+            <Route path="/experience/:id" element={<Experience />} />
+            <Route path="/contact/:id" element={<Contact />} />
           </Routes>
         </Content>
       </Layout>
