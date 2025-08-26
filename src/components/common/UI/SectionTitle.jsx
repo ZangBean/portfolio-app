@@ -11,6 +11,7 @@ const SectionTitle = styled.div`
   &::after {
     content: '';
     position: absolute;
+
     left: 0;
     bottom: 0;
     width: 60%;
