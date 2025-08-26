@@ -1,19 +1,26 @@
-import { Link } from 'react-router-dom'
-import { StyledHeader, Logo, CenterMenu, LoginButton } from './Header.styled.js'
+import { Link, useParams } from 'react-router-dom'
+import { StyledUserHeader, StyledMenu } from './Header.styled'
 
 export default function HeaderUser() {
+  const { id } = useParams()
+
   const items = [
-    { key: 'home', label: <Link to='/about/:id'>About Me</Link> },
-    { key: 'projects', label: <Link to='/projects/:id'>Projects</Link> },
-    { key: 'skills', label: <Link to='/skills/:id'>Skills</Link> },
-    { key: 'experience', label: <Link to='/experience/:id'>Experience</Link> },
-    { key: 'contact', label: <Link to='/contact/:id'>Contact</Link> },
+    { key: 'about', label: <Link to={`/about/${id}`}>About</Link> },
+    {
+      key: 'projects',
+      label: <Link to={`/about/${id}/projects`}>Projects</Link>,
+    },
+    { key: 'skills', label: <Link to={`/about/${id}/skills`}>Skills</Link> },
+    {
+      key: 'experience',
+      label: <Link to={`/about/${id}/experience`}>Experience</Link>,
+    },
+    { key: 'contact', label: <Link to={`/about/${id}/contact`}>Contact</Link> },
   ]
 
   return (
-    <StyledHeader>
-      <CenterMenu theme='dark' mode='horizontal' items={items} />
-    </StyledHeader>
+    <StyledUserHeader>
+      <StyledMenu mode='horizontal' items={items} />
+    </StyledUserHeader>
   )
 }
-
