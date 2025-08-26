@@ -35,34 +35,49 @@ const ProfileCard = styled(Card)`
 
 const FeaturedWorkCard = styled(Card)`
   background-color: #2a2a2a;
-
   color: #fff;
 
   img {
     border-radius: 10px;
     width: 100%;
-    height: auto;
+    max-height: 250px;
+  }
+
+  .ant-card-meta-title {
+    color: #5facbc; /* đổi màu title */
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+
+  .ant-card-meta-description {
+    color: #ccc; /* đổi màu description */
+    font-size: 0.9rem;
+    margin-top: 5px;
   }
 `
-const SectionTitle = styled(Title)`
+
+const SectionTitle = styled.div`
+  font-size: 20px;
+  font-weight: bold;
   position: relative;
   display: inline-block;
   padding-bottom: 0.5rem;
   color: #fff;
+  margin-bottom: 10px;
 
   &::after {
     content: '';
     position: absolute;
     left: 0;
     bottom: 0;
-    width: 100%;
-    height: 6px; /* độ dày đường viền */
-    background-color: #00ff33; /* màu xanh */
+    width: 60%;
+    height: 4px; /* độ dày đường viền */
+    background-color: #5facbc; /* màu xanh */
     border-radius: 3px;
   }
 `
 
-export default function Home() {
+const AboutMe = () => {
   const selectedUser = useSelector((state) => state.projects.selectedUser)
   console.log(selectedUser)
 
@@ -70,32 +85,52 @@ export default function Home() {
     return <div>Loading...</div>
   }
 
-  const { personal_info, experience, projects, target } = selectedUser.cv
+  const {
+    personal_info,
+    experience,
+    projects,
+    target,
+    certifications_awards,
+    image,
+  } = selectedUser.cv
 
   return (
-    <Row gutter={16}>
-      {/* Phần bên phải (content khác) */}
-      <Col span={8}>
-        <div
-          style={{
-            backgroundColor: '#111',
-            minHeight: '100vh',
-            padding: '2rem',
-            color: '#fff',
-          }}
-        >
-          {/* Đây là phần nội dung khác */}
-          Right side content
-        </div>
-      </Col>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        margin: 'auto',
+        maxWidth: '1000px',
+      }}
+    >
+      <Row gutter={16}>
+        {/* Phần bên phải (content khác) */}
+        <Col span={8}>
+          <FeaturedWorkCard
+            cover={
+              <img
+                src={
+                  personal_info.image ||
+                  'https://picsum.photos/200/300?grayscale'
+                }
+              />
+            }
+          >
+            <Title>{personal_info.name}</Title>
+            <Card.Meta
+              style={{
+                color: '#fff',
+                minHeight: '150px',
+              }}
+            />
+          </FeaturedWorkCard>
+        </Col>
 
-      {/* Phần bên trái (Home content) */}
-      <Col span={16}>
-        <HeaderUser />
+        {/* Phần bên trái (Home content) */}
+        <Col span={16}>
+          <Container>
+            {/* Profile Info */}
 
-        <Container>
-          {/* Profile Info */}
-          <ProfileCard>
             <SectionTitle level={3}>Digital Identity</SectionTitle>
 
             <Paragraph
@@ -105,68 +140,70 @@ export default function Home() {
             >
               {target}
             </Paragraph>
-            <Paragraph>
-              GitHub:{' '}
-              <a href={personal_info.github} target='_blank'>
-                {personal_info.github}
-              </a>
-            </Paragraph>
-          </ProfileCard>
 
-          {/* Highlights */}
-          <div style={{ marginTop: '2rem' }}>
-            <Title level={3}>Highlights & Successes</Title>
-            <Row gutter={16}>
-              <Col span={8}>
-                <HighlightNumber>
-                  +{experience ? experience.description.length : 0}
-                </HighlightNumber>
-                <HighlightText>Experience Items</HighlightText>
-              </Col>
-              <Col span={8}>
-                <HighlightNumber>
-                  +{projects ? projects.length : 0}
-                </HighlightNumber>
-                <HighlightText>Projects Completed</HighlightText>
-              </Col>
-              <Col span={8}>
-                <HighlightNumber>+10</HighlightNumber>
-                <HighlightText>Certifications & Awards</HighlightText>
-              </Col>
-            </Row>
-          </div>
+            {/* Highlights */}
+            <div style={{ marginTop: '2rem' }}>
+              <SectionTitle level={3}>Highlights & Successes</SectionTitle>
+              <Row gutter={16}>
+                <Col span={8}>
+                  <HighlightNumber>
+                    +{experience ? experience.description.length : 0}
+                  </HighlightNumber>
+                  <HighlightText>YEARS OF EXPERIENCE </HighlightText>
+                </Col>
+                <Col span={8}>
+                  <HighlightNumber>
+                    +{projects ? projects.length : 0}
+                  </HighlightNumber>
+                  <HighlightText>PROJECTS COMPLETED</HighlightText>
+                </Col>
+                <Col span={8}>
+                  <HighlightNumber>
+                    +{certifications_awards > 0 ? certifications_awards : 10}
+                  </HighlightNumber>
+                  <HighlightText>CERTIFICATIONS & AWARDS</HighlightText>
+                </Col>
+              </Row>
+            </div>
 
-          {/* Featured Work */}
-          <div style={{ marginTop: '2rem' }}>
-            <Title level={3}>Featured Work</Title>
-            <Paragraph>A glimpse into my professional journey.</Paragraph>
-            <Row gutter={16}>
-              {projects &&
-                projects.map((project, index) => (
-                  <Col span={12} key={index} style={{ marginBottom: '1rem' }}>
-                    <FeaturedWorkCard
-                      cover={
-                        <img
-                          alt={project.title}
-                          src={
-                            project.image ||
-                            '/mnt/data/f07cd432-05b6-4d81-be7b-de8ea2a96fa2.png'
-                          }
+            {/* Featured Work */}
+            <div style={{ marginTop: '2rem' }}>
+              <SectionTitle level={3}>Featured Work</SectionTitle>
+              <Paragraph>A glimpse into my professional journey.</Paragraph>
+              <Row gutter={16}>
+                {projects &&
+                  projects.map((project, index) => (
+                    <Col span={12} key={index} style={{ marginBottom: '1rem' }}>
+                      <FeaturedWorkCard
+                        cover={
+                          <img
+                            alt={project.title}
+                            src={
+                              image
+                                ? project.image
+                                : 'https://picsum.photos/200/300?grayscale'
+                            }
+                          />
+                        }
+                      >
+                        <Card.Meta
+                          title={project.title}
+                          description={project.description}
+                          style={{
+                            color: '#fff',
+                            minHeight: '150px',
+                          }}
                         />
-                      }
-                    >
-                      <Card.Meta
-                        title={project.title}
-                        description={project.description}
-                      />
-                    </FeaturedWorkCard>
-                  </Col>
-                ))}
-            </Row>
-          </div>
-        </Container>
-      </Col>
-    </Row>
+                      </FeaturedWorkCard>
+                    </Col>
+                  ))}
+              </Row>
+            </div>
+          </Container>
+        </Col>
+      </Row>
+    </div>
   )
 }
+export default AboutMe
 
