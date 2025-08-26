@@ -1,13 +1,13 @@
-import { Layout, Menu, Button } from "antd";
-import styled from "styled-components";
+import { Layout, Menu, Button } from 'antd'
+import styled from 'styled-components'
 
-const { Header } = Layout;
+const { Header } = Layout
 
 export const StyledHeader = styled(Header)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`;
+`
 
 export const Logo = styled.div`
   font-weight: bold;
@@ -17,7 +17,7 @@ export const Logo = styled.div`
     color: inherit;
     text-decoration: none;
   }
-`;
+`
 
 export const CenterMenu = styled(Menu)`
   flex: 1;
@@ -38,23 +38,28 @@ export const CenterMenu = styled(Menu)`
   .ant-menu-item-active a {
     color: #1890ff;
   }
-`;
+`
 
 export const LoginButton = styled(Button)`
   a {
     color: #fff;
   }
+
 `;
+
 export const StyledUserHeader = styled.div`
   display: flex;
   align-items: center;
   padding: 10px;
   background: #f0f2f5;
   border-bottom: 1px solid #ccc;
+
 `;
 
 export const StyledMenu = styled(Menu)`
   flex: 1;
   background: transparent;
   border: none;
+
 `;
+
