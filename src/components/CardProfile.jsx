@@ -1,4 +1,4 @@
-import { Card, Col, Typography, Tag } from 'antd'
+import { Card, Col, Typography, Tag, Button } from 'antd'
 import {
   MailOutlined,
   EnvironmentOutlined,
@@ -6,8 +6,10 @@ import {
   GithubOutlined,
   InstagramOutlined,
   FacebookOutlined,
+  TwitterOutlined,
 } from '@ant-design/icons'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
 
 const { Title, Text } = Typography
 
@@ -68,6 +70,7 @@ const IconWrapper = styled.span`
 `
 
 const CardProfile = ({ personal_info }) => {
+  const navigate = useNavigate()
   return (
     <Col span={6}>
       <ProfileCardStyled>
@@ -118,7 +121,13 @@ const CardProfile = ({ personal_info }) => {
           <a href={personal_info.facebook} target='_blank' rel='noreferrer'>
             <FacebookOutlined />
           </a>
+          <a href={personal_info.twitter} target='_blank' rel='noreferrer'>
+            <TwitterOutlined />
+          </a>
         </div>
+        <Button style={{ marginTop: '  20px' }} onClick={() => navigate('/')}>
+          Back
+        </Button>
       </ProfileCardStyled>
     </Col>
   )
