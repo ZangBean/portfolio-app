@@ -1,60 +1,82 @@
-import { useSelector } from "react-redux";
-import { List, Card, Typography } from "antd";
-import styled from "styled-components";
+import { useSelector } from 'react-redux'
+import { List, Card, Typography, Row, Col } from 'antd'
+import styled from 'styled-components'
+import CardProfile from '../components/CardProfile'
+import Container from '../components/common/UI/Container'
+import FeaturedWorkCard from '../components/common/UI/FeaturedWorkCard'
 
-const { Title, Paragraph } = Typography;
+const { Title, Paragraph } = Typography
 
 export const StyledContainer = styled.div`
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
-`;
+`
 
 export default function Projects() {
-  const { selectedUser, status } = useSelector((state) => state.projects);
+  const { selectedUser, status } = useSelector((state) => state.projects)
+  const {
+    personal_info,
+    experience,
+    projects,
+    target,
+    certifications_awards,
+    image,
+  } = selectedUser.cv
 
   return (
-    <StyledContainer>
-      <Title>Dự án</Title>
-      <List
-        grid={{ gutter: 16, column: 3 }}
-        dataSource={selectedUser ? selectedUser.cv.projects : []}
-        loading={status === "loading"}
-        renderItem={(item) => (
-          <List.Item>
-            <Card title={item.title}>
-              <Paragraph>
-                <strong>Thời gian:</strong> {item.period.start} -{" "}
-                {item.period.end}
-              </Paragraph>
-              <Paragraph>
-                <strong>Mô tả:</strong> {item.description}
-              </Paragraph>
-              <Paragraph>
-                <strong>Công nghệ:</strong> {item.languages.join(", ")}
-              </Paragraph>
-              {item.frameworks && (
-                <Paragraph>
-                  <strong>Framework:</strong> {item.frameworks.join(", ")}
-                </Paragraph>
-              )}
-              {item.database && (
-                <Paragraph>
-                  <strong>Cơ sở dữ liệu:</strong> {item.database}
-                </Paragraph>
-              )}
-              <Paragraph>
-                <strong>Chức năng chính:</strong>
-              </Paragraph>
-              <ul>
-                {item.main_functions.map((func, index) => (
-                  <li key={index}>{func}</li>
-                ))}
-              </ul>
-            </Card>
-          </List.Item>
-        )}
-      />
-    </StyledContainer>
-  );
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        margin: 'auto',
+        maxWidth: '1000px',
+      }}
+    >
+      <Row gutter={16}>
+        {/* Phần bên phải (content khác) */}
+        <CardProfile personal_info={personal_info} />
+
+        {/* Phần bên trái (Home content) */}
+        <Col span={16}>
+          <Container>
+            {/* Profile Info */}
+
+            {/* Featured Work */}
+            <div style={{ marginTop: '2rem' }}>
+              <Row gutter={16}>
+                {projects &&
+                  projects.map((project, index) => (
+                    <Col span={12} key={index} style={{ marginBottom: '1rem' }}>
+                      <FeaturedWorkCard
+                        cover={
+                          <img
+                            alt={project.title}
+                            src={
+                              image
+                                ? project.image
+                                : 'https://picsum.photos/200/200?grayscale'
+                            }
+                          />
+                        }
+                      >
+                        <Card.Meta
+                          title={project.title}
+                          description={project.description}
+                          style={{
+                            color: '#fff',
+                            minHeight: '150px',
+                          }}
+                        />
+                      </FeaturedWorkCard>
+                    </Col>
+                  ))}
+              </Row>
+            </div>
+          </Container>
+        </Col>
+      </Row>
+    </div>
+  )
 }
+
