@@ -6,6 +6,8 @@ import HighlightNumber from '../components/common/UI/HighlightNumber'
 import HighlightText from '../components/common/UI/HighlightText'
 import SectionTitle from '../components/common/UI/SectionTitle'
 import CardProfile from '../components/CardProfile'
+import { FaRegStar } from 'react-icons/fa'
+import { FaRegFolderOpen } from 'react-icons/fa'
 
 const { Title, Paragraph } = Typography
 
@@ -56,7 +58,10 @@ const AboutMe = () => {
 
             {/* Highlights */}
             <div style={{ marginTop: '2rem' }}>
-              <SectionTitle level={3}>Highlights & Successes</SectionTitle>
+              <SectionTitle level={3}>
+                <FaRegStar style={{ marginRight: '8px' }} />
+                Highlights & Successes
+              </SectionTitle>
               <Row gutter={16}>
                 <Col span={8}>
                   <HighlightNumber>
@@ -81,7 +86,10 @@ const AboutMe = () => {
 
             {/* Featured Work */}
             <div style={{ marginTop: '2rem' }}>
-              <SectionTitle level={3}>Featured Work</SectionTitle>
+              <SectionTitle level={3}>
+                <FaRegFolderOpen style={{ marginRight: '8px' }} />
+                Featured Work
+              </SectionTitle>
               <Paragraph>A glimpse into my professional journey.</Paragraph>
               <Row gutter={16}>
                 {projects &&
