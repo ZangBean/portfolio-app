@@ -1,3 +1,4 @@
+
 import { Link, useParams } from 'react-router-dom'
 import { StyledUserHeader, StyledMenu } from './Header.styled'
 
@@ -23,4 +24,5 @@ export default function HeaderUser() {
       <StyledMenu mode='horizontal' items={items} />
     </StyledUserHeader>
   )
+
 }

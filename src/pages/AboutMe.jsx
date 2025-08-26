@@ -181,7 +181,7 @@ const AboutMe = () => {
                             src={
                               image
                                 ? project.image
-                                : 'https://picsum.photos/200/300?grayscale'
+                                : 'https://picsum.photos/200/200?grayscale'
                             }
                           />
                         }

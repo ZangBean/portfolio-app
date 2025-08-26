@@ -10,6 +10,7 @@ import { fetchProjects } from './redux/slices/projectsSlice'
 import { store } from './stores'
 import { Layout } from 'antd'
 import Home from './pages/Home/Home'
+
 import Projects from './pages/Projects'
 import Skills from './pages/Skills'
 import Experience from './pages/Experience'
