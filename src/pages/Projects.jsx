@@ -1,13 +1,20 @@
 import { useSelector } from "react-redux";
 import { List, Card, Typography } from "antd";
+import styled from "styled-components";
 
 const { Title, Paragraph } = Typography;
+
+export const StyledContainer = styled.div`
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+`;
 
 export default function Projects() {
   const { selectedUser, status } = useSelector((state) => state.projects);
 
   return (
-    <div>
+    <StyledContainer>
       <Title>Dự án</Title>
       <List
         grid={{ gutter: 16, column: 3 }}
@@ -48,6 +55,6 @@ export default function Projects() {
           </List.Item>
         )}
       />
-    </div>
+    </StyledContainer>
   );
 }

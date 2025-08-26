@@ -9,7 +9,7 @@ import Projects from "./pages/Projects";
 import Skills from "./pages/Skills";
 import Experience from "./pages/Experience";
 import Contact from "./pages/Contact";
-import AppHeader from "./components/common/Header/Header";
+import AppHeader from "./components/common/Header/HeaderUser";
 import AppFooter from "./components/common/Footer/Footer";
 import Sidebar from "./components/common/Sidebar/Sidebar";
 
