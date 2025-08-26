@@ -45,3 +45,16 @@ export const LoginButton = styled(Button)`
     color: #fff;
   }
 `;
+export const StyledUserHeader = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background: #f0f2f5;
+  border-bottom: 1px solid #ccc;
+`;
+
+export const StyledMenu = styled(Menu)`
+  flex: 1;
+  background: transparent;
+  border: none;
+`;
