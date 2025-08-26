@@ -9,9 +9,8 @@ import Projects from "./pages/Projects";
 import Skills from "./pages/Skills";
 import Experience from "./pages/Experience";
 import Contact from "./pages/Contact";
-import AppHeader from "./components/common/Header/HeaderUser";
+import HeaderMenu from "./components/common/Header/HeaderMenu";
 import AppFooter from "./components/common/Footer/Footer";
-import Sidebar from "./components/common/Sidebar/Sidebar";
 
 const { Content } = Layout;
 
@@ -24,9 +23,8 @@ function AppContent() {
 
   return (
     <Router>
-      <AppHeader />
+      <HeaderMenu />
       <Layout style={{ minHeight: "100vh" }}>
-        <Sidebar />
         <Content>
           <Routes>
             <Route path="/" element={<AboutMe />} />
