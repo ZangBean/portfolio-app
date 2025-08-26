@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux'
 import { Typography, Row, Col, Card } from 'antd'
 import styled from 'styled-components'
+import HeaderUser from '../components/common/Header/HeaderUser'
 
 const { Title, Paragraph } = Typography
 
@@ -90,6 +91,8 @@ export default function Home() {
 
       {/* Phần bên trái (Home content) */}
       <Col span={16}>
+        <HeaderUser />
+
         <Container>
           {/* Profile Info */}
           <ProfileCard>
