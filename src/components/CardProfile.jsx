@@ -26,7 +26,7 @@ const FeaturedWorkCard = styled(Card)`
   }
 `
 
-const ProfileCard = ({ personal_info }) => {
+const CardProfile = ({ personal_info }) => {
   return (
     <Col span={8}>
       <FeaturedWorkCard
@@ -49,4 +49,4 @@ const ProfileCard = ({ personal_info }) => {
     </Col>
   )
 }
-export default ProfileCard
+export default CardProfile

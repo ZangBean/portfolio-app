@@ -20,7 +20,7 @@ const FeaturedWorkCard = styled(Card)`
   .ant-card-meta-description {
     color: #ccc; /* đổi màu description */
     font-size: 0.9rem;
-    margin-top: 5px;
+    margin-top: 6px;
   }
 `
 export default FeaturedWorkCard
