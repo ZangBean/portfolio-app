@@ -2,10 +2,12 @@ import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Provider, useDispatch } from "react-redux";
 import { fetchProjects } from "./redux/slices/projectsSlice";
-import { store } from "./stores"; // Kiểm tra đường dẫn
+import { store } from "./stores";
 import { Layout } from "antd";
 import AboutMe from "./pages/AboutMe";
 import Projects from "./pages/Projects";
+import Skills from "./pages/Skills";
+import Experience from "./pages/Experience";
 import Contact from "./pages/Contact";
 import AppHeader from "./components/common/Header/Header";
 import AppFooter from "./components/common/Footer/Footer";
@@ -29,6 +31,8 @@ function AppContent() {
           <Routes>
             <Route path="/" element={<AboutMe />} />
             <Route path="/projects" element={<Projects />} />
+            <Route path="/skills" element={<Skills />} />
+            <Route path="/experience" element={<Experience />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </Content>
