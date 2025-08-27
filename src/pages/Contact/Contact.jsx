@@ -4,6 +4,8 @@ import CardProfile from "../../components/CardProfile";
 import Container from "../../components/common/UI/Container";
 import SectionTitle from "../../components/common/UI/SectionTitle";
 import FlexBox from "../../components/common/UI/Flexbox";
+import { StyledParagraph } from "./Contact.styled";
+import { Spin } from "antd";
 
 import useUserDetail from "../../hooks/useUserDetail";
 const { Paragraph } = Typography;

@@ -1,14 +1,11 @@
-
-import { useSelector } from 'react-redux'
-import { List, Card, Typography, Row, Col } from 'antd'
-import styled from 'styled-components'
-import CardProfile from '../components/CardProfile'
-import Container from '../components/common/UI/Container'
-import FeaturedWorkCard from '../components/common/UI/FeaturedWorkCard'
-import SectionTitle from '../components/common/UI/SectionTitle'
+import { Card, Row, Col } from "antd";
+import styled from "styled-components";
+import CardProfile from "../components/CardProfile";
+import Container from "../components/common/UI/Container";
+import FeaturedWorkCard from "../components/common/UI/FeaturedWorkCard";
+import SectionTitle from "../components/common/UI/SectionTitle";
 import Loading from "../components/Loading";
 import useUserDetail from "../hooks/useUserDetail";
-
 
 const DarkCard = styled(Card)`
   background: #2a2a2a !important;
@@ -41,7 +38,7 @@ export default function Projects() {
     return <p>Không tìm thấy người dùng</p>;
   }
 
-  const { personal_info, projects = [], image } = selectedUser.cv || {};
+  const { personal_info, projects = [] } = selectedUser.cv || {};
 
   return (
     <div
@@ -53,7 +50,6 @@ export default function Projects() {
       }}
     >
       <Row gutter={16}>
-
         <Col span={6}>
           <CardProfile personal_info={personal_info} />
         </Col>
@@ -65,8 +61,7 @@ export default function Projects() {
             <SectionTitle>Creative Showcase</SectionTitle>
 
             {/* Featured Work */}
-            <div style={{ marginTop: '2rem' }}>
-
+            <div style={{ marginTop: "2rem" }}>
               <Row gutter={16}>
                 {projects.map((project, index) => (
                   <Col span={12} key={index} style={{ marginBottom: "1rem" }}>
