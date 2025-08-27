@@ -1,13 +1,16 @@
-import { useSelector } from "react-redux";
-import { Typography, Row, Col, Card } from "antd";
-import Container from "../components/common/UI/Container";
-import FeaturedWorkCard from "../components/common/UI/FeaturedWorkCard";
-import HighlightNumber from "../components/common/UI/HighlightNumber";
-import HighlightText from "../components/common/UI/HighlightText";
-import SectionTitle from "../components/common/UI/SectionTitle";
-import CardProfile from "../components/CardProfile";
-import { FaRegStar } from "react-icons/fa";
-import { FaRegFolderOpen } from "react-icons/fa";
+
+import { useSelector } from 'react-redux'
+import { Typography, Row, Col, Card } from 'antd'
+import Container from '../components/common/UI/Container'
+import FeaturedWorkCard from '../components/common/UI/FeaturedWorkCard'
+import HighlightNumber from '../components/common/UI/HighlightNumber'
+import HighlightText from '../components/common/UI/HighlightText'
+import SectionTitle from '../components/common/UI/SectionTitle'
+import CardProfile from '../components/CardProfile'
+import { FaRegStar } from 'react-icons/fa'
+import { FaRegFolderOpen } from 'react-icons/fa'
+import Loading from '../components/Loading'
+
 
 const { Title, Paragraph } = Typography;
 
@@ -16,7 +19,9 @@ const AboutMe = () => {
   console.log(selectedUser);
 
   if (!selectedUser) {
-    return <div>Loading...</div>;
+
+    return <Loading />
+
   }
 
   const {
@@ -90,7 +95,9 @@ const AboutMe = () => {
                 <FaRegFolderOpen style={{ marginRight: "8px" }} />
                 Featured Work
               </SectionTitle>
-              <Paragraph>A glimpse into my professional journey.</Paragraph>
+              <Paragraph style={{ color: '#fff' }}>
+                A glimpse into my professional journey.
+              </Paragraph>
               <Row gutter={16}>
                 {projects &&
                   projects.map((project, index) => (
