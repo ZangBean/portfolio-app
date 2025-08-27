@@ -1,3 +1,4 @@
+
 import { Form, Input, Row, Col, Card, Typography } from 'antd'
 import { StyledForm, StyledButton } from './Contact.styled'
 import CardProfile from '../../components/CardProfile'
