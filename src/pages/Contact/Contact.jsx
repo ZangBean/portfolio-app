@@ -1,17 +1,12 @@
-
-import { Form, Input, Row, Col, Card, Typography } from 'antd'
-import { useSelector, useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
-import { useEffect } from 'react'
-import { StyledForm, StyledButton } from './Contact.styled'
-import CardProfile from '../../components/CardProfile'
-import { fetchUserById } from '../../redux/slices/projectsSlice'
-import Container from '../../components/common/UI/Container'
-import SectionTitle from '../../components/common/UI/SectionTitle'
-import FlexBox from '../../components/common/UI/Flexbox'
+import { Form, Input, Row, Col, Card, Typography } from "antd";
+import { StyledForm, StyledButton } from "./Contact.styled";
+import CardProfile from "../../components/CardProfile";
+import Container from "../../components/common/UI/Container";
+import SectionTitle from "../../components/common/UI/SectionTitle";
+import FlexBox from "../../components/common/UI/Flexbox";
 
 import useUserDetail from "../../hooks/useUserDetail";
-const { Paragraph } = Typography
+const { Paragraph } = Typography;
 export default function Contact() {
   const { selectedUser, status, error } = useUserDetail();
 
@@ -30,20 +25,7 @@ export default function Contact() {
   }
 
   const { personal_info = {} } = selectedUser.cv || {};
-
-  const dispatch = useDispatch()
-  const { id } = useParams()
-  const selectedUser = useSelector((state) => state.projects.selectedUser)
-  const status = useSelector((state) => state.projects.status)
-  console.log('data contact:', selectedUser.cv.target)
-  useEffect(() => {
-    dispatch(fetchUserById(id))
-  }, [dispatch, id])
-  const {
-    personal_info,
-
-    target,
-  } = selectedUser.cv
+  const { target } = selectedUser.cv;
 
   return (
     <FlexBox>
@@ -61,48 +43,44 @@ export default function Contact() {
 
             <Paragraph
               style={{
-                color: '#fff',
+                color: "#fff",
               }}
             >
               {target}
             </Paragraph>
             <Col>
-              <StyledForm layout='vertical'>
+              <StyledForm layout="vertical">
                 <Form.Item
-                  label='Họ tên'
-                  name='name'
-                  rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}
+                  label="Họ tên"
+                  name="name"
+                  rules={[{ required: true, message: "Vui lòng nhập họ tên" }]}
                 >
                   <Input />
                 </Form.Item>
                 <Form.Item
-
-                  label='Email'
-                  name='email'
+                  label="Email"
+                  name="email"
                   rules={[
                     {
                       required: true,
-                      type: 'email',
-                      message: 'Vui lòng nhập email hợp lệ',
-
+                      type: "email",
+                      message: "Vui lòng nhập email hợp lệ",
                     },
                   ]}
                 >
                   <Input />
                 </Form.Item>
                 <Form.Item
-
-                  label='Tin nhắn'
-                  name='message'
+                  label="Tin nhắn"
+                  name="message"
                   rules={[
-                    { required: true, message: 'Vui lòng nhập tin nhắn' },
+                    { required: true, message: "Vui lòng nhập tin nhắn" },
                   ]}
                 >
                   <Input.TextArea rows={4} />
                 </Form.Item>
                 <Form.Item>
-
-                  <StyledButton type='primary' htmlType='submit'>
+                  <StyledButton type="primary" htmlType="submit">
                     Gửi
                   </StyledButton>
                 </Form.Item>
@@ -112,6 +90,5 @@ export default function Contact() {
         </Col>
       </Row>
     </FlexBox>
-  )
+  );
 }
-

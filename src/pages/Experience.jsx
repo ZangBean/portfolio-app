@@ -1,38 +1,14 @@
-
-import { useSelector } from 'react-redux'
-import { Row, Col, Typography, Card, Tag, Timeline } from 'antd'
-import CardProfile from '../components/CardProfile'
-import Container from '../components/common/UI/Container'
-import SectionTitle from '../components/common/UI/SectionTitle'
-import Loading from '../components/Loading'
-import styled from 'styled-components'
-import HighlightNumber from '../components/common/UI/HighlightNumber'
-import HighlightText from '../components/common/UI/HighlightText'
-import FeaturedWorkCard from '../components/common/UI/FeaturedWorkCard'
+import { Row, Col, Typography, Card, Tag, Timeline } from "antd";
+import CardProfile from "../components/CardProfile";
+import Container from "../components/common/UI/Container";
+import SectionTitle from "../components/common/UI/SectionTitle";
+import styled from "styled-components";
+import HighlightNumber from "../components/common/UI/HighlightNumber";
+import HighlightText from "../components/common/UI/HighlightText";
 import useUserDetail from "../hooks/useUserDetail";
+import { Spin } from "antd";
+const { Paragraph } = Typography;
 
-
-const { Paragraph, Text } = Typography
-
-
-export default function Experience() {
-
-  const { selectedUser, status, error } = useUserDetail();
-
-  if (status === "loading" && !selectedUser) {
-    return <Spin style={{ display: "block", margin: "50px auto" }} />;
-  }
-
-  if (error) {
-    return <Paragraph style={{ color: "red" }}>Lỗi: {error}</Paragraph>;
-  }
-
-  if (!selectedUser) {
-    return <Paragraph>Không tìm thấy người dùng</Paragraph>;
-  }
-
-  const experience = selectedUser.cv?.experience || {};
-  const description = experience.description || [];
 const DarkCard = styled(Card)`
   background: #2a2a2a !important;
   border-radius: 12px;
@@ -53,34 +29,45 @@ const DarkCard = styled(Card)`
   .ant-card-meta-description {
     color: #ccc !important;
   }
-`
+`;
 
 const Experience = () => {
-  const { cv } = useSelector((state) => state.projects.selectedUser)
-  if (!cv) return <Loading />
+  const { selectedUser, status, error } = useUserDetail();
 
+  if (status === "loading" && !selectedUser) {
+    return <Spin style={{ display: "block", margin: "50px auto" }} />;
+  }
+
+  if (error) {
+    return <Paragraph style={{ color: "red" }}>Lỗi: {error}</Paragraph>;
+  }
+
+  if (!selectedUser) {
+    return <Paragraph>Không tìm thấy người dùng</Paragraph>;
+  }
+
+  const experience = selectedUser.cv?.experience || {};
+  const cv = selectedUser.cv || {};
   const {
     personal_info,
-    experience,
     projects,
     target,
     certifications_awards,
     projects_completed,
     education,
-    languages,
     skills,
-  } = cv
+  } = cv;
 
   // Nếu chỉ có 1 object thì cho vào mảng để dễ hiển thị Timeline
-  const experiences = Array.isArray(experience) ? experience : [experience]
+  const experiences = Array.isArray(experience) ? experience : [experience];
 
   return (
     <div
       style={{
-        display: 'flex',
-        justifyContent: 'center',
-        margin: 'auto',
-        maxWidth: '1000px',
+        display: "flex",
+        justifyContent: "center",
+        margin: "auto",
+        maxWidth: "1000px",
       }}
     >
       <Row gutter={16}>
@@ -94,10 +81,10 @@ const Experience = () => {
           <Container>
             {/* Career Objective */}
             <SectionTitle level={3}>Career Snapshot</SectionTitle>
-            <Paragraph style={{ color: '#fff' }}>{target}</Paragraph>
+            <Paragraph style={{ color: "#fff" }}>{target}</Paragraph>
 
             {/* Highlights */}
-            <div style={{ marginTop: '2rem' }}>
+            <div style={{ marginTop: "2rem" }}>
               <SectionTitle level={3}>Highlights & Successes</SectionTitle>
               <Row gutter={16}>
                 <Col span={8}>
@@ -123,34 +110,34 @@ const Experience = () => {
 
             {/* Experience Timeline */}
             {experiences && experiences.length > 0 && (
-              <div style={{ marginTop: '2rem' }}>
+              <div style={{ marginTop: "2rem" }}>
                 <SectionTitle level={3}>Experience</SectionTitle>
                 <Timeline
                   items={experiences.map((exp, i) => ({
-                    color: '#5facbc',
+                    color: "#5facbc",
                     children: (
                       <div>
-                        <div style={{ color: '#aaa', marginBottom: '4px' }}>
-                          {exp.company}{' '}
+                        <div style={{ color: "#aaa", marginBottom: "4px" }}>
+                          {exp.company}{" "}
                           {exp.website && (
                             <a
                               href={exp.website}
-                              target='_blank'
-                              rel='noreferrer'
-                              style={{ color: '#0ff' }}
+                              target="_blank"
+                              rel="noreferrer"
+                              style={{ color: "#0ff" }}
                             >
                               ({exp.website})
                             </a>
                           )}
                         </div>
-                        <div style={{ color: '#0ff', marginBottom: '8px' }}>
-                          {exp.period?.start} - {exp.period?.end || 'Present'}
+                        <div style={{ color: "#0ff", marginBottom: "8px" }}>
+                          {exp.period?.start} - {exp.period?.end || "Present"}
                         </div>
                         {exp.description &&
                           exp.description.map((desc, idx) => (
                             <Paragraph
                               key={idx}
-                              style={{ color: '#ddd', marginBottom: '4px' }}
+                              style={{ color: "#ddd", marginBottom: "4px" }}
                             >
                               • {desc}
                             </Paragraph>
@@ -163,18 +150,18 @@ const Experience = () => {
             )}
             {/* Education */}
             {education && (
-              <div style={{ marginTop: '2rem' }}>
+              <div style={{ marginTop: "2rem" }}>
                 <SectionTitle level={3}>Education</SectionTitle>
                 <DarkCard>
-                  <p style={{ margin: 0, color: '#fff' }}>
+                  <p style={{ margin: 0, color: "#fff" }}>
                     <b>{education.institution}</b>
                   </p>
-                  <p style={{ margin: 0, color: '#ccc' }}>
+                  <p style={{ margin: 0, color: "#ccc" }}>
                     {education.faculty} - {education.major}
                   </p>
-                  <p style={{ margin: 0, color: '#aaa' }}>
-                    {education.period?.start} -{' '}
-                    {education.period?.end || 'Present'}
+                  <p style={{ margin: 0, color: "#aaa" }}>
+                    {education.period?.start} -{" "}
+                    {education.period?.end || "Present"}
                   </p>
                 </DarkCard>
               </div>
@@ -182,11 +169,11 @@ const Experience = () => {
 
             {/* Skills */}
             {skills && (
-              <div style={{ marginTop: '2rem' }}>
+              <div style={{ marginTop: "2rem" }}>
                 <SectionTitle level={3}>Technical Skills</SectionTitle>
                 <Row gutter={16}>
                   {Object.entries(skills).map(([key, list]) => (
-                    <Col span={12} key={key} style={{ marginBottom: '1rem' }}>
+                    <Col span={12} key={key} style={{ marginBottom: "1rem" }}>
                       <DarkCard title={key.toUpperCase()} bordered={false}>
                         {list.map((item, idx) => (
                           <p key={idx} style={{ margin: 0 }}>
@@ -203,8 +190,7 @@ const Experience = () => {
         </Col>
       </Row>
     </div>
-  )
-}
+  );
+};
 
-export default Experience
-
+export default Experience;

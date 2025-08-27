@@ -1,17 +1,12 @@
-
-import { useSelector } from 'react-redux'
-import { Row, Col, Typography, Card, Tag } from 'antd'
-import CardProfile from '../components/CardProfile'
-import Container from '../components/common/UI/Container'
-import SectionTitle from '../components/common/UI/SectionTitle'
-import Loading from '../components/Loading'
-import styled from 'styled-components'
-import HighlightNumber from '../components/common/UI/HighlightNumber'
-import HighlightText from '../components/common/UI/HighlightText'
-import FeaturedWorkCard from '../components/common/UI/FeaturedWorkCard'
+import { Row, Col, Typography, Card, Tag } from "antd";
+import CardProfile from "../components/CardProfile";
+import Container from "../components/common/UI/Container";
+import SectionTitle from "../components/common/UI/SectionTitle";
+import Loading from "../components/Loading";
+import styled from "styled-components";
+import FeaturedWorkCard from "../components/common/UI/FeaturedWorkCard";
 import useUserDetail from "../hooks/useUserDetail";
-const { Paragraph } = Typography
-
+const { Paragraph } = Typography;
 
 const DarkCard = styled(Card)`
   background: #2a2a2a !important;
@@ -35,9 +30,8 @@ const DarkCard = styled(Card)`
   }
 `;
 
-
 const Skills = () => {
-   const { selectedUser, status, error } = useUserDetail();
+  const { selectedUser, status, error } = useUserDetail();
 
   if (status === "loading" && !selectedUser) {
     return <Loading />;
@@ -53,30 +47,13 @@ const Skills = () => {
 
   const { personal_info, skills = {} } = selectedUser.cv || {};
 
-  const skillCategories = [
-    { title: "Frontend", data: skills.frontend || [] },
-    { title: "Backend", data: skills.backend || [] },
-    { title: "Database", data: skills.database || [] },
-    { title: "Other", data: skills.other || [] },
-  ];
-  
+  const cv = selectedUser.cv || {};
 
   if (!cv) {
-    return <Loading />
+    return <Loading />;
   }
 
-  const {
-    personal_info,
-    experience,
-    projects,
-    target,
-    certifications_awards,
-    projects_completed,
-    education,
-    languages,
-    skills,
-  } = cv
-
+  const { projects, target, languages } = cv;
 
   return (
     <div
@@ -99,22 +76,22 @@ const Skills = () => {
             {/* Career Objective */}
             <SectionTitle level={3}>Skills</SectionTitle>
 
-            <Paragraph style={{ color: '#fff' }}>{target}</Paragraph>
+            <Paragraph style={{ color: "#fff" }}>{target}</Paragraph>
 
             {/* Languages */}
             {languages && (
-              <div style={{ marginTop: '2rem' }}>
+              <div style={{ marginTop: "2rem" }}>
                 <SectionTitle level={3}>Languages</SectionTitle>
                 {languages.map((lang, i) => (
                   <Tag
                     key={i}
-                    color='blue'
+                    color="blue"
                     style={{
-                      marginBottom: '0.5rem',
-                      display: 'flex',
-                      flexDirection: 'column',
+                      marginBottom: "0.5rem",
+                      display: "flex",
+                      flexDirection: "column",
                       // 🔹 để mỗi Tag chiếm 1 hàng
-                      width: 'fit-content', // 🔹 vừa với nội dung
+                      width: "fit-content", // 🔹 vừa với nội dung
                     }}
                   >
                     {lang.language} ({lang.level})
@@ -125,11 +102,11 @@ const Skills = () => {
 
             {/* Skills */}
             {skills && (
-              <div style={{ marginTop: '2rem' }}>
+              <div style={{ marginTop: "2rem" }}>
                 <SectionTitle level={3}>Technical Skills</SectionTitle>
                 <Row gutter={16}>
                   {Object.entries(skills).map(([key, list]) => (
-                    <Col span={12} key={key} style={{ marginBottom: '1rem' }}>
+                    <Col span={12} key={key} style={{ marginBottom: "1rem" }}>
                       <DarkCard title={key.toUpperCase()} bordered={false}>
                         {list.map((item, idx) => (
                           <p key={idx} style={{ margin: 0 }}>
@@ -145,21 +122,21 @@ const Skills = () => {
 
             {/* Featured Work */}
             {projects && projects.length > 0 && (
-              <div style={{ marginTop: '2rem' }}>
+              <div style={{ marginTop: "2rem" }}>
                 <SectionTitle level={3}>Featured Work</SectionTitle>
-                <Paragraph style={{ color: '#fff' }}>
+                <Paragraph style={{ color: "#fff" }}>
                   A glimpse into my professional journey.
                 </Paragraph>
                 <Row gutter={16}>
                   {projects.map((project, index) => (
-                    <Col span={12} key={index} style={{ marginBottom: '1rem' }}>
+                    <Col span={12} key={index} style={{ marginBottom: "1rem" }}>
                       <FeaturedWorkCard
                         cover={
                           <img
                             alt={project.title}
                             src={
                               project.image ||
-                              'https://picsum.photos/200/200?grayscale'
+                              "https://picsum.photos/200/200?grayscale"
                             }
                           />
                         }
@@ -168,8 +145,8 @@ const Skills = () => {
                           title={project.title}
                           description={project.description}
                           style={{
-                            color: '#fff',
-                            minHeight: '150px',
+                            color: "#fff",
+                            minHeight: "150px",
                           }}
                         />
                       </FeaturedWorkCard>
@@ -183,9 +160,6 @@ const Skills = () => {
       </Row>
     </div>
   );
-}
+};
 
-
-export default Skills
-
-
+export default Skills;
