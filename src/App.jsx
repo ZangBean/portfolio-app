@@ -1,16 +1,8 @@
-import { useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Outlet,
-} from "react-router-dom";
-import { Provider, useDispatch } from "react-redux";
-import { fetchProjects } from "./redux/slices/projectsSlice";
-import { store } from "./stores";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./stores/screens/store";
 import { Layout } from "antd";
 import Home from "./pages/Home/Home";
-
 import Projects from "./pages/Projects";
 import Skills from "./pages/Skills";
 import Experience from "./pages/Experience";
@@ -22,38 +14,67 @@ import AboutMe from "./pages/AboutMe";
 
 const { Content } = Layout;
 
-function UserDetail() {
+// Layout chung cho các trang user
+function UserDetail({ children }) {
   return (
     <div style={{ border: "1px solid #ccc", padding: "20px", margin: "20px" }}>
       <HeaderUser />
-      <div style={{ padding: "20px" }}>
-        <Outlet />
-      </div>
+      <div style={{ padding: "20px" }}>{children}</div>
     </div>
   );
 }
 
 function AppContent() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchProjects());
-  }, [dispatch]);
-
   return (
     <Router>
       <HeaderMenu />
       <Layout style={{ minHeight: "100vh" }}>
         <Content>
           <Routes>
+            {/* Trang chính */}
             <Route path="/" element={<Home />} />
-            <Route path="/about/:id" element={<UserDetail />}>
-              <Route index element={<AboutMe />} />
-              <Route path="projects" element={<Projects />} />
-              <Route path="skills" element={<Skills />} />
-              <Route path="experience" element={<Experience />} />
-              <Route path="contact" element={<Contact />} />
-            </Route>
+
+            {/* Các trang user */}
+            <Route
+              path="/about/:id"
+              element={
+                <UserDetail>
+                  <AboutMe />
+                </UserDetail>
+              }
+            />
+            <Route
+              path="/projects/:id"
+              element={
+                <UserDetail>
+                  <Projects />
+                </UserDetail>
+              }
+            />
+            <Route
+              path="/skills/:id"
+              element={
+                <UserDetail>
+                  <Skills />
+                </UserDetail>
+              }
+            />
+            <Route
+              path="/experience/:id"
+              element={
+                <UserDetail>
+                  <Experience />
+                </UserDetail>
+              }
+            />
+            <Route
+              path="/contact/:id"
+              element={
+                <UserDetail>
+                  <Contact />
+                </UserDetail>
+              }
+            />
           </Routes>
         </Content>
       </Layout>

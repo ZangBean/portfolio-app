@@ -1,47 +1,62 @@
-import { Row, Col, Typography, Card, List } from "antd";
-import { useSelector } from "react-redux";
+import { Row, Col, Typography, Card, List, Spin } from "antd";
+import useUserDetail from "../hooks/useUserDetail";
 
 const { Title, Paragraph } = Typography;
 
 export default function Experience() {
-  const selectedUser = useSelector((state) => state.projects.selectedUser);
-  const { status } = useSelector((state) => state.projects);
+  const { selectedUser, status, error } = useUserDetail();
+
+  if (status === "loading" && !selectedUser) {
+    return <Spin style={{ display: "block", margin: "50px auto" }} />;
+  }
+
+  if (error) {
+    return <Paragraph style={{ color: "red" }}>Lỗi: {error}</Paragraph>;
+  }
+
+  if (!selectedUser) {
+    return <Paragraph>Không tìm thấy người dùng</Paragraph>;
+  }
+
+  const experience = selectedUser.cv?.experience || {};
+  const description = experience.description || [];
 
   return (
     <Row justify="center">
       <Col span={16}>
-        <Title>Kinh nghiệm</Title>
-        {selectedUser ? (
-          <Card loading={status === "loading"}>
-            <Paragraph>
-              <strong>Công ty:</strong> {selectedUser.cv.experience.company}
-            </Paragraph>
-            <Paragraph>
-              <strong>Website:</strong>{" "}
+        <Title level={2}>Kinh nghiệm</Title>
+        <Card>
+          <Paragraph>
+            <strong>Công ty:</strong> {experience.company || "N/A"}
+          </Paragraph>
+          <Paragraph>
+            <strong>Website:</strong>{" "}
+            {experience.website ? (
               <a
-                href={selectedUser.cv.experience.website}
+                href={experience.website}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {selectedUser.cv.experience.website}
+                {experience.website}
               </a>
-            </Paragraph>
-            <Paragraph>
-              <strong>Thời gian:</strong>{" "}
-              {selectedUser.cv.experience.period.start} -{" "}
-              {selectedUser.cv.experience.period.end}
-            </Paragraph>
-            <Paragraph>
-              <strong>Mô tả:</strong>
-            </Paragraph>
-            <List
-              dataSource={selectedUser.cv.experience.description}
-              renderItem={(item) => <List.Item>- {item}</List.Item>}
-            />
-          </Card>
-        ) : (
-          <Paragraph>Đang tải...</Paragraph>
-        )}
+            ) : (
+              "N/A"
+            )}
+          </Paragraph>
+          <Paragraph>
+            <strong>Thời gian:</strong> {experience.period?.start || "N/A"} -{" "}
+            {experience.period?.end || "N/A"}
+          </Paragraph>
+          <Paragraph>
+            <strong>Mô tả:</strong>
+          </Paragraph>
+          <List
+            dataSource={description}
+            renderItem={(item, index) => (
+              <List.Item key={index}>- {item}</List.Item>
+            )}
+          />
+        </Card>
       </Col>
     </Row>
   );

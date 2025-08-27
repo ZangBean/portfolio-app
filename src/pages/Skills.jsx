@@ -1,11 +1,11 @@
-import { useSelector } from 'react-redux'
-import { Row, Col, List } from 'antd'
-import CardProfile from '../components/CardProfile'
-import Container from '../components/common/UI/Container'
-import SectionTitle from '../components/common/UI/SectionTitle'
-import Loading from '../components/Loading'
-import styled from 'styled-components'
-import { Card } from 'antd'
+import { Row, Col, List } from "antd";
+import styled from "styled-components";
+import CardProfile from "../components/CardProfile";
+import Container from "../components/common/UI/Container";
+import SectionTitle from "../components/common/UI/SectionTitle";
+import Loading from "../components/Loading";
+import { Card } from "antd";
+import useUserDetail from "../hooks/useUserDetail";
 
 const DarkCard = styled(Card)`
   background: #2a2a2a !important;
@@ -21,32 +21,39 @@ const DarkCard = styled(Card)`
   .ant-list-item {
     color: #fff !important;
   }
-`
+`;
 
 export default function Skills() {
-  const selectedUser = useSelector((state) => state.projects.selectedUser)
+  const { selectedUser, status, error } = useUserDetail();
 
-  if (!selectedUser) {
-    return <Loading />
+  if (status === "loading" && !selectedUser) {
+    return <Loading />;
   }
 
-  const { personal_info, skills } = selectedUser.cv
+  if (error) {
+    return <p style={{ color: "red" }}>Lỗi: {error}</p>;
+  }
 
-  // Gom lại thành mảng để map
+  if (!selectedUser) {
+    return <p>Không tìm thấy người dùng</p>;
+  }
+
+  const { personal_info, skills = {} } = selectedUser.cv || {};
+
   const skillCategories = [
-    { title: 'Frontend', data: skills.frontend },
-    { title: 'Backend', data: skills.backend },
-    { title: 'Database', data: skills.database },
-    { title: 'Other', data: skills.other },
-  ]
+    { title: "Frontend", data: skills.frontend || [] },
+    { title: "Backend", data: skills.backend || [] },
+    { title: "Database", data: skills.database || [] },
+    { title: "Other", data: skills.other || [] },
+  ];
 
   return (
     <div
       style={{
-        display: 'flex',
-        justifyContent: 'center',
-        margin: 'auto',
-        maxWidth: '1000px',
+        display: "flex",
+        justifyContent: "center",
+        margin: "auto",
+        maxWidth: "1000px",
       }}
     >
       <Row gutter={16}>
@@ -60,7 +67,9 @@ export default function Skills() {
                   <DarkCard title={category.title} bordered={false}>
                     <List
                       dataSource={category.data}
-                      renderItem={(item) => <List.Item>{item}</List.Item>}
+                      renderItem={(item, i) => (
+                        <List.Item key={i}>{item}</List.Item>
+                      )}
                     />
                   </DarkCard>
                 </Col>
@@ -70,6 +79,5 @@ export default function Skills() {
         </Col>
       </Row>
     </div>
-  )
+  );
 }
-
