@@ -9,6 +9,10 @@ const FeaturedWorkCard = styled(Card)`
     border-radius: 10px;
     width: 100%;
     max-height: 250px;
+    transition: transform 0.5s ease-in-out;
+  }
+  img:hover {
+    transform: scale(1.05);
   }
 
   .ant-card-meta-title {
