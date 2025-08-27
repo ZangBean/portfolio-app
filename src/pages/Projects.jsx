@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import CardProfile from '../components/CardProfile'
 import Container from '../components/common/UI/Container'
 import FeaturedWorkCard from '../components/common/UI/FeaturedWorkCard'
+import SectionTitle from '../components/common/UI/SectionTitle'
 
 const { Title, Paragraph } = Typography
 
@@ -34,13 +35,15 @@ export default function Projects() {
       }}
     >
       <Row gutter={16}>
-        {/* Phần bên phải (content khác) */}
-        <CardProfile personal_info={personal_info} />
+        <Col span={6}>
+          <CardProfile personal_info={personal_info} />
+        </Col>
 
         {/* Phần bên trái (Home content) */}
         <Col span={16}>
           <Container>
             {/* Profile Info */}
+            <SectionTitle>Creative Showcase</SectionTitle>
 
             {/* Featured Work */}
             <div style={{ marginTop: '2rem' }}>

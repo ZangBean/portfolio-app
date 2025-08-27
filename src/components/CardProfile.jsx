@@ -72,64 +72,62 @@ const IconWrapper = styled.span`
 const CardProfile = ({ personal_info }) => {
   const navigate = useNavigate()
   return (
-    <Col span={8}>
-      <ProfileCardStyled>
-        {/* Avatar */}
-        <img
-          src={personal_info.image || 'https://picsum.photos/200/300?grayscale'}
-          alt='avatar'
-        />
+    <ProfileCardStyled>
+      {/* Avatar */}
+      <img
+        src={personal_info.image || 'https://picsum.photos/200/300?grayscale'}
+        alt='avatar'
+      />
 
-        {/* Tên */}
-        <Title level={4} style={{ fontFamily: 'cursive', marginBottom: 0 }}>
-          {personal_info.name}
-        </Title>
+      {/* Tên */}
+      <Title level={4} style={{ fontFamily: 'cursive', marginBottom: 0 }}>
+        {personal_info.name}
+      </Title>
 
-        {/* Chức danh */}
-        <Tag color='default' className='role'>
-          {personal_info.position || 'Software Developer'}
-        </Tag>
-        <hr />
+      {/* Chức danh */}
+      <Tag color='default' className='role'>
+        {personal_info.position || 'Software Developer'}
+      </Tag>
+      <hr />
 
-        {/* Email + Location */}
-        <div className='contact-info'>
-          <p>
-            <IconWrapper>
-              <MailOutlined />
-            </IconWrapper>
-            {personal_info.email || 'example@email.com'}
-          </p>
-          <p>
-            <IconWrapper>
-              <EnvironmentOutlined />
-            </IconWrapper>
-            {personal_info.location || 'Unknown'}
-          </p>
-        </div>
+      {/* Email + Location */}
+      <div className='contact-info'>
+        <p>
+          <IconWrapper>
+            <MailOutlined />
+          </IconWrapper>
+          {personal_info.email || 'example@email.com'}
+        </p>
+        <p>
+          <IconWrapper>
+            <EnvironmentOutlined />
+          </IconWrapper>
+          {personal_info.location || 'Unknown'}
+        </p>
+      </div>
 
-        {/* Social icons */}
-        <div className='social-icons'>
-          <a href={personal_info.linkedin} target='_blank' rel='noreferrer'>
-            <LinkedinOutlined />
-          </a>
-          <a href={personal_info.github} target='_blank' rel='noreferrer'>
-            <GithubOutlined />
-          </a>
-          <a href={personal_info.instagram} target='_blank' rel='noreferrer'>
-            <InstagramOutlined />
-          </a>
-          <a href={personal_info.facebook} target='_blank' rel='noreferrer'>
-            <FacebookOutlined />
-          </a>
-          <a href={personal_info.twitter} target='_blank' rel='noreferrer'>
-            <TwitterOutlined />
-          </a>
-        </div>
-        <Button style={{ marginTop: '  20px' }} onClick={() => navigate('/')}>
-          Back
-        </Button>
-      </ProfileCardStyled>
-    </Col>
+      {/* Social icons */}
+      <div className='social-icons'>
+        <a href={personal_info.linkedin} target='_blank' rel='noreferrer'>
+          <LinkedinOutlined />
+        </a>
+        <a href={personal_info.github} target='_blank' rel='noreferrer'>
+          <GithubOutlined />
+        </a>
+        <a href={personal_info.instagram} target='_blank' rel='noreferrer'>
+          <InstagramOutlined />
+        </a>
+        <a href={personal_info.facebook} target='_blank' rel='noreferrer'>
+          <FacebookOutlined />
+        </a>
+        <a href={personal_info.twitter} target='_blank' rel='noreferrer'>
+          <TwitterOutlined />
+        </a>
+      </div>
+      <Button style={{ marginTop: '  20px' }} onClick={() => navigate('/')}>
+        Back
+      </Button>
+    </ProfileCardStyled>
   )
 }
 
