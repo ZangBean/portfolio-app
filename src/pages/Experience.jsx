@@ -1,3 +1,4 @@
+
 import { useSelector } from 'react-redux'
 import { Row, Col, Typography, Card, Tag, Timeline } from 'antd'
 import CardProfile from '../components/CardProfile'
@@ -8,9 +9,30 @@ import styled from 'styled-components'
 import HighlightNumber from '../components/common/UI/HighlightNumber'
 import HighlightText from '../components/common/UI/HighlightText'
 import FeaturedWorkCard from '../components/common/UI/FeaturedWorkCard'
+import useUserDetail from "../hooks/useUserDetail";
+
 
 const { Paragraph, Text } = Typography
 
+
+export default function Experience() {
+
+  const { selectedUser, status, error } = useUserDetail();
+
+  if (status === "loading" && !selectedUser) {
+    return <Spin style={{ display: "block", margin: "50px auto" }} />;
+  }
+
+  if (error) {
+    return <Paragraph style={{ color: "red" }}>Lỗi: {error}</Paragraph>;
+  }
+
+  if (!selectedUser) {
+    return <Paragraph>Không tìm thấy người dùng</Paragraph>;
+  }
+
+  const experience = selectedUser.cv?.experience || {};
+  const description = experience.description || [];
 const DarkCard = styled(Card)`
   background: #2a2a2a !important;
   border-radius: 12px;

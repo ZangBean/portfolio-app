@@ -1,3 +1,4 @@
+
 import { Form, Input, Row, Col, Card, Typography } from 'antd'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
@@ -8,8 +9,28 @@ import { fetchUserById } from '../../redux/slices/projectsSlice'
 import Container from '../../components/common/UI/Container'
 import SectionTitle from '../../components/common/UI/SectionTitle'
 import FlexBox from '../../components/common/UI/Flexbox'
+
+import useUserDetail from "../../hooks/useUserDetail";
 const { Paragraph } = Typography
 export default function Contact() {
+  const { selectedUser, status, error } = useUserDetail();
+
+  if (status === "loading" && !selectedUser) {
+    return <Spin style={{ display: "block", margin: "50px auto" }} />;
+  }
+
+  if (error) {
+    return (
+      <StyledParagraph style={{ color: "red" }}>Lỗi: {error}</StyledParagraph>
+    );
+  }
+
+  if (!selectedUser) {
+    return <StyledParagraph>Không tìm thấy người dùng</StyledParagraph>;
+  }
+
+  const { personal_info = {} } = selectedUser.cv || {};
+
   const dispatch = useDispatch()
   const { id } = useParams()
   const selectedUser = useSelector((state) => state.projects.selectedUser)
@@ -55,6 +76,7 @@ export default function Contact() {
                   <Input />
                 </Form.Item>
                 <Form.Item
+
                   label='Email'
                   name='email'
                   rules={[
@@ -62,12 +84,14 @@ export default function Contact() {
                       required: true,
                       type: 'email',
                       message: 'Vui lòng nhập email hợp lệ',
+
                     },
                   ]}
                 >
                   <Input />
                 </Form.Item>
                 <Form.Item
+
                   label='Tin nhắn'
                   name='message'
                   rules={[
@@ -77,6 +101,7 @@ export default function Contact() {
                   <Input.TextArea rows={4} />
                 </Form.Item>
                 <Form.Item>
+
                   <StyledButton type='primary' htmlType='submit'>
                     Gửi
                   </StyledButton>

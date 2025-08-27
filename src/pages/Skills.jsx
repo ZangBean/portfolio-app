@@ -1,3 +1,4 @@
+
 import { useSelector } from 'react-redux'
 import { Row, Col, Typography, Card, Tag } from 'antd'
 import CardProfile from '../components/CardProfile'
@@ -8,8 +9,9 @@ import styled from 'styled-components'
 import HighlightNumber from '../components/common/UI/HighlightNumber'
 import HighlightText from '../components/common/UI/HighlightText'
 import FeaturedWorkCard from '../components/common/UI/FeaturedWorkCard'
-
+import useUserDetail from "../hooks/useUserDetail";
 const { Paragraph } = Typography
+
 
 const DarkCard = styled(Card)`
   background: #2a2a2a !important;
@@ -31,11 +33,33 @@ const DarkCard = styled(Card)`
   .ant-card-meta-description {
     color: #ccc !important;
   }
-`
+`;
+
 
 const Skills = () => {
-  const { cv } = useSelector((state) => state.projects.selectedUser)
-  console.log('cv:', cv)
+   const { selectedUser, status, error } = useUserDetail();
+
+  if (status === "loading" && !selectedUser) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <p style={{ color: "red" }}>Lỗi: {error}</p>;
+  }
+
+  if (!selectedUser) {
+    return <p>Không tìm thấy người dùng</p>;
+  }
+
+  const { personal_info, skills = {} } = selectedUser.cv || {};
+
+  const skillCategories = [
+    { title: "Frontend", data: skills.frontend || [] },
+    { title: "Backend", data: skills.backend || [] },
+    { title: "Database", data: skills.database || [] },
+    { title: "Other", data: skills.other || [] },
+  ];
+  
 
   if (!cv) {
     return <Loading />
@@ -53,13 +77,14 @@ const Skills = () => {
     skills,
   } = cv
 
+
   return (
     <div
       style={{
-        display: 'flex',
-        justifyContent: 'center',
-        margin: 'auto',
-        maxWidth: '1000px',
+        display: "flex",
+        justifyContent: "center",
+        margin: "auto",
+        maxWidth: "1000px",
       }}
     >
       <Row gutter={16}>
@@ -73,6 +98,7 @@ const Skills = () => {
           <Container>
             {/* Career Objective */}
             <SectionTitle level={3}>Skills</SectionTitle>
+
             <Paragraph style={{ color: '#fff' }}>{target}</Paragraph>
 
             {/* Languages */}
@@ -156,8 +182,10 @@ const Skills = () => {
         </Col>
       </Row>
     </div>
-  )
+  );
 }
 
+
 export default Skills
+
 

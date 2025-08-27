@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   StyledLayout,
   StyledList,
@@ -13,26 +14,38 @@ import {
 import { Spin, List } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { selectUser } from "../../redux/slices/projectsSlice";
+import { fetchUsersAction } from "../../stores/screens/user/user.action";
+import { setSelectedUser } from "../../stores/screens/user/user.reducer";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.projects.data || []);
-  const status = useSelector((state) => state.projects.status);
+  const users = useSelector((state) => state.user.data || []);
+  const status = useSelector((state) => state.user.status);
+  const error = useSelector((state) => state.user.error);
+
+  useEffect(() => {
+    dispatch(fetchUsersAction());
+  }, [dispatch]);
 
   return (
     <StyledLayout>
       {status === "loading" ? (
         <Spin style={{ padding: "20px", textAlign: "center" }} />
+      ) : status === "failed" ? (
+        <p style={{ color: "red" }}>Error: {error}</p>
       ) : (
         <StyledList
           grid={{ gutter: 16, column: 1 }}
           header={<Header>Danh sách người dùng</Header>}
           dataSource={users}
           renderItem={(user) => (
-            <List.Item>
-              <Link to={`/about/${user.id}`} style={{ textDecoration: "none" }}>
-                <Card onClick={() => dispatch(selectUser(user))}>
+            <List.Item key={user.id}>
+              <Link
+                to={`/about/${user.id}`}
+                style={{ textDecoration: "none" }}
+                onClick={() => dispatch(setSelectedUser(user))}
+              >
+                <Card>
                   <CardContent>
                     {user.cv.personal_info.image ? (
                       <Avatar src={user.cv.personal_info.image} alt="avatar" />
