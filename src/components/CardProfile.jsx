@@ -1,4 +1,3 @@
-
 import { Card, Col, Typography, Tag, Button } from 'antd'
 import {
   MailOutlined,
@@ -73,7 +72,7 @@ const IconWrapper = styled.span`
 const CardProfile = ({ personal_info }) => {
   const navigate = useNavigate()
   return (
-    <Col span={6}>
+    <Col span={8}>
       <ProfileCardStyled>
         {/* Avatar */}
         <img
