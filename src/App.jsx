@@ -1,20 +1,22 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { Provider } from 'react-redux'
-import store from './stores/screens/store'
-import { Layout } from 'antd'
-import Home from './pages/Home/Home'
-import Projects from './pages/Projects'
-import Skills from './pages/Skills'
-import Experience from './pages/Experience'
-import Contact from './pages/Contact/Contact'
-import HeaderMenu from './components/common/Header/HeaderMenu'
-import HeaderUser from './components/common/Header/HeaderUser'
-import AppFooter from './components/common/Footer/Footer'
-import AboutMe from './pages/AboutMe'
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./stores/screens/store";
+import { Layout } from "antd";
+import Home from "./pages/Home/Home";
+import Projects from "./pages/Projects";
+import Skills from "./pages/Skills";
+import Experience from "./pages/Experience";
+import Contact from "./pages/Contact/Contact";
+import HeaderMenu from "./components/common/Header/HeaderMenu";
+import HeaderUser from "./components/common/Header/HeaderUser";
+import AppFooter from "./components/common/Footer/Footer";
+import AboutMe from "./pages/AboutMe";
+import Login from "./pages/Login";
+
 
 const { Content } = Layout
 
-// Layout chung cho các trang user
 function UserDetail({ children }) {
   return (
     <div style={{ padding: '20px', margin: '20px' }}>
@@ -31,10 +33,9 @@ function AppContent() {
       <Layout style={{ minHeight: '100vh' }}>
         <Content>
           <Routes>
-            {/* Trang chính */}
-            <Route path='/' element={<Home />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
 
-            {/* Các trang user */}
             <Route
               path='/about/:id'
               element={
