@@ -1,3 +1,4 @@
+
 import { useSelector } from 'react-redux'
 import { Typography, Row, Col, Card } from 'antd'
 import Container from '../components/common/UI/Container'
@@ -10,14 +11,17 @@ import { FaRegStar } from 'react-icons/fa'
 import { FaRegFolderOpen } from 'react-icons/fa'
 import Loading from '../components/Loading'
 
-const { Title, Paragraph } = Typography
+
+const { Title, Paragraph } = Typography;
 
 const AboutMe = () => {
-  const selectedUser = useSelector((state) => state.projects.selectedUser)
-  console.log(selectedUser)
+  const selectedUser = useSelector((state) => state.projects.selectedUser);
+  console.log(selectedUser);
 
   if (!selectedUser) {
+
     return <Loading />
+
   }
 
   const {
@@ -27,15 +31,15 @@ const AboutMe = () => {
     target,
     certifications_awards,
     image,
-  } = selectedUser.cv
+  } = selectedUser.cv;
 
   return (
     <div
       style={{
-        display: 'flex',
-        justifyContent: 'center',
-        margin: 'auto',
-        maxWidth: '1000px',
+        display: "flex",
+        justifyContent: "center",
+        margin: "auto",
+        maxWidth: "1000px",
       }}
     >
       <Row gutter={16}>
@@ -43,7 +47,7 @@ const AboutMe = () => {
         <CardProfile personal_info={personal_info} />
 
         {/* Phần bên trái (Home content) */}
-        <Col span={16}>
+        <Col span={18}>
           <Container>
             {/* Profile Info */}
 
@@ -51,16 +55,16 @@ const AboutMe = () => {
 
             <Paragraph
               style={{
-                color: '#fff',
+                color: "#fff",
               }}
             >
               {target}
             </Paragraph>
 
             {/* Highlights */}
-            <div style={{ marginTop: '2rem' }}>
+            <div style={{ marginTop: "2rem" }}>
               <SectionTitle level={3}>
-                <FaRegStar style={{ marginRight: '8px' }} />
+                <FaRegStar style={{ marginRight: "8px" }} />
                 Highlights & Successes
               </SectionTitle>
               <Row gutter={16}>
@@ -86,9 +90,9 @@ const AboutMe = () => {
             </div>
 
             {/* Featured Work */}
-            <div style={{ marginTop: '2rem' }}>
+            <div style={{ marginTop: "2rem" }}>
               <SectionTitle level={3}>
-                <FaRegFolderOpen style={{ marginRight: '8px' }} />
+                <FaRegFolderOpen style={{ marginRight: "8px" }} />
                 Featured Work
               </SectionTitle>
               <Paragraph style={{ color: '#fff' }}>
@@ -97,7 +101,7 @@ const AboutMe = () => {
               <Row gutter={16}>
                 {projects &&
                   projects.map((project, index) => (
-                    <Col span={12} key={index} style={{ marginBottom: '1rem' }}>
+                    <Col span={12} key={index} style={{ marginBottom: "1rem" }}>
                       <FeaturedWorkCard
                         cover={
                           <img
@@ -105,7 +109,7 @@ const AboutMe = () => {
                             src={
                               image
                                 ? project.image
-                                : 'https://picsum.photos/200/200?grayscale'
+                                : "https://picsum.photos/200/200?grayscale"
                             }
                           />
                         }
@@ -114,8 +118,8 @@ const AboutMe = () => {
                           title={project.title}
                           description={project.description}
                           style={{
-                            color: '#fff',
-                            minHeight: '150px',
+                            color: "#fff",
+                            minHeight: "150px",
                           }}
                         />
                       </FeaturedWorkCard>
@@ -127,7 +131,6 @@ const AboutMe = () => {
         </Col>
       </Row>
     </div>
-  )
-}
-export default AboutMe
-
+  );
+};
+export default AboutMe;
