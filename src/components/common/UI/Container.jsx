@@ -8,5 +8,6 @@ const Container = styled.div`
   font-family: 'Inter', sans-serif;
   border-radius: 20px;
   margin-left: 20px;
+  border: 2px solid #494949;
 `
 export default Container
