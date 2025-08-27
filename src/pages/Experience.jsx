@@ -8,29 +8,8 @@ import HighlightText from '../components/common/UI/HighlightText'
 import useUserDetail from '../hooks/useUserDetail'
 import { Spin } from 'antd'
 import FlexBox from '../components/common/UI/Flexbox'
+import DarkCard from '../components/common/UI/DarkCard'
 const { Paragraph } = Typography
-
-const DarkCard = styled(Card)`
-  background: #2a2a2a !important;
-  border-radius: 12px;
-
-  .ant-card-head-title {
-    color: #fff !important;
-  }
-
-  .ant-card-body {
-    color: #fff !important;
-  }
-
-  .ant-card-meta-title {
-    color: #fff !important;
-    font-weight: 500;
-  }
-
-  .ant-card-meta-description {
-    color: #ccc !important;
-  }
-`
 
 const Experience = () => {
   const { selectedUser, status, error } = useUserDetail()
