@@ -1,18 +1,17 @@
-
 import { Form, Input, Row, Col, Card, Typography } from 'antd'
-import { StyledForm, StyledButton } from './Contact.styled'
+import { StyledForm, StyledButton, StyledParagraph } from './Contact.styled'
 import CardProfile from '../../components/CardProfile'
 import Container from '../../components/common/UI/Container'
 import SectionTitle from '../../components/common/UI/SectionTitle'
 import FlexBox from '../../components/common/UI/Flexbox'
-
 import useUserDetail from '../../hooks/useUserDetail'
+import Loading from '../../components/Loading'
 const { Paragraph } = Typography
 export default function Contact() {
   const { selectedUser, status, error } = useUserDetail()
 
   if (status === 'loading' && !selectedUser) {
-    return <Spin style={{ display: 'block', margin: '50px auto' }} />
+    return <Loading />
   }
 
   if (error) {

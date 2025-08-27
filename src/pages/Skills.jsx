@@ -99,7 +99,7 @@ const Skills = () => {
               <Row gutter={16}>
                 {Object.entries(skills).map(([key, list]) => (
                   <Col span={12} key={key} style={{ marginBottom: '1rem' }}>
-                    <DarkCard title={key.toUpperCase()} bordered={false}>
+                    <DarkCard title={key.toUpperCase()} variant={false}>
                       {list.map((item, idx) => (
                         <p key={idx} style={{ margin: 0 }}>
                           • {item}
