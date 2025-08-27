@@ -11,10 +11,10 @@ import HeaderMenu from "./components/common/Header/HeaderMenu";
 import HeaderUser from "./components/common/Header/HeaderUser";
 import AppFooter from "./components/common/Footer/Footer";
 import AboutMe from "./pages/AboutMe";
+import Login from "./pages/Login";
 
 const { Content } = Layout;
 
-// Layout chung cho các trang user
 function UserDetail({ children }) {
   return (
     <div style={{ border: "1px solid #ccc", padding: "20px", margin: "20px" }}>
@@ -31,10 +31,8 @@ function AppContent() {
       <Layout style={{ minHeight: "100vh" }}>
         <Content>
           <Routes>
-            {/* Trang chính */}
             <Route path="/" element={<Home />} />
-
-            {/* Các trang user */}
+            <Route path="/login" element={<Login />} />
             <Route
               path="/about/:id"
               element={
