@@ -8,7 +8,8 @@ const FeaturedWorkCard = styled(Card)`
   img {
     border-radius: 10px;
     width: 100%;
-    max-height: 250px;
+    height: 220px;
+    object-fit: cover;
     transition: transform 0.5s ease-in-out;
   }
   img:hover {

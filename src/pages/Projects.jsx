@@ -1,4 +1,3 @@
-
 import { useSelector } from 'react-redux'
 import { List, Card, Typography, Row, Col } from 'antd'
 import styled from 'styled-components'
@@ -9,23 +8,6 @@ import SectionTitle from '../components/common/UI/SectionTitle'
 import Loading from '../components/Loading'
 import useUserDetail from '../hooks/useUserDetail'
 import FlexBox from '../components/common/UI/Flexbox'
-
-
-const DarkCard = styled(Card)`
-  background: #2a2a2a !important;
-
-  .ant-card-head-title {
-    color: #fff !important;
-  }
-
-  .ant-card-body {
-    color: #fff !important;
-  }
-
-  .ant-list-item {
-    color: #fff !important;
-  }
-`
 
 export default function Projects() {
   const { selectedUser, status, error } = useUserDetail()
@@ -41,7 +23,6 @@ export default function Projects() {
   if (!selectedUser) {
     return <p>Không tìm thấy người dùng</p>
   }
-
 
   const { personal_info, projects = [], image } = selectedUser.cv || {}
 
@@ -70,8 +51,6 @@ export default function Projects() {
                           project.image ||
                           'https://picsum.photos/200/200?grayscale'
                         }
-
-  
                       />
                     }
                   >

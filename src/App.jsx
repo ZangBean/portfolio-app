@@ -1,3 +1,4 @@
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./stores/screens/store";
@@ -13,28 +14,30 @@ import AppFooter from "./components/common/Footer/Footer";
 import AboutMe from "./pages/AboutMe";
 import Login from "./pages/Login";
 
-const { Content } = Layout;
+
+const { Content } = Layout
 
 function UserDetail({ children }) {
   return (
-    <div style={{ border: "1px solid #ccc", padding: "20px", margin: "20px" }}>
+    <div style={{ padding: '20px', margin: '20px' }}>
       <HeaderUser />
-      <div style={{ padding: "20px" }}>{children}</div>
+      <div style={{ padding: '20px' }}>{children}</div>
     </div>
-  );
+  )
 }
 
 function AppContent() {
   return (
     <Router>
       <HeaderMenu />
-      <Layout style={{ minHeight: "100vh" }}>
+      <Layout style={{ minHeight: '100vh' }}>
         <Content>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
+
             <Route
-              path="/about/:id"
+              path='/about/:id'
               element={
                 <UserDetail>
                   <AboutMe />
@@ -42,7 +45,7 @@ function AppContent() {
               }
             />
             <Route
-              path="/projects/:id"
+              path='/projects/:id'
               element={
                 <UserDetail>
                   <Projects />
@@ -50,7 +53,7 @@ function AppContent() {
               }
             />
             <Route
-              path="/skills/:id"
+              path='/skills/:id'
               element={
                 <UserDetail>
                   <Skills />
@@ -58,7 +61,7 @@ function AppContent() {
               }
             />
             <Route
-              path="/experience/:id"
+              path='/experience/:id'
               element={
                 <UserDetail>
                   <Experience />
@@ -66,7 +69,7 @@ function AppContent() {
               }
             />
             <Route
-              path="/contact/:id"
+              path='/contact/:id'
               element={
                 <UserDetail>
                   <Contact />
@@ -78,7 +81,7 @@ function AppContent() {
       </Layout>
       <AppFooter />
     </Router>
-  );
+  )
 }
 
 function App() {
@@ -86,7 +89,8 @@ function App() {
     <Provider store={store}>
       <AppContent />
     </Provider>
-  );
+  )
 }
 
-export default App;
+export default App
+
