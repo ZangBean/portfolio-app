@@ -1,13 +1,17 @@
-import { Form, Input, Row, Col, Spin } from "antd";
-import {
-  StyledContainer,
-  StyledParagraph,
-  StyledForm,
-  StyledButton,
-} from "./Contact.styled";
-import CardProfile from "../../components/CardProfile";
-import useUserDetail from "../../hooks/useUserDetail";
 
+import { Form, Input, Row, Col, Card, Typography } from 'antd'
+import { useSelector, useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { useEffect } from 'react'
+import { StyledForm, StyledButton } from './Contact.styled'
+import CardProfile from '../../components/CardProfile'
+import { fetchUserById } from '../../redux/slices/projectsSlice'
+import Container from '../../components/common/UI/Container'
+import SectionTitle from '../../components/common/UI/SectionTitle'
+import FlexBox from '../../components/common/UI/Flexbox'
+
+import useUserDetail from "../../hooks/useUserDetail";
+const { Paragraph } = Typography
 export default function Contact() {
   const { selectedUser, status, error } = useUserDetail();
 
@@ -27,76 +31,87 @@ export default function Contact() {
 
   const { personal_info = {} } = selectedUser.cv || {};
 
+  const dispatch = useDispatch()
+  const { id } = useParams()
+  const selectedUser = useSelector((state) => state.projects.selectedUser)
+  const status = useSelector((state) => state.projects.status)
+  console.log('data contact:', selectedUser.cv.target)
+  useEffect(() => {
+    dispatch(fetchUserById(id))
+  }, [dispatch, id])
+  const {
+    personal_info,
+
+    target,
+  } = selectedUser.cv
+
   return (
-    <StyledContainer>
-      <Row justify="center" gutter={16}>
-        <Col span={18}>
-          <Row gutter={16}>
-            {/* Sidebar Profile */}
-            <CardProfile personal_info={personal_info} />
+    <FlexBox>
+      <Row gutter={16}>
+        {/* Phần bên phải (content khác) */}
+        <Col span={6}>
+          <CardProfile personal_info={personal_info} />
+        </Col>
+        {/* Phần bên trái (Home content) */}
+        <Col span={16}>
+          <Container>
+            {/* Profile Info */}
 
-            {/* Contact Form */}
-            <Col span={16}>
-              <StyledParagraph>
-                <strong>Họ tên:</strong> {personal_info.name}
-              </StyledParagraph>
-              <StyledParagraph>
-                <strong>Email:</strong> {personal_info.email}
-              </StyledParagraph>
-              <StyledParagraph>
-                <strong>Điện thoại:</strong> {personal_info.phone}
-              </StyledParagraph>
-              <StyledParagraph>
-                <strong>Github:</strong>{" "}
-                <a
-                  href={personal_info.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {personal_info.github}
-                </a>
-              </StyledParagraph>
+            <SectionTitle level={3}>Contact Me</SectionTitle>
 
-              <StyledForm layout="vertical">
+            <Paragraph
+              style={{
+                color: '#fff',
+              }}
+            >
+              {target}
+            </Paragraph>
+            <Col>
+              <StyledForm layout='vertical'>
                 <Form.Item
-                  label="Họ tên"
-                  name="name"
-                  rules={[{ required: true, message: "Vui lòng nhập họ tên" }]}
+                  label='Họ tên'
+                  name='name'
+                  rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}
                 >
                   <Input />
                 </Form.Item>
                 <Form.Item
-                  label="Email"
-                  name="email"
+
+                  label='Email'
+                  name='email'
                   rules={[
                     {
                       required: true,
-                      type: "email",
-                      message: "Vui lòng nhập email hợp lệ",
+                      type: 'email',
+                      message: 'Vui lòng nhập email hợp lệ',
+
                     },
                   ]}
                 >
                   <Input />
                 </Form.Item>
                 <Form.Item
-                  label="Tin nhắn"
-                  name="message"
+
+                  label='Tin nhắn'
+                  name='message'
                   rules={[
-                    { required: true, message: "Vui lòng nhập tin nhắn" },
+                    { required: true, message: 'Vui lòng nhập tin nhắn' },
                   ]}
                 >
                   <Input.TextArea rows={4} />
                 </Form.Item>
                 <Form.Item>
-                  <StyledButton type="primary" htmlType="submit">
+
+                  <StyledButton type='primary' htmlType='submit'>
                     Gửi
                   </StyledButton>
                 </Form.Item>
               </StyledForm>
             </Col>
-          </Row>
+          </Container>
         </Col>
       </Row>
-    </StyledContainer>
-  );
+    </FlexBox>
+  )
 }
+

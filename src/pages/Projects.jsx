@@ -1,10 +1,14 @@
-import { Row, Col, Card, List } from "antd";
-import styled from "styled-components";
-import CardProfile from "../components/CardProfile";
-import Container from "../components/common/UI/Container";
-import FeaturedWorkCard from "../components/common/UI/FeaturedWorkCard";
+
+import { useSelector } from 'react-redux'
+import { List, Card, Typography, Row, Col } from 'antd'
+import styled from 'styled-components'
+import CardProfile from '../components/CardProfile'
+import Container from '../components/common/UI/Container'
+import FeaturedWorkCard from '../components/common/UI/FeaturedWorkCard'
+import SectionTitle from '../components/common/UI/SectionTitle'
 import Loading from "../components/Loading";
 import useUserDetail from "../hooks/useUserDetail";
+
 
 const DarkCard = styled(Card)`
   background: #2a2a2a !important;
@@ -49,10 +53,20 @@ export default function Projects() {
       }}
     >
       <Row gutter={16}>
-        <CardProfile personal_info={personal_info} />
+
+        <Col span={6}>
+          <CardProfile personal_info={personal_info} />
+        </Col>
+
+        {/* Phần bên trái (Home content) */}
         <Col span={16}>
           <Container>
-            <div style={{ marginTop: "2rem" }}>
+            {/* Profile Info */}
+            <SectionTitle>Creative Showcase</SectionTitle>
+
+            {/* Featured Work */}
+            <div style={{ marginTop: '2rem' }}>
+
               <Row gutter={16}>
                 {projects.map((project, index) => (
                   <Col span={12} key={index} style={{ marginBottom: "1rem" }}>

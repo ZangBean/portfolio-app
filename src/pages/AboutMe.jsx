@@ -38,10 +38,13 @@ export default function AboutMe() {
       }}
     >
       <Row gutter={16}>
-        {/* Sidebar profile */}
-        <CardProfile personal_info={personal_info} />
 
-        {/* Main content */}
+        {/* Phần bên phải (content khác) */}
+        <Col span={6}>
+          <CardProfile personal_info={personal_info} />
+        </Col>
+        {/* Phần bên trái (Home content) */}
+
         <Col span={16}>
           <Container>
             {/* Digital Identity */}
