@@ -9,7 +9,7 @@ Get up and running in seconds:
 
 ```
 git clone https://github.com/ZangBean/portfolio-app.git
-cd portfolio
+cd portfolio-app
 npm install
 npm run dev
 ```
