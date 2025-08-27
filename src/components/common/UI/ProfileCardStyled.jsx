@@ -6,6 +6,7 @@ const ProfileCardStyled = styled(Card)`
   text-align: center;
   border-radius: 20px;
   overflow: hidden;
+  border: 2px solid #494949;
 
   img {
     border-radius: 10px;

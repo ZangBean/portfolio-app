@@ -16,6 +16,7 @@ export const Header = styled.div`
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 16px;
+  color: #fff;
 `
 
 export const Card = styled.div`

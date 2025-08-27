@@ -20,7 +20,6 @@ export const Logo = styled.div`
 `
 
 export const CenterMenu = styled(Menu)`
-  flex: 1;
   justify-content: center;
   display: flex;
   border-bottom: none;
@@ -44,22 +43,32 @@ export const LoginButton = styled(Button)`
   a {
     color: #fff;
   }
-
-`;
+`
 
 export const StyledUserHeader = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  background: #f0f2f5;
-  border-bottom: 1px solid #ccc;
-
-`;
+  background: #1e1e1e;
+  margin-bottom: 20px;
+`
 
 export const StyledMenu = styled(Menu)`
+  display: flex;
+  justify-content: center;
   flex: 1;
-  background: transparent;
+  background: #1e1e1e;
+
   border: none;
 
-`;
+  .ant-menu-item {
+    font-weight: bold;
+    margin: 0 12px;
+
+    a {
+      color: #fff;
+    }
+  }
+
+  .ant-menu-item-selected a {
+    color: #1890ff;
+  }
+`
 
