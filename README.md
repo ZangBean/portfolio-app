@@ -1,12 +1,15 @@
-# React + Vite
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Roboto&weight=900&size=50&duration=3000&pause=1000&color=0981F7&background=FFFFFF00&center=true&vCenter=true&width=1245&lines=Portfolio+App)](https://git.io/typing-svg)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A personal portfolio website built with **ReactJS** to showcase skills, experience, and projects.  
+The application includes sections for personal information, contact, and project highlights, and can be easily customized or extended.
 
-Currently, two official plugins are available:
+## Quick Start
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Get up and running in seconds:
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+git clone https://github.com/ZangBean/portfolio-app.git
+cd portfolio
+npm install
+npm run dev
+```

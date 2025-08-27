@@ -12,13 +12,6 @@ export const StyledContainer = styled.div`
   margin: 20px 0;
 `;
 
-export const StyledTitle = styled(Title)`
-  font-size: 24px;
-  color: #1a1a1a;
-  margin-bottom: 20px;
-  text-align: center;
-`;
-
 export const StyledParagraph = styled(Paragraph)`
   font-size: 16px;
   color: #333;
