@@ -6,6 +6,9 @@ import SectionTitle from '../../components/common/UI/SectionTitle'
 import FlexBox from '../../components/common/UI/Flexbox'
 import useUserDetail from '../../hooks/useUserDetail'
 import Loading from '../../components/Loading'
+import DarkCard from '../../components/common/UI/DarkCard'
+import { MdOutlineMail, MdOutlinePhone } from 'react-icons/md'
+import IconWrapper from '../../components/common/UI/IconWrapper'
 const { Paragraph } = Typography
 export default function Contact() {
   const { selectedUser, status, error } = useUserDetail()
@@ -25,7 +28,6 @@ export default function Contact() {
   }
 
   const { personal_info = {} } = selectedUser.cv || {}
-  const { target } = selectedUser.cv
 
   return (
     <FlexBox>
@@ -38,16 +40,23 @@ export default function Contact() {
         <Container>
           {/* Profile Info */}
 
-          <SectionTitle level={3}>Contact Me</SectionTitle>
-
-          <Paragraph
-            style={{
-              color: '#fff',
-            }}
-          >
-            {target}
-          </Paragraph>
+          <SectionTitle level={3}>Let’s Connect</SectionTitle>
+          <DarkCard>
+            <p>
+              <IconWrapper>
+                <MdOutlineMail />
+              </IconWrapper>
+              {personal_info.email || 'example@email.com'}
+            </p>
+            <p style={{ margin: 0, paddingRight: '10px', color: '#ccc' }}>
+              <IconWrapper>
+                <MdOutlinePhone />
+              </IconWrapper>
+              {personal_info.phone}
+            </p>
+          </DarkCard>
           <Col>
+            <SectionTitle>Contact Form</SectionTitle>
             <StyledForm layout='vertical'>
               <Form.Item
                 label='Họ tên'

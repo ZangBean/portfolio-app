@@ -3,6 +3,6 @@ const FlexBox = styled.div`
   display: flex;
   justify-content: center;
   margin: auto;
-  max-width: 1000px;
+  max-width: 1200px;
 `
 export default FlexBox
