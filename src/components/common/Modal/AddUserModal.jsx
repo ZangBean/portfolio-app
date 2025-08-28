@@ -1,19 +1,16 @@
-import { Modal, Form, Input, Select, DatePicker, Button } from "antd";
+import { Modal, Form, Input, Select, DatePicker, Button, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { createUserAction } from "../../../stores/screens/user/user.action";
 import moment from "moment";
-import { message } from "antd";
 
 const AddUserModal = ({ visible, onClose }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.user);
+  const { loading, error } = useSelector((state) => state.user);
 
   const sampleData = {
-    login: {
-      username: "testuser123",
-      password: "testpass123",
-    },
+    username: "testuser123",
+    password: "testpass123",
     cv: {
       personal_info: {
         name: "Nguyễn Văn Tèo",
@@ -51,21 +48,23 @@ const AddUserModal = ({ visible, onClose }) => {
         onClose();
         message.success("Thêm user thành công!");
       })
-      .catch(() => message.error("Thêm user thất bại!"));
+      .catch(() => {
+        message.error(error || "Thêm user thất bại!");
+      });
   };
 
   return (
     <Modal title="Thêm User" open={visible} onCancel={onClose} footer={null}>
       <Form form={form} onFinish={onFinish} layout="vertical">
         <Form.Item
-          name={["login", "username"]}
+          name="username"
           label="Tên đăng nhập"
           rules={[{ required: true, message: "Vui lòng nhập tên đăng nhập" }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          name={["login", "password"]}
+          name="password"
           label="Mật khẩu"
           rules={[{ required: true, message: "Vui lòng nhập mật khẩu" }]}
         >
