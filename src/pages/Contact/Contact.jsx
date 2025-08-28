@@ -9,7 +9,6 @@ import Loading from '../../components/Loading'
 import DarkCard from '../../components/common/UI/DarkCard'
 import { MdOutlineMail, MdOutlinePhone } from 'react-icons/md'
 import IconWrapper from '../../components/common/UI/IconWrapper'
-const { Paragraph } = Typography
 export default function Contact() {
   const { selectedUser, status, error } = useUserDetail()
 
