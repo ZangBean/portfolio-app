@@ -9,14 +9,41 @@ import {
   TwitterOutlined,
 } from '@ant-design/icons'
 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import ProfileCardStyled from './common/UI/ProfileCardStyled'
 import IconWrapper from './common/UI/IconWrapper'
+import { useDispatch } from 'react-redux'
+import { deleteUserAction } from '../stores/screens/user/user.action'
 
 const { Title, Text } = Typography
 
-const CardProfile = ({ personal_info }) => {
+const CardProfile = ({ personal_info, selectedUser }) => {
+  console.log('delete', deleteUserAction)
+  console.log('infor:', personal_info)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { id } = useParams()
+
+  const handleDelete = async () => {
+    if (selectedUser?.id !== id) return
+
+    const isConfirmed = window.confirm(
+      'Bạn có chắc chắn muốn xoá user này không?'
+    )
+    if (!isConfirmed) return
+
+    await dispatch(deleteUserAction(id))
+      .unwrap()
+      .then(() => {
+        alert('Xoá thành công!')
+        navigate('/')
+      })
+      .catch((err) => {
+        alert('Xoá thất bại, vui lòng thử lại!')
+        console.error('Delete failed', err)
+      })
+  }
+
   return (
     <ProfileCardStyled>
       <img
@@ -67,6 +94,12 @@ const CardProfile = ({ personal_info }) => {
       </div>
       <Button style={{ marginTop: '  20px' }} onClick={() => navigate('/')}>
         Back
+      </Button>
+      <Button
+        style={{ margin: '  20px', background: '#f10707' }}
+        onClick={handleDelete}
+      >
+        Delete
       </Button>
     </ProfileCardStyled>
   )

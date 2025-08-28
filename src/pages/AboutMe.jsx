@@ -33,7 +33,10 @@ export default function AboutMe() {
     <FlexBox>
       {/* Phần bên phải (content khác) */}
       <Col span={6}>
-        <CardProfile personal_info={personal_info} />
+        <CardProfile
+          personal_info={personal_info}
+          selectedUser={selectedUser}
+        />
       </Col>
       {/* Phần bên trái (Home content) */}
 
