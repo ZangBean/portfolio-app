@@ -40,7 +40,7 @@ export const createUserAction = createAsyncThunk(
     try {
       const response = await getUserByUsername(data.username);
       console.log("Username check:", response);
-      if (response.length > 0) {
+      if (Array.isArray(response) && response.length > 0) {
         return rejectWithValue("Tên đăng nhập đã tồn tại");
       }
       const createResponse = await createUser(data);

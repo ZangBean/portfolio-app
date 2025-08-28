@@ -60,6 +60,7 @@ const userSlice = createSlice({
       })
       .addCase(createUserAction.fulfilled, (state, action) => {
         state.status = "succeeded";
+        console.log("New user:", action.payload);
         state.data.push(action.payload);
       })
       .addCase(createUserAction.rejected, (state, action) => {
