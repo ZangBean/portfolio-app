@@ -12,11 +12,30 @@ export const StyledList = styled(List)`
 `
 
 export const Header = styled.div`
-  text-align: center;
-  font-size: 16px;
-  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* đẩy nội dung ra 2 bên */
   margin-bottom: 16px;
   color: #fff;
+
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .icon-user {
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.3s, color 0.3s;
+
+    &:hover {
+      color: #40a9ff;
+      transform: scale(1.2);
+    }
+  }
 `
 
 export const Card = styled.div`

@@ -46,7 +46,6 @@ export const LoginButton = styled(Button)`
 `
 
 export const StyledUserHeader = styled.div`
-  background: #1e1e1e;
   margin-bottom: 20px;
 `
 
@@ -55,8 +54,10 @@ export const StyledMenu = styled(Menu)`
   justify-content: center;
   flex: 1;
   background: #1e1e1e;
-
-  border: none;
+  width: 50%;
+  border: 1px solid #333;
+  margin: auto;
+  border-radius: 10px;
 
   .ant-menu-item {
     font-weight: bold;

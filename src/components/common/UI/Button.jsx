@@ -10,3 +10,7 @@ export const ButtonDelete = styled(Button)`
 export const ButtonBack = styled(Button)`
   border-color: #333;
 `
+export const ButtonAdd = styled(Button)`
+  margin-right: 40px;
+  margin-top: 8px;
+`

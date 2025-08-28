@@ -12,7 +12,7 @@ import {
   Title,
 } from './Home.styled'
 import { UserAddOutlined } from '@ant-design/icons'
-import { List, Button } from 'antd'
+import { List, Input } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { fetchUsersAction } from '../../stores/screens/user/user.action'
@@ -20,12 +20,17 @@ import { setSelectedUser } from '../../stores/screens/user/user.reducer'
 import Loading from '../../components/Loading'
 import AddUserModal from '../../components/common/Modal/AddUserModal'
 import ParagraphStyled from '../../components/common/UI/ParagraphStyled'
+import { CiUser } from 'react-icons/ci'
+import { ButtonAdd } from '../../components/common/UI/Button'
+
+const { Search } = Input
 
 export default function Home() {
   const dispatch = useDispatch()
   const users = useSelector((state) => state.user.data || [])
   const { status, error } = useSelector((state) => state.user)
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
 
   const handleOpenModal = () => {
     setIsModalVisible(true)
@@ -38,25 +43,51 @@ export default function Home() {
     dispatch(fetchUsersAction())
   }, [dispatch])
 
-  let content
-
   if (status === 'loading') {
     return <Loading />
   } else if (status === 'failed') {
     return <ParagraphStyled color='red'>Error: {error}</ParagraphStyled>
   }
 
+  // filter users theo searchTerm
+  const filteredUsers = users.filter((user) =>
+    user.cv.personal_info.name.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
   return (
     <StyledLayout>
       <StyledList
         grid={{ gutter: 16, column: 3 }}
-        header={<Header>Lists User</Header>}
-        dataSource={users}
+        header={
+          <Header>
+            <div className='title'>
+              Lists User
+              <CiUser className='icon-user' />
+            </div>
+
+            <Search
+              style={{ width: '300px' }}
+              placeholder='Search user by name...'
+              enterButton
+              allowClear
+              onSearch={(value) => setSearchTerm(value)}
+            />
+
+            <ButtonAdd
+              type='primary'
+              title='Add User'
+              onClick={handleOpenModal}
+            >
+              Add User
+              <UserAddOutlined />
+            </ButtonAdd>
+          </Header>
+        }
+        dataSource={filteredUsers}
         renderItem={(user) => (
           <List.Item key={user.id}>
             <Link
               to={`/about/${user.id}`}
-              style={{ textDecoration: 'none' }}
               onClick={() => dispatch(setSelectedUser(user))}
             >
               <Card>
@@ -82,9 +113,6 @@ export default function Home() {
         )}
       />
 
-      <Button type='primary' onClick={handleOpenModal}>
-        <UserAddOutlined />
-      </Button>
       <AddUserModal visible={isModalVisible} onClose={handleCloseModal} />
     </StyledLayout>
   )
