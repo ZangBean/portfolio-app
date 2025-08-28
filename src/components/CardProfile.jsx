@@ -15,16 +15,8 @@ import { logoutUserAction } from "../stores/screens/login/login.action";
 import { selectUser } from "../stores/screens/rootSelector";
 import ProfileCardStyled from "./common/UI/ProfileCardStyled";
 import IconWrapper from "./common/UI/IconWrapper";
-
-
-import { useNavigate, useParams } from 'react-router-dom'
-import ProfileCardStyled from './common/UI/ProfileCardStyled'
-import IconWrapper from './common/UI/IconWrapper'
-import { useDispatch } from 'react-redux'
-import { deleteUserAction } from '../stores/screens/user/user.action'
-import StyledTitle from './common/UI/StyledTitle'
-import { ButtonDelete, ButtonBack } from './common/UI/Button'
-
+import StyledTitle from "./common/UI/StyledTitle";
+import { ButtonDelete, ButtonBack } from "./common/UI/Button";
 
 const CardProfile = ({ personal_info, selectedUser }) => {
   const user = useSelector(selectUser);
@@ -57,14 +49,12 @@ const CardProfile = ({ personal_info, selectedUser }) => {
 
   return (
     <ProfileCardStyled>
-
-      <img src={personal_info.image} alt='avatar' />
+      <img src={personal_info.image} alt="avatar" />
 
       <StyledTitle level={4}>{personal_info.name}</StyledTitle>
 
-      <Tag className='role'>
-        {personal_info.position || 'Software Developer'}
-
+      <Tag className="role">
+        {personal_info.position || "Software Developer"}
       </Tag>
       <hr />
       <div className="contact-info">
@@ -110,7 +100,6 @@ const CardProfile = ({ personal_info, selectedUser }) => {
           Delete
         </Button>
       )}
-
     </ProfileCardStyled>
   );
 };
