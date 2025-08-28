@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { logout } from "./login.reducer";
 import { getUserByUsername } from "./login.api";
 
 export const loginUserAction = createAsyncThunk(
@@ -6,7 +7,7 @@ export const loginUserAction = createAsyncThunk(
   async ({ username, password }, { rejectWithValue }) => {
     try {
       const response = await getUserByUsername(username);
-      console.log("Login API response:", response); // Debug
+      console.log("Login API response:", response);
       if (!Array.isArray(response) || response.length === 0) {
         return rejectWithValue("Tên đăng nhập không tồn tại");
       }
@@ -17,10 +18,12 @@ export const loginUserAction = createAsyncThunk(
       if (user.password !== password) {
         return rejectWithValue("Mật khẩu không đúng");
       }
-      return {
+      const payload = {
         user: { id: user.id, ...user.cv.personal_info },
         token: "fake-jwt-token",
       };
+      console.log("Login payload:", payload);
+      return payload;
     } catch (error) {
       console.error("Login error:", error.response?.data || error.message);
       return rejectWithValue(error.response?.data || error.message);
@@ -31,7 +34,8 @@ export const loginUserAction = createAsyncThunk(
 export const logoutUserAction = createAsyncThunk(
   "login/logoutUser",
   async (_, { dispatch }) => {
-    dispatch({ type: "login/logout" });
+    console.log("Logging out user");
+    dispatch(logout());
     return null;
   }
 );
