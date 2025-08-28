@@ -1,92 +1,97 @@
-import { Input, Select, DatePicker } from "antd";
-import moment from "moment";
+import { Input, Select, DatePicker, Form } from 'antd'
+import moment from 'moment'
 
 const AboutForm = ({ formik }) => {
   return (
-    <div>
-      <div>
-        <label>
-          Tên đăng nhập <span style={{ color: "red" }}>*</span>
-        </label>
+    <Form layout='vertical'>
+      <Form.Item
+        label='Tên đăng nhập'
+        required
+        validateStatus={
+          formik.touched.username && formik.errors.username ? 'error' : ''
+        }
+        help={formik.touched.username && formik.errors.username}
+      >
         <Input
-          name="username"
+          name='username'
           value={formik.values.username}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
-        {formik.touched.username && formik.errors.username && (
-          <div style={{ color: "red" }}>{formik.errors.username}</div>
-        )}
-      </div>
-      <div>
-        <label>
-          Mật khẩu <span style={{ color: "red" }}>*</span>
-        </label>
+      </Form.Item>
+
+      <Form.Item
+        label='Mật khẩu'
+        required
+        validateStatus={
+          formik.touched.password && formik.errors.password ? 'error' : ''
+        }
+        help={formik.touched.password && formik.errors.password}
+      >
         <Input.Password
-          name="password"
+          name='password'
           value={formik.values.password}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
-        {formik.touched.password && formik.errors.password && (
-          <div style={{ color: "red" }}>{formik.errors.password}</div>
-        )}
-      </div>
-      <div>
-        <label>Họ tên</label>
+      </Form.Item>
+
+      <Form.Item label='Họ tên'>
         <Input
-          name="name"
+          name='name'
           value={formik.values.name}
           onChange={formik.handleChange}
         />
-      </div>
-      <div>
-        <label>Vị trí</label>
+      </Form.Item>
+
+      <Form.Item label='Vị trí'>
         <Input
-          name="position"
+          name='position'
           value={formik.values.position}
           onChange={formik.handleChange}
         />
-      </div>
-      <div>
-        <label>Link ảnh</label>
+      </Form.Item>
+
+      <Form.Item label='Link ảnh'>
         <Input
-          name="image"
+          name='image'
           value={formik.values.image}
           onChange={formik.handleChange}
         />
-      </div>
-      <div>
-        <label>Ngày sinh</label>
+      </Form.Item>
+
+      <Form.Item label='Ngày sinh'>
         <DatePicker
-          format="DD/MM/YY"
+          format='DD/MM/YY'
+          style={{ width: '100%' }}
           value={
             formik.values.birth_date ? moment(formik.values.birth_date) : null
           }
-          onChange={(date) => formik.setFieldValue("birth_date", date)}
+          onChange={(date) => formik.setFieldValue('birth_date', date)}
         />
-      </div>
-      <div>
-        <label>Giới tính</label>
+      </Form.Item>
+
+      <Form.Item label='Giới tính'>
         <Select
           value={formik.values.gender}
-          onChange={(value) => formik.setFieldValue("gender", value)}
+          onChange={(value) => formik.setFieldValue('gender', value)}
         >
-          <Select.Option value="Male">Nam</Select.Option>
-          <Select.Option value="Female">Nữ</Select.Option>
+          <Select.Option value='Male'>Nam</Select.Option>
+          <Select.Option value='Female'>Nữ</Select.Option>
         </Select>
-      </div>
-      <div>
-        <label>Mục tiêu nghề nghiệp</label>
+      </Form.Item>
+
+      <Form.Item label='Mục tiêu nghề nghiệp'>
         <Input.TextArea
-          rows={4}
-          name="target"
+          rows={2}
+          name='target'
           value={formik.values.target}
           onChange={formik.handleChange}
         />
-      </div>
-    </div>
-  );
-};
+      </Form.Item>
+    </Form>
+  )
+}
 
-export default AboutForm;
+export default AboutForm
+

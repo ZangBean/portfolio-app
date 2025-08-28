@@ -11,7 +11,7 @@ const AddUserModal = ({ visible, onClose }) => {
 
   return (
     <Modal
-      title='Thêm User'
+      title='Add User'
       open={visible}
       onCancel={onClose}
       footer={null}
@@ -45,10 +45,10 @@ const AddUserModal = ({ visible, onClose }) => {
         </Row>
         <div style={{ textAlign: 'right', marginTop: 16 }}>
           <Button onClick={onClose} style={{ marginRight: 8 }}>
-            Hủy
+            Cancel
           </Button>
           <Button type='primary' htmlType='submit' loading={loading}>
-            Thêm
+            Add
           </Button>
         </div>
       </form>
