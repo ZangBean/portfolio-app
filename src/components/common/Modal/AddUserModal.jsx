@@ -1,11 +1,38 @@
 import { Modal, Form, Input, Select, DatePicker, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { createUserAction } from "../../../stores/screens/user/user.action";
+import moment from "moment";
+import { message } from "antd";
 
 const AddUserModal = ({ visible, onClose }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.user);
+
+  const sampleData = {
+    login: {
+      username: "testuser123",
+      password: "testpass123",
+    },
+    cv: {
+      personal_info: {
+        name: "Nguyễn Văn Tèo",
+        position: "Fresher",
+        image: "https://example.com/image.jpg",
+        birth_date: moment("01/01/2000", "DD/MM/YY"),
+        gender: "Male",
+        phone: "0123456789",
+        email: "teotest@example.com",
+        github: "https://github.com/teotest",
+        location: "Hà Nội, Việt Nam",
+        github_image: "https://github.com/teotest.png",
+      },
+    },
+  };
+
+  const fillSampleData = () => {
+    form.setFieldsValue(sampleData);
+  };
 
   const onFinish = (values) => {
     const formattedValues = {
@@ -18,10 +45,13 @@ const AddUserModal = ({ visible, onClose }) => {
         },
       },
     };
-    dispatch(createUserAction(formattedValues)).then(() => {
-      form.resetFields();
-      onClose();
-    });
+    dispatch(createUserAction(formattedValues))
+      .then(() => {
+        form.resetFields();
+        onClose();
+        message.success("Thêm user thành công!");
+      })
+      .catch(() => message.error("Thêm user thất bại!"));
   };
 
   return (
@@ -120,12 +150,15 @@ const AddUserModal = ({ visible, onClose }) => {
         >
           <Input />
         </Form.Item>
-        <Form.Item>
+        <Form.Item style={{ textAlign: "right" }}>
+          <Button onClick={fillSampleData} style={{ marginRight: 8 }}>
+            Điền mẫu
+          </Button>
+          <Button onClick={onClose} style={{ marginRight: 8 }}>
+            Hủy
+          </Button>
           <Button type="primary" htmlType="submit" loading={loading}>
             Thêm
-          </Button>
-          <Button onClick={onClose} style={{ marginLeft: 8 }}>
-            Hủy
           </Button>
         </Form.Item>
       </Form>
