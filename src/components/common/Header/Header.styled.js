@@ -65,6 +65,11 @@ export const StyledMenu = styled(Menu)`
     a {
       color: #fff;
     }
+    &:hover {
+      a {
+        color: #fff;
+      }
+    }
   }
 
   .ant-menu-item-selected a {

@@ -14,8 +14,8 @@ import ProfileCardStyled from './common/UI/ProfileCardStyled'
 import IconWrapper from './common/UI/IconWrapper'
 import { useDispatch } from 'react-redux'
 import { deleteUserAction } from '../stores/screens/user/user.action'
-
-const { Title, Text } = Typography
+import StyledTitle from './common/UI/StyledTitle'
+import { ButtonDelete, ButtonBack } from './common/UI/Button'
 
 const CardProfile = ({ personal_info, selectedUser }) => {
   console.log('delete', deleteUserAction)
@@ -46,16 +46,11 @@ const CardProfile = ({ personal_info, selectedUser }) => {
 
   return (
     <ProfileCardStyled>
-      <img
-        src={personal_info.image || 'https://picsum.photos/200/300?grayscale'}
-        alt='avatar'
-      />
+      <img src={personal_info.image} alt='avatar' />
 
-      <Title level={4} style={{ fontFamily: 'cursive', marginBottom: 0 }}>
-        {personal_info.name}
-      </Title>
+      <StyledTitle level={4}>{personal_info.name}</StyledTitle>
 
-      <Tag color='default' className='role'>
+      <Tag className='role'>
         {personal_info.position || 'Software Developer'}
       </Tag>
       <hr />
@@ -92,15 +87,8 @@ const CardProfile = ({ personal_info, selectedUser }) => {
           <TwitterOutlined />
         </a>
       </div>
-      <Button style={{ marginTop: '  20px' }} onClick={() => navigate('/')}>
-        Back
-      </Button>
-      <Button
-        style={{ margin: '  20px', background: '#f10707' }}
-        onClick={handleDelete}
-      >
-        Delete
-      </Button>
+      <ButtonBack onClick={() => navigate('/')}>Back</ButtonBack>
+      <ButtonDelete onClick={handleDelete}>Delete</ButtonDelete>
     </ProfileCardStyled>
   )
 }
