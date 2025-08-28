@@ -139,7 +139,6 @@ const useAddUserForm = (onClose) => {
           certifications_awards: values.certifications_awards || undefined,
         },
       };
-      console.log("Formatted values:", formattedValues);
       dispatch(createUserAction(formattedValues))
         .then(() => {
           formik.resetForm();

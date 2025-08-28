@@ -25,10 +25,8 @@ export const fetchUserByIdAction = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const response = await getUserById(id);
-      console.log("User by ID:", response);
       return response;
     } catch (error) {
-      console.error("API error:", error.response?.data || error.message);
       return rejectWithValue(error.response?.data || error.message);
     }
   }
@@ -39,15 +37,12 @@ export const createUserAction = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const response = await getUserByUsername(data.username);
-      console.log("Username check:", response);
       if (Array.isArray(response) && response.length > 0) {
         return rejectWithValue("Tên đăng nhập đã tồn tại");
       }
       const createResponse = await createUser(data);
-      console.log("Create user response:", createResponse);
       return createResponse;
     } catch (error) {
-      console.error("API error:", error.response?.data || error.message);
       return rejectWithValue(error.response?.data || error.message);
     }
   }
@@ -58,10 +53,8 @@ export const updateUserAction = createAsyncThunk(
   async ({ id, data }, { rejectWithValue }) => {
     try {
       const response = await updateUser(id, data);
-      console.log("Update user response:", response);
       return response;
     } catch (error) {
-      console.error("API error:", error.response?.data || error.message);
       return rejectWithValue(error.response?.data || error.message);
     }
   }
@@ -72,10 +65,8 @@ export const deleteUserAction = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       await deleteUser(id);
-      console.log("Deleted user ID:", id);
       return id;
     } catch (error) {
-      console.error("API error:", error.response?.data || error.message);
       return rejectWithValue(error.response?.data || error.message);
     }
   }
