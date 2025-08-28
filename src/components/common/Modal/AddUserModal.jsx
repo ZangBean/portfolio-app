@@ -1,17 +1,15 @@
-
-import { Modal, Form, Input, Select, DatePicker, Button, message } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { createUserAction } from "../../../stores/screens/user/user.action";
-import moment from "moment";
+import { Modal, Form, Input, Select, DatePicker, Button, message } from 'antd'
+import { useDispatch, useSelector } from 'react-redux'
+import { createUserAction } from '../../../stores/screens/user/user.action'
 
 const AddUserModal = ({ visible, onClose }) => {
-  const [form] = Form.useForm();
-  const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.user);
+  const [form] = Form.useForm()
+  const dispatch = useDispatch()
+  const { loading, error } = useSelector((state) => state.user)
 
   const sampleData = {
-    username: "testuser123",
-    password: "testpass123",
+    username: 'testuser123',
+    password: 'testpass123',
 
     cv: {
       personal_info: {
@@ -52,28 +50,24 @@ const AddUserModal = ({ visible, onClose }) => {
       })
 
       .catch(() => {
-        message.error(error || "Thêm user thất bại!");
-      });
-  };
-
+        message.error(error || 'Thêm user thất bại!')
+      })
+  }
 
   return (
     <Modal title='Thêm User' open={visible} onCancel={onClose} footer={null}>
       <Form form={form} onFinish={onFinish} layout='vertical'>
         <Form.Item
-
-          name="username"
-          label="Tên đăng nhập"
-          rules={[{ required: true, message: "Vui lòng nhập tên đăng nhập" }]}
-
+          name='username'
+          label='Tên đăng nhập'
+          rules={[{ required: true, message: 'Vui lòng nhập tên đăng nhập' }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          name="password"
-          label="Mật khẩu"
-          rules={[{ required: true, message: "Vui lòng nhập mật khẩu" }]}
-
+          name='password'
+          label='Mật khẩu'
+          rules={[{ required: true, message: 'Vui lòng nhập mật khẩu' }]}
         >
           <Input.Password />
         </Form.Item>
