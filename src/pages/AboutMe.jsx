@@ -9,6 +9,9 @@ import CardProfile from '../components/CardProfile'
 import Loading from '../components/Loading'
 import useUserDetail from '../hooks/useUserDetail'
 import FlexBox from '../components/common/UI/Flexbox'
+import ParagraphStyled from '../components/common/UI/ParagraphStyled'
+import DescriptionCard from '../components/common/UI/DescriptionCard'
+import MarginTop from '../components/common/UI/MarginTop'
 
 const { Paragraph } = Typography
 
@@ -17,7 +20,7 @@ export default function AboutMe() {
 
   if (status === 'loading' && !selectedUser) return <Loading />
   if (error)
-    return <Paragraph style={{ color: 'red' }}>Error: {error}</Paragraph>
+    return <ParagraphStyled color='red'>Error: {error}</ParagraphStyled>
   if (!selectedUser) return <Paragraph>Không tìm thấy người dùng</Paragraph>
 
   const {
@@ -26,28 +29,21 @@ export default function AboutMe() {
     projects = [],
     target = '',
     certifications_awards = 0,
-    image = '',
   } = selectedUser.cv || {}
 
   return (
     <FlexBox>
-      {/* Phần bên phải (content khác) */}
       <Col span={6}>
         <CardProfile
           personal_info={personal_info}
           selectedUser={selectedUser}
         />
       </Col>
-      {/* Phần bên trái (Home content) */}
-
       <Col span={16}>
         <Container>
-          {/* Digital Identity */}
           <SectionTitle level={3}>Digital Identity</SectionTitle>
-          <Paragraph style={{ color: '#fff' }}>{target}</Paragraph>
-
-          {/* Highlights */}
-          <div style={{ marginTop: '2rem' }}>
+          <ParagraphStyled color='#fff'>{target}</ParagraphStyled>
+          <MarginTop mt='2rem'>
             <SectionTitle level={3}>
               <FaRegStar style={{ marginRight: '8px' }} />
               Highlights & Successes
@@ -70,20 +66,19 @@ export default function AboutMe() {
                 <HighlightText>CERTIFICATIONS & AWARDS</HighlightText>
               </Col>
             </Row>
-          </div>
+          </MarginTop>
 
-          {/* Featured Work */}
-          <div style={{ marginTop: '2rem' }}>
+          <MarginTop mt='2rem'>
             <SectionTitle level={3}>
               <FaRegFolderOpen style={{ marginRight: '8px' }} />
               Featured Work
             </SectionTitle>
-            <Paragraph style={{ color: '#fff' }}>
+            <ParagraphStyled color='#fff'>
               A glimpse into my professional journey.
-            </Paragraph>
+            </ParagraphStyled>
             <Row gutter={16}>
               {projects.map((project, index) => (
-                <Col span={12} key={index} style={{ marginBottom: '1rem' }}>
+                <Col span={12} key={index}>
                   <FeaturedWorkCard
                     cover={
                       <img
@@ -95,15 +90,15 @@ export default function AboutMe() {
                       />
                     }
                   >
-                    <div style={{ color: '#fff', minHeight: '150px' }}>
+                    <DescriptionCard>
                       <strong>{project.title}</strong>
                       <p>{project.description}</p>
-                    </div>
+                    </DescriptionCard>{' '}
                   </FeaturedWorkCard>
                 </Col>
               ))}
             </Row>
-          </div>
+          </MarginTop>
         </Container>
       </Col>
     </FlexBox>

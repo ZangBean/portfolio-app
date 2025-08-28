@@ -1,3 +1,4 @@
+
 import { Modal, Button, Row, Col } from "antd";
 import useAddUserForm from "../../../hooks/useAddUserForm";
 import AboutForm from "./AboutForm";
@@ -44,6 +45,7 @@ const AddUserModal = ({ visible, onClose }) => {
           </Col>
         </Row>
         <div style={{ textAlign: "right", marginTop: 16 }}>
+
           <Button onClick={onClose} style={{ marginRight: 8 }}>
             Hủy
           </Button>

@@ -1,4 +1,4 @@
-import { Form, Input, Row, Col, Card, Typography } from 'antd'
+import { Form, Input, Col } from 'antd'
 import { StyledForm, StyledButton, StyledParagraph } from './Contact.styled'
 import CardProfile from '../../components/CardProfile'
 import Container from '../../components/common/UI/Container'
@@ -9,6 +9,7 @@ import Loading from '../../components/Loading'
 import DarkCard from '../../components/common/UI/DarkCard'
 import { MdOutlineMail, MdOutlinePhone } from 'react-icons/md'
 import IconWrapper from '../../components/common/UI/IconWrapper'
+import ParagraphStyled from '../../components/common/UI/ParagraphStyled'
 export default function Contact() {
   const { selectedUser, status, error } = useUserDetail()
 
@@ -16,38 +17,28 @@ export default function Contact() {
     return <Loading />
   }
 
-  if (error) {
-    return (
-      <StyledParagraph style={{ color: 'red' }}>Lỗi: {error}</StyledParagraph>
-    )
-  }
-
-  if (!selectedUser) {
-    return <StyledParagraph>Không tìm thấy người dùng</StyledParagraph>
+  if (error || !selectedUser) {
+    return <ParagraphStyled color='red'>Lỗi: {error}</ParagraphStyled>
   }
 
   const { personal_info = {} } = selectedUser.cv || {}
 
   return (
     <FlexBox>
-      {/* Phần bên phải (content khác) */}
       <Col span={6}>
         <CardProfile personal_info={personal_info} />
       </Col>
-      {/* Phần bên trái (Home content) */}
       <Col span={16}>
         <Container>
-          {/* Profile Info */}
-
           <SectionTitle level={3}>Let’s Connect</SectionTitle>
           <DarkCard>
             <p>
               <IconWrapper>
                 <MdOutlineMail />
               </IconWrapper>
-              {personal_info.email || 'example@email.com'}
+              {personal_info?.email}
             </p>
-            <p style={{ margin: 0, paddingRight: '10px', color: '#ccc' }}>
+            <p>
               <IconWrapper>
                 <MdOutlinePhone />
               </IconWrapper>
