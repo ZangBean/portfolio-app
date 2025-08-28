@@ -5,7 +5,7 @@ const FeaturedWorkCard = styled(Card)`
   background-color: #2a2a2a;
   color: #fff;
 
-  img {
+  .ant-card-cover img {
     border-radius: 10px;
     width: 100%;
     height: 220px;
@@ -13,7 +13,7 @@ const FeaturedWorkCard = styled(Card)`
     transition: transform 0.5s ease-in-out;
   }
   img:hover {
-    transform: scale(1.05);
+    transform: scale(0.98);
   }
 
   .ant-card-meta-title {
