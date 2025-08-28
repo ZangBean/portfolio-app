@@ -27,6 +27,13 @@ export default function Home() {
   const { status, error } = useSelector((state) => state.user)
   const [isModalVisible, setIsModalVisible] = useState(false)
 
+  const handleOpenModal = () => {
+    setIsModalVisible(true)
+  }
+  const handleCloseModal = () => {
+    setIsModalVisible(false)
+  }
+
   useEffect(() => {
     dispatch(fetchUsersAction())
   }, [dispatch])
@@ -74,7 +81,49 @@ export default function Home() {
     )
   }
 
-      <Button type="primary" onClick={handleOpenModal}>
+  return (
+    <StyledLayout>
+      {status === 'loading' ? (
+        <Loading />
+      ) : status === 'failed' ? (
+        <p style={{ color: 'red' }}>Error: {error}</p>
+      ) : (
+        <StyledList
+          grid={{ gutter: 16, column: 3 }}
+          header={<Header>Danh sách người dùng</Header>}
+          dataSource={users}
+          renderItem={(user) => (
+            <List.Item key={user.id}>
+              <Link
+                to={`/about/${user.id}`}
+                style={{ textDecoration: 'none' }}
+                onClick={() => dispatch(setSelectedUser(user))}
+              >
+                <Card>
+                  <CardContent>
+                    {user.cv.personal_info.image ? (
+                      <Avatar src={user.cv.personal_info.image} alt='avatar' />
+                    ) : (
+                      <FallbackAvatar>
+                        {user.cv.personal_info.name[0]}
+                      </FallbackAvatar>
+                    )}
+                    <Info>
+                      <Title>{user.cv.personal_info.name}</Title>
+                      <Description>
+                        <p>Email: {user.cv.personal_info.email || 'N/A'}</p>
+                        <p>Phone: {user.cv.personal_info.phone || 'N/A'}</p>
+                      </Description>
+                    </Info>
+                  </CardContent>
+                </Card>
+              </Link>
+            </List.Item>
+          )}
+        />
+      )}
+
+      <Button type='primary' onClick={handleOpenModal}>
         <UserAddOutlined />
       </Button>
       <AddUserModal visible={isModalVisible} onClose={handleCloseModal} />
