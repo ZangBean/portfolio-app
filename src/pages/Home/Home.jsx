@@ -74,16 +74,10 @@ export default function Home() {
     )
   }
 
-  return (
-    <StyledLayout>
-      {content}
-      <Button type='primary' onClick={() => setIsModalVisible(true)}>
+      <Button type="primary" onClick={handleOpenModal}>
         <UserAddOutlined />
       </Button>
-      <AddUserModal
-        visible={isModalVisible}
-        onClose={() => setIsModalVisible(false)}
-      />
+      <AddUserModal visible={isModalVisible} onClose={handleCloseModal} />
     </StyledLayout>
   )
 }

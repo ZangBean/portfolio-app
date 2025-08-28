@@ -1,31 +1,40 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { login } from "./login.action";
+import { loginUserAction, logoutUserAction } from "./login.action";
+
+const initialState = {
+  currentUser: null,
+  status: "idle",
+  error: null,
+};
 
 const loginSlice = createSlice({
   name: "login",
-  initialState: { user: null, token: null, loading: false, error: null },
+  initialState,
   reducers: {
     logout: (state) => {
-      state.user = null;
-      state.token = null;
-      localStorage.removeItem("token");
+      state.currentUser = null;
+      state.status = "idle";
+      state.error = null;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(login.pending, (state) => {
-        state.loading = true;
+      .addCase(loginUserAction.pending, (state) => {
+        state.status = "loading";
         state.error = null;
       })
-      .addCase(login.fulfilled, (state, action) => {
-        state.loading = false;
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-        localStorage.setItem("token", action.payload.token);
+      .addCase(loginUserAction.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.currentUser = action.payload;
       })
-      .addCase(login.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
+      .addCase(loginUserAction.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload || "Lỗi khi đăng nhập";
+      })
+      .addCase(logoutUserAction.fulfilled, (state) => {
+        state.currentUser = null;
+        state.status = "idle";
+        state.error = null;
       });
   },
 });

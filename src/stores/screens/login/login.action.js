@@ -1,14 +1,37 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { loginUser } from "./login.api";
+import { getUserByUsername } from "./login.api";
 
-export const login = createAsyncThunk(
-  "login/login",
-  async (credentials, { rejectWithValue, dispatch }) => {
+export const loginUserAction = createAsyncThunk(
+  "login/loginUser",
+  async ({ username, password }, { rejectWithValue }) => {
     try {
-      const response = await loginUser(credentials, { dispatch });
-      return response.data;
+      const response = await getUserByUsername(username);
+      console.log("Login API response:", response); // Debug
+      if (!Array.isArray(response) || response.length === 0) {
+        return rejectWithValue("Tên đăng nhập không tồn tại");
+      }
+      const user = response[0];
+      if (!user || !user.username || user.username !== username) {
+        return rejectWithValue("Tên đăng nhập không hợp lệ");
+      }
+      if (user.password !== password) {
+        return rejectWithValue("Mật khẩu không đúng");
+      }
+      return {
+        user: { id: user.id, ...user.cv.personal_info },
+        token: "fake-jwt-token",
+      };
     } catch (error) {
-      return rejectWithValue(error.message || "Đăng nhập thất bại");
+      console.error("Login error:", error.response?.data || error.message);
+      return rejectWithValue(error.response?.data || error.message);
     }
+  }
+);
+
+export const logoutUserAction = createAsyncThunk(
+  "login/logoutUser",
+  async (_, { dispatch }) => {
+    dispatch({ type: "login/logout" });
+    return null;
   }
 );

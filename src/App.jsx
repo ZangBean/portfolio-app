@@ -1,41 +1,32 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { Provider } from 'react-redux'
-import store from './stores/screens/store'
-import { Layout } from 'antd'
-import Home from './pages/Home/Home'
-import Projects from './pages/Projects'
-import Skills from './pages/Skills'
-import Experience from './pages/Experience'
-import Contact from './pages/Contact/Contact'
-import HeaderMenu from './components/common/Header/HeaderMenu'
-import HeaderUser from './components/common/Header/HeaderUser'
-import AppFooter from './components/common/Footer/Footer'
-import AboutMe from './pages/AboutMe'
-import Login from './pages/Login'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./stores/screens/store";
+import { Layout } from "antd";
+import Home from "./pages/Home/Home";
+import Projects from "./pages/Projects";
+import Skills from "./pages/Skills";
+import Experience from "./pages/Experience";
+import Contact from "./pages/Contact/Contact";
+import HeaderMenu from "./components/common/Header/HeaderMenu";
+import AppFooter from "./components/common/Footer/Footer";
+import AboutMe from "./pages/AboutMe";
+import Login from "./pages/Login";
+import { UserDetail } from "./layouts/UserDetail/UserDetail.layout";
 
-const { Content } = Layout
-
-function UserDetail({ children }) {
-  return (
-    <div style={{ padding: '20px', margin: '20px' }}>
-      <HeaderUser />
-      <div style={{ padding: '20px' }}>{children}</div>
-    </div>
-  )
-}
+const { Content } = Layout;
 
 function AppContent() {
   return (
     <Router>
       <HeaderMenu />
-      <Layout style={{ minHeight: '100vh', background: '#1e1e1e' }}>
+      <Layout style={{ minHeight: "100vh", background: "#1e1e1e" }}>
         <Content>
           <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/login' element={<Login />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
 
             <Route
-              path='/about/:id'
+              path="/about/:id"
               element={
                 <UserDetail>
                   <AboutMe />
@@ -43,7 +34,7 @@ function AppContent() {
               }
             />
             <Route
-              path='/projects/:id'
+              path="/projects/:id"
               element={
                 <UserDetail>
                   <Projects />
@@ -51,7 +42,7 @@ function AppContent() {
               }
             />
             <Route
-              path='/skills/:id'
+              path="/skills/:id"
               element={
                 <UserDetail>
                   <Skills />
@@ -59,7 +50,7 @@ function AppContent() {
               }
             />
             <Route
-              path='/experience/:id'
+              path="/experience/:id"
               element={
                 <UserDetail>
                   <Experience />
@@ -67,7 +58,7 @@ function AppContent() {
               }
             />
             <Route
-              path='/contact/:id'
+              path="/contact/:id"
               element={
                 <UserDetail>
                   <Contact />
@@ -79,7 +70,7 @@ function AppContent() {
       </Layout>
       <AppFooter />
     </Router>
-  )
+  );
 }
 
 function App() {
@@ -87,8 +78,7 @@ function App() {
     <Provider store={store}>
       <AppContent />
     </Provider>
-  )
+  );
 }
 
-export default App
-
+export default App;
