@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login } from "../stores/screens/login/login.action";
+import { loginUserAction } from "../stores/screens/login/login.action";
 import {
   selectLoading,
   selectError,
   selectUser,
 } from "../stores/screens/rootSelector";
-import { Form, Input, Button, Alert } from "antd";
+import { Form, Input, Button, Alert, message } from "antd";
 import styled from "styled-components";
 
 const LoginWrapper = styled.div`
@@ -33,8 +33,7 @@ const Title = styled.h2`
 `;
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [form] = Form.useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loading = useSelector(selectLoading);
@@ -49,13 +48,19 @@ const Login = () => {
     }
   }, [user, navigate]);
 
-  const handleSubmit = () => {
-    dispatch(login({ username, password }));
+  const handleSubmit = (values) => {
+    dispatch(loginUserAction(values))
+      .then(() => {
+        message.success("Đăng nhập thành công!");
+      })
+      .catch(() => {
+        message.error(error || "Đăng nhập thất bại!");
+      });
   };
 
   return (
     <LoginWrapper>
-      <LoginForm onFinish={handleSubmit} layout="vertical">
+      <LoginForm form={form} onFinish={handleSubmit} layout="vertical">
         <Title>Đăng nhập</Title>
         {error && (
           <Alert
@@ -70,22 +75,14 @@ const Login = () => {
           name="username"
           rules={[{ required: true, message: "Vui lòng nhập tên đăng nhập!" }]}
         >
-          <Input
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Nhập tên đăng nhập"
-          />
+          <Input placeholder="Nhập tên đăng nhập" />
         </Form.Item>
         <Form.Item
           label="Mật khẩu"
           name="password"
           rules={[{ required: true, message: "Vui lòng nhập mật khẩu!" }]}
         >
-          <Input.Password
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Nhập mật khẩu"
-          />
+          <Input.Password placeholder="Nhập mật khẩu" />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" loading={loading} block>

@@ -40,9 +40,8 @@ const userSlice = createSlice({
       })
       .addCase(fetchUsersAction.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message;
+        state.error = action.payload || "Lỗi khi lấy danh sách user";
       })
-
       .addCase(fetchUserByIdAction.pending, (state) => {
         state.status = "loading";
         state.error = null;
@@ -53,9 +52,8 @@ const userSlice = createSlice({
       })
       .addCase(fetchUserByIdAction.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message;
+        state.error = action.payload || "Lỗi khi lấy thông tin user";
       })
-
       .addCase(createUserAction.pending, (state) => {
         state.status = "loading";
         state.error = null;
@@ -66,9 +64,8 @@ const userSlice = createSlice({
       })
       .addCase(createUserAction.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message;
+        state.error = action.payload || "Lỗi khi thêm user";
       })
-
       .addCase(updateUserAction.pending, (state) => {
         state.status = "loading";
         state.error = null;
@@ -80,9 +77,8 @@ const userSlice = createSlice({
       })
       .addCase(updateUserAction.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message;
+        state.error = action.payload || "Lỗi khi cập nhật user";
       })
-
       .addCase(deleteUserAction.pending, (state) => {
         state.status = "loading";
         state.error = null;
@@ -93,7 +89,7 @@ const userSlice = createSlice({
       })
       .addCase(deleteUserAction.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message;
+        state.error = action.payload || "Lỗi khi xóa user";
       });
   },
 });

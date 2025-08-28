@@ -28,6 +28,13 @@ export default function Home() {
   const error = useSelector((state) => state.user.error);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  const handleOpenModal = () => {
+    setIsModalVisible(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+  };
+
   useEffect(() => {
     dispatch(fetchUsersAction());
   }, [dispatch]);
@@ -74,13 +81,10 @@ export default function Home() {
         />
       )}
 
-      <Button type="primary" onClick={() => setIsModalVisible(true)}>
+      <Button type="primary" onClick={handleOpenModal}>
         <UserAddOutlined />
       </Button>
-      <AddUserModal
-        visible={isModalVisible}
-        onClose={() => setIsModalVisible(false)}
-      />
+      <AddUserModal visible={isModalVisible} onClose={handleCloseModal} />
     </StyledLayout>
   );
 }
