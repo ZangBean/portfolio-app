@@ -17,9 +17,7 @@ export default function Contact() {
   }
 
   if (error) {
-    return (
-      <StyledParagraph style={{ color: 'red' }}>Lỗi: {error}</StyledParagraph>
-    )
+    return <StyledParagraph>Lỗi: {error}</StyledParagraph>
   }
 
   if (!selectedUser) {
@@ -30,24 +28,20 @@ export default function Contact() {
 
   return (
     <FlexBox>
-      {/* Phần bên phải (content khác) */}
       <Col span={6}>
         <CardProfile personal_info={personal_info} />
       </Col>
-      {/* Phần bên trái (Home content) */}
       <Col span={16}>
         <Container>
-          {/* Profile Info */}
-
           <SectionTitle level={3}>Let’s Connect</SectionTitle>
           <DarkCard>
             <p>
               <IconWrapper>
                 <MdOutlineMail />
               </IconWrapper>
-              {personal_info.email || 'example@email.com'}
+              {personal_info?.email}
             </p>
-            <p style={{ margin: 0, paddingRight: '10px', color: '#ccc' }}>
+            <p>
               <IconWrapper>
                 <MdOutlinePhone />
               </IconWrapper>
