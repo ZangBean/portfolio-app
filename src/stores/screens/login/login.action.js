@@ -7,7 +7,6 @@ export const loginUserAction = createAsyncThunk(
   async ({ username, password }, { rejectWithValue }) => {
     try {
       const response = await getUserByUsername(username);
-      console.log("Login API response:", response);
       if (!Array.isArray(response) || response.length === 0) {
         return rejectWithValue("Tên đăng nhập không tồn tại");
       }
@@ -22,10 +21,8 @@ export const loginUserAction = createAsyncThunk(
         user: { id: user.id, ...user.cv.personal_info },
         token: "fake-jwt-token",
       };
-      console.log("Login payload:", payload);
       return payload;
     } catch (error) {
-      console.error("Login error:", error.response?.data || error.message);
       return rejectWithValue(error.response?.data || error.message);
     }
   }
@@ -34,7 +31,6 @@ export const loginUserAction = createAsyncThunk(
 export const logoutUserAction = createAsyncThunk(
   "login/logoutUser",
   async (_, { dispatch }) => {
-    console.log("Logging out user");
     dispatch(logout());
     return null;
   }

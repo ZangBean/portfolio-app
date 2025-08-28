@@ -1,4 +1,4 @@
-import { Card, Col, Typography, Tag, Button } from "antd";
+import { Card, Col, Typography, Tag, Button, Modal } from "antd";
 import {
   MailOutlined,
   EnvironmentOutlined,
@@ -18,33 +18,45 @@ import IconWrapper from "./common/UI/IconWrapper";
 import StyledTitle from "./common/UI/StyledTitle";
 import { ButtonDelete, ButtonBack } from "./common/UI/Button";
 
+const { confirm } = Modal;
+
 const CardProfile = ({ personal_info, selectedUser }) => {
   const user = useSelector(selectUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     if (selectedUser?.id !== id) return;
 
-    const isConfirmed = window.confirm(
-      "Bạn có chắc chắn muốn xoá user này không?"
-    );
-    if (!isConfirmed) return;
-
-    await dispatch(deleteUserAction(id))
-      .unwrap()
-      .then(() => {
-        alert("Xoá thành công!");
-        if (user?.id === id) {
-          dispatch(logoutUserAction());
+    confirm({
+      title: "Xác nhận xóa",
+      content: "Bạn có chắc chắn muốn xóa user này không?",
+      okText: "Xóa",
+      okType: "danger",
+      cancelText: "Hủy",
+      onOk: async () => {
+        try {
+          await dispatch(deleteUserAction(id)).unwrap();
+          Modal.success({
+            title: "Thành công",
+            content: "Xóa user thành công!",
+            onOk: () => {
+              if (user?.id === id) {
+                dispatch(logoutUserAction());
+              }
+              navigate("/");
+            },
+          });
+        } catch (err) {
+          Modal.error({
+            title: "Lỗi",
+            content: "Xóa thất bại, vui lòng thử lại!",
+          });
+          console.error("Delete failed", err);
         }
-        navigate("/");
-      })
-      .catch((err) => {
-        alert("Xoá thất bại, vui lòng thử lại!");
-        console.error("Delete failed", err);
-      });
+      },
+    });
   };
 
   return (
@@ -89,15 +101,16 @@ const CardProfile = ({ personal_info, selectedUser }) => {
         </a>
       </div>
 
-      <Button style={{ marginTop: "20px" }} onClick={() => navigate("/")}>
-        Back
-      </Button>
-      {user && (
+      {user ? (
         <Button
           style={{ margin: "20px", background: "#f10707" }}
           onClick={handleDelete}
         >
           Delete
+        </Button>
+      ) : (
+        <Button style={{ marginTop: "20px" }} onClick={() => navigate("/")}>
+          Back
         </Button>
       )}
     </ProfileCardStyled>
