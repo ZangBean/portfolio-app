@@ -6,20 +6,23 @@ const DarkCard = styled(Card)`
   margin-bottom: 20px;
 
   .ant-card-head-title {
-    color: #fff !important;
+    color: #fff;
   }
 
   .ant-card-body {
-    color: #fff !important;
+    color: #fff;
   }
 
   .ant-card-meta-title {
-    color: #fff !important;
+    color: #fff;
     font-weight: 500;
   }
 
   .ant-card-meta-description {
-    color: #ccc !important;
+    color: #ccc;
+  }
+  .time-start {
+    color: #aaa;
   }
 `
 export default DarkCard

@@ -7,29 +7,11 @@ import styled from 'styled-components'
 import FeaturedWorkCard from '../components/common/UI/FeaturedWorkCard'
 import useUserDetail from '../hooks/useUserDetail'
 import FlexBox from '../components/common/UI/Flexbox'
+import DescriptionCard from '../components/common/UI/DescriptionCard'
+import DarkCard from '../components/common/UI/DarkCard'
+import MarginTop from '../components/common/UI/MarginTop'
+import ParagraphStyled from '../components/common/UI/ParagraphStyled'
 const { Paragraph } = Typography
-
-const DarkCard = styled(Card)`
-  background: #2a2a2a !important;
-  border-radius: 12px;
-
-  .ant-card-head-title {
-    color: #fff !important;
-  }
-
-  .ant-card-body {
-    color: #fff !important;
-  }
-
-  .ant-card-meta-title {
-    color: #fff !important;
-    font-weight: 500;
-  }
-
-  .ant-card-meta-description {
-    color: #ccc !important;
-  }
-`
 
 const Skills = () => {
   const { selectedUser, status, error } = useUserDetail()
@@ -38,23 +20,17 @@ const Skills = () => {
     return <Loading />
   }
 
-  if (error) {
-    return <p style={{ color: 'red' }}>Lỗi: {error}</p>
+  if (error || !selectedUser) {
+    return <ParagraphStyled color='red'>Lỗi: {error}</ParagraphStyled>
   }
 
-  if (!selectedUser) {
-    return <p>Không tìm thấy người dùng</p>
-  }
-
-  const { personal_info, skills = {} } = selectedUser.cv || {}
-
-  const cv = selectedUser.cv || {}
-
-  if (!cv) {
-    return <Loading />
-  }
-
-  const { projects, target, languages } = cv
+  const {
+    personal_info,
+    skills = {},
+    projects,
+    target,
+    languages,
+  } = selectedUser.cv || {}
 
   return (
     <FlexBox>
@@ -62,17 +38,14 @@ const Skills = () => {
         <CardProfile personal_info={personal_info} />
       </Col>
 
-      {/* Bên phải - Content */}
       <Col span={16}>
         <Container>
-          {/* Career Objective */}
           <SectionTitle level={3}>Skills</SectionTitle>
 
-          <Paragraph style={{ color: '#fff' }}>{target}</Paragraph>
+          <ParagraphStyled color='#fff'>{target}</ParagraphStyled>
 
-          {/* Languages */}
           {languages && (
-            <div style={{ marginTop: '2rem' }}>
+            <MarginTop mt='2rem'>
               <SectionTitle level={3}>Languages</SectionTitle>
               {languages.map((lang, i) => (
                 <Tag
@@ -89,39 +62,35 @@ const Skills = () => {
                   {lang.language} ({lang.level})
                 </Tag>
               ))}
-            </div>
+            </MarginTop>
           )}
 
-          {/* Skills */}
           {skills && (
-            <div style={{ marginTop: '2rem' }}>
+            <MarginTop mt='2rem'>
               <SectionTitle level={3}>Technical Skills</SectionTitle>
               <Row gutter={16}>
                 {Object.entries(skills).map(([key, list]) => (
-                  <Col span={12} key={key} style={{ marginBottom: '1rem' }}>
+                  <Col span={12} key={key}>
                     <DarkCard title={key.toUpperCase()} variant={false}>
                       {list.map((item, idx) => (
-                        <p key={idx} style={{ margin: 0 }}>
-                          • {item}
-                        </p>
+                        <p key={idx}>• {item}</p>
                       ))}
                     </DarkCard>
                   </Col>
                 ))}
               </Row>
-            </div>
+            </MarginTop>
           )}
 
-          {/* Featured Work */}
           {projects && projects.length > 0 && (
-            <div style={{ marginTop: '2rem' }}>
+            <MarginTop mt='2rem'>
               <SectionTitle level={3}>Featured Work</SectionTitle>
-              <Paragraph style={{ color: '#fff' }}>
+              <ParagraphStyled color='#fff'>
                 A glimpse into my professional journey.
-              </Paragraph>
+              </ParagraphStyled>
               <Row gutter={16}>
                 {projects.map((project, index) => (
-                  <Col span={12} key={index} style={{ marginBottom: '1rem' }}>
+                  <Col span={12} key={index}>
                     <FeaturedWorkCard
                       cover={
                         <img
@@ -133,19 +102,15 @@ const Skills = () => {
                         />
                       }
                     >
-                      <Card.Meta
-                        title={project.title}
-                        description={project.description}
-                        style={{
-                          color: '#fff',
-                          minHeight: '150px',
-                        }}
-                      />
+                      <DescriptionCard>
+                        <strong>{project.title}</strong>
+                        <p>{project.description}</p>
+                      </DescriptionCard>{' '}
                     </FeaturedWorkCard>
                   </Col>
                 ))}
               </Row>
-            </div>
+            </MarginTop>
           )}
         </Container>
       </Col>
