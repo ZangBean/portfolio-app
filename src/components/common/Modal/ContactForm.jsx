@@ -1,54 +1,58 @@
-import { Input } from "antd";
+import { Input, Form } from 'antd'
 
 const ContactForm = ({ formik }) => {
   return (
-    <div>
-      <div>
-        <label>Email</label>
+    <Form layout='vertical'>
+      <Form.Item label='Email' required>
         <Input
-          name="email"
+          name='email'
           value={formik.values.email}
           onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
         />
-        {formik.touched.email && formik.errors.email && (
-          <div style={{ color: "red" }}>{formik.errors.email}</div>
-        )}
-      </div>
-      <div>
-        <label>Số điện thoại</label>
+      </Form.Item>
+
+      <Form.Item label='Số điện thoại'>
         <Input
-          name="phone"
+          name='phone'
           value={formik.values.phone}
           onChange={formik.handleChange}
         />
-      </div>
-      <div>
-        <label>GitHub</label>
+      </Form.Item>
+
+      <Form.Item label='Địa chỉ'>
         <Input
-          name="github"
+          name='address'
+          value={formik.values.address}
+          onChange={formik.handleChange}
+        />
+      </Form.Item>
+
+      <Form.Item label='Facebook'>
+        <Input
+          name='facebook'
+          value={formik.values.facebook}
+          onChange={formik.handleChange}
+        />
+      </Form.Item>
+
+      <Form.Item label='LinkedIn'>
+        <Input
+          name='linkedin'
+          value={formik.values.linkedin}
+          onChange={formik.handleChange}
+        />
+      </Form.Item>
+
+      <Form.Item label='Github'>
+        <Input
+          name='github'
           value={formik.values.github}
           onChange={formik.handleChange}
         />
-      </div>
-      <div>
-        <label>Địa chỉ</label>
-        <Input
-          name="location"
-          value={formik.values.location}
-          onChange={formik.handleChange}
-        />
-      </div>
-      <div>
-        <label>Link ảnh GitHub</label>
-        <Input
-          name="github_image"
-          value={formik.values.github_image}
-          onChange={formik.handleChange}
-        />
-      </div>
-    </div>
-  );
-};
+      </Form.Item>
+    </Form>
+  )
+}
 
-export default ContactForm;
+export default ContactForm
+
