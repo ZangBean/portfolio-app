@@ -1,6 +1,5 @@
-import { useSelector } from 'react-redux'
-import { List, Card, Typography, Row, Col } from 'antd'
-import styled from 'styled-components'
+import { Row, Col } from 'antd'
+
 import CardProfile from '../components/CardProfile'
 import Container from '../components/common/UI/Container'
 import FeaturedWorkCard from '../components/common/UI/FeaturedWorkCard'
@@ -8,6 +7,9 @@ import SectionTitle from '../components/common/UI/SectionTitle'
 import Loading from '../components/Loading'
 import useUserDetail from '../hooks/useUserDetail'
 import FlexBox from '../components/common/UI/Flexbox'
+import ParagraphStyled from '../components/common/UI/ParagraphStyled'
+import MarginTop from '../components/common/UI/MarginTop'
+import DescriptionCard from '../components/common/UI/DescriptionCard'
 
 export default function Projects() {
   const { selectedUser, status, error } = useUserDetail()
@@ -16,15 +18,11 @@ export default function Projects() {
     return <Loading />
   }
 
-  if (error) {
-    return <p style={{ color: 'red' }}>Lỗi: {error}</p>
+  if (error || !selectedUser) {
+    return <ParagraphStyled color='red'>Lỗi: {error}</ParagraphStyled>
   }
 
-  if (!selectedUser) {
-    return <p>Không tìm thấy người dùng</p>
-  }
-
-  const { personal_info, projects = [], image } = selectedUser.cv || {}
+  const { personal_info, projects = [] } = selectedUser.cv || {}
 
   return (
     <FlexBox>
@@ -32,17 +30,14 @@ export default function Projects() {
         <CardProfile personal_info={personal_info} />
       </Col>
 
-      {/* Phần bên trái (Home content) */}
       <Col span={16}>
         <Container>
-          {/* Profile Info */}
           <SectionTitle>Creative Showcase</SectionTitle>
 
-          {/* Featured Work */}
-          <div style={{ marginTop: '2rem' }}>
+          <MarginTop mt='2rem'>
             <Row gutter={16}>
               {projects.map((project, index) => (
-                <Col span={12} key={index} style={{ marginBottom: '1rem' }}>
+                <Col span={12} key={index}>
                   <FeaturedWorkCard
                     cover={
                       <img
@@ -54,16 +49,15 @@ export default function Projects() {
                       />
                     }
                   >
-                    <Card.Meta
-                      title={project.title}
-                      description={project.description}
-                      style={{ color: '#fff', minHeight: '150px' }}
-                    />
+                    <DescriptionCard>
+                      <strong>{project.title}</strong>
+                      <p>{project.description}</p>
+                    </DescriptionCard>{' '}
                   </FeaturedWorkCard>
                 </Col>
               ))}
             </Row>
-          </div>
+          </MarginTop>
         </Container>
       </Col>
     </FlexBox>

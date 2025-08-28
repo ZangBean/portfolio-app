@@ -11,7 +11,6 @@ import useUserDetail from '../hooks/useUserDetail'
 import FlexBox from '../components/common/UI/Flexbox'
 import ParagraphStyled from '../components/common/UI/ParagraphStyled'
 import DescriptionCard from '../components/common/UI/DescriptionCard'
-import StyledCard from '../components/common/UI/Card'
 import MarginTop from '../components/common/UI/MarginTop'
 
 const { Paragraph } = Typography
@@ -44,7 +43,7 @@ export default function AboutMe() {
         <Container>
           <SectionTitle level={3}>Digital Identity</SectionTitle>
           <ParagraphStyled color='#fff'>{target}</ParagraphStyled>
-          <div style={{ marginTop: '2rem' }}>
+          <MarginTop mt='2rem'>
             <SectionTitle level={3}>
               <FaRegStar style={{ marginRight: '8px' }} />
               Highlights & Successes
@@ -67,9 +66,8 @@ export default function AboutMe() {
                 <HighlightText>CERTIFICATIONS & AWARDS</HighlightText>
               </Col>
             </Row>
-          </div>
+          </MarginTop>
 
-          {/* Featured Work */}
           <MarginTop mt='2rem'>
             <SectionTitle level={3}>
               <FaRegFolderOpen style={{ marginRight: '8px' }} />
@@ -78,7 +76,7 @@ export default function AboutMe() {
             <ParagraphStyled color='#fff'>
               A glimpse into my professional journey.
             </ParagraphStyled>
-            <StyledCard gutter={16}>
+            <Row gutter={16}>
               {projects.map((project, index) => (
                 <Col span={12} key={index}>
                   <FeaturedWorkCard
@@ -99,7 +97,7 @@ export default function AboutMe() {
                   </FeaturedWorkCard>
                 </Col>
               ))}
-            </StyledCard>
+            </Row>
           </MarginTop>
         </Container>
       </Col>
