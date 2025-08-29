@@ -5,11 +5,11 @@ import { Title } from '../../../pages/Home/Home.styled'
 const SkillsForm = ({ formik, handleAddLanguage, handleRemoveLanguage }) => {
   return (
     <>
-      <Title level={6}>Project</Title>
+      <Title level={4}>Skills</Title>
 
       <Form layout='vertical'>
         <Row gutter={16}>
-          <Col span={12}>
+          <Col span={24}>
             <Form.Item label='Kỹ năng Frontend'>
               <Select
                 mode='tags'
@@ -22,7 +22,7 @@ const SkillsForm = ({ formik, handleAddLanguage, handleRemoveLanguage }) => {
             </Form.Item>
           </Col>
 
-          <Col span={12}>
+          <Col span={24}>
             <Form.Item label='Kỹ năng Backend'>
               <Select
                 mode='tags'
@@ -37,7 +37,7 @@ const SkillsForm = ({ formik, handleAddLanguage, handleRemoveLanguage }) => {
         </Row>
 
         <Row gutter={16}>
-          <Col span={12}>
+          <Col span={24}>
             <Form.Item label='Kỹ năng Database'>
               <Select
                 mode='tags'
@@ -50,7 +50,7 @@ const SkillsForm = ({ formik, handleAddLanguage, handleRemoveLanguage }) => {
             </Form.Item>
           </Col>
 
-          <Col span={12}>
+          <Col span={24}>
             <Form.Item label='Kỹ năng khác'>
               <Select
                 mode='tags'

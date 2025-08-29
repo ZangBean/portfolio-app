@@ -22,6 +22,7 @@ import AddUserModal from '../../components/common/Modal/AddUserModal'
 import ParagraphStyled from '../../components/common/UI/ParagraphStyled'
 import { CiUser } from 'react-icons/ci'
 import { ButtonAdd } from '../../components/common/UI/Button'
+import ListStyled from '../../components/common/UI/ListStyled'
 
 const { Search } = Input
 
@@ -85,7 +86,7 @@ export default function Home() {
         }
         dataSource={filteredUsers}
         renderItem={(user) => (
-          <List.Item key={user.id}>
+          <ListStyled key={user.id}>
             <Link
               to={`/about/${user.id}`}
               onClick={() => dispatch(setSelectedUser(user))}
@@ -109,7 +110,7 @@ export default function Home() {
                 </CardContent>
               </Card>
             </Link>
-          </List.Item>
+          </ListStyled>
         )}
       />
 
