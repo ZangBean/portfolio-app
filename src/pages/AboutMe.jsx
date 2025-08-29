@@ -1,35 +1,35 @@
-import { Typography, Row, Col } from 'antd'
-import { FaRegStar, FaRegFolderOpen } from 'react-icons/fa'
-import Container from '../components/common/UI/Container'
-import FeaturedWorkCard from '../components/common/UI/FeaturedWorkCard'
-import HighlightNumber from '../components/common/UI/HighlightNumber'
-import HighlightText from '../components/common/UI/HighlightText'
-import SectionTitle from '../components/common/UI/SectionTitle'
-import CardProfile from '../components/CardProfile'
-import Loading from '../components/Loading'
-import useUserDetail from '../hooks/useUserDetail'
-import FlexBox from '../components/common/UI/Flexbox'
-import ParagraphStyled from '../components/common/UI/ParagraphStyled'
-import DescriptionCard from '../components/common/UI/DescriptionCard'
-import MarginTop from '../components/common/UI/MarginTop'
+import { Typography, Row, Col } from "antd";
+import { FaRegStar, FaRegFolderOpen } from "react-icons/fa";
+import Container from "../components/common/UI/Container";
+import FeaturedWorkCard from "../components/common/UI/FeaturedWorkCard";
+import HighlightNumber from "../components/common/UI/HighlightNumber";
+import HighlightText from "../components/common/UI/HighlightText";
+import SectionTitle from "../components/common/UI/SectionTitle";
+import CardProfile from "../components/CardProfile";
+import Loading from "../components/Loading";
+import useUserDetail from "../hooks/useUserDetail";
+import FlexBox from "../components/common/UI/Flexbox";
+import ParagraphStyled from "../components/common/UI/ParagraphStyled";
+import DescriptionCard from "../components/common/UI/DescriptionCard";
+import MarginTop from "../components/common/UI/MarginTop";
 
-const { Paragraph } = Typography
+const { Paragraph } = Typography;
 
 export default function AboutMe() {
-  const { selectedUser, status, error } = useUserDetail()
+  const { selectedUser, status, error } = useUserDetail();
 
-  if (status === 'loading' && !selectedUser) return <Loading />
+  if (status === "loading" && !selectedUser) return <Loading />;
   if (error)
-    return <ParagraphStyled color='red'>Error: {error}</ParagraphStyled>
-  if (!selectedUser) return <Paragraph>Không tìm thấy người dùng</Paragraph>
+    return <ParagraphStyled color="red">Error: {error}</ParagraphStyled>;
+  if (!selectedUser) return <Paragraph>User not found</Paragraph>;
 
   const {
     personal_info = {},
     experience = {},
     projects = [],
-    target = '',
+    target = "",
     certifications_awards = 0,
-  } = selectedUser.cv || {}
+  } = selectedUser.cv || {};
 
   return (
     <FlexBox>
@@ -42,10 +42,10 @@ export default function AboutMe() {
       <Col span={16}>
         <Container>
           <SectionTitle level={3}>Digital Identity</SectionTitle>
-          <ParagraphStyled color='#fff'>{target}</ParagraphStyled>
-          <MarginTop mt='2rem'>
+          <ParagraphStyled color="#fff">{target}</ParagraphStyled>
+          <MarginTop mt="2rem">
             <SectionTitle level={3}>
-              <FaRegStar style={{ marginRight: '8px' }} />
+              <FaRegStar style={{ marginRight: "8px" }} />
               Highlights & Successes
             </SectionTitle>
             <Row gutter={16}>
@@ -68,12 +68,12 @@ export default function AboutMe() {
             </Row>
           </MarginTop>
 
-          <MarginTop mt='2rem'>
+          <MarginTop mt="2rem">
             <SectionTitle level={3}>
-              <FaRegFolderOpen style={{ marginRight: '8px' }} />
+              <FaRegFolderOpen style={{ marginRight: "8px" }} />
               Featured Work
             </SectionTitle>
-            <ParagraphStyled color='#fff'>
+            <ParagraphStyled color="#fff">
               A glimpse into my professional journey.
             </ParagraphStyled>
             <Row gutter={16}>
@@ -85,7 +85,7 @@ export default function AboutMe() {
                         alt={project.title}
                         src={
                           project.image ||
-                          'https://picsum.photos/200/200?grayscale'
+                          "https://picsum.photos/200/200?grayscale"
                         }
                       />
                     }
@@ -93,7 +93,7 @@ export default function AboutMe() {
                     <DescriptionCard>
                       <strong>{project.title}</strong>
                       <p>{project.description}</p>
-                    </DescriptionCard>{' '}
+                    </DescriptionCard>
                   </FeaturedWorkCard>
                 </Col>
               ))}
@@ -102,6 +102,5 @@ export default function AboutMe() {
         </Container>
       </Col>
     </FlexBox>
-  )
+  );
 }
-

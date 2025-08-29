@@ -10,7 +10,7 @@ import {
 import { Form, Input, Button, Alert, message } from "antd";
 import LoginWrapper from "../components/common/UI/LoginWrapper";
 import LoginForm from "../components/common/UI/LoginForm";
-import { Title } from "./Home/Home.styled";
+import { TitleH2 } from "../components/common/UI/Title";
 
 const Login = () => {
   const [form] = Form.useForm();
@@ -32,17 +32,17 @@ const Login = () => {
     try {
       const result = await dispatch(loginUserAction(values)).unwrap();
       if (result) {
-        message.success("Đăng nhập thành công!");
+        message.success("Login successful!");
       }
     } catch (error) {
-      message.error(error || "Đăng nhập thất bại!");
+      message.error(error || "Login failed!");
     }
   };
 
   return (
     <LoginWrapper>
       <LoginForm form={form} onFinish={handleSubmit} layout="vertical">
-        <Title>Đăng nhập</Title>
+        <TitleH2>Login</TitleH2>
         {error && (
           <Alert
             message={error}
@@ -52,22 +52,22 @@ const Login = () => {
           />
         )}
         <Form.Item
-          label="Tên đăng nhập"
+          label="Username"
           name="username"
-          rules={[{ required: true, message: "Vui lòng nhập tên đăng nhập!" }]}
+          rules={[{ required: true, message: "Please enter your username!" }]}
         >
-          <Input placeholder="Nhập tên đăng nhập" />
+          <Input placeholder="Enter your username" />
         </Form.Item>
         <Form.Item
-          label="Mật khẩu"
+          label="Password"
           name="password"
-          rules={[{ required: true, message: "Vui lòng nhập mật khẩu!" }]}
+          rules={[{ required: true, message: "Please enter your password!" }]}
         >
-          <Input.Password placeholder="Nhập mật khẩu" />
+          <Input.Password placeholder="Enter your password" />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" loading={loading} block>
-            {loading ? "Đang đăng nhập..." : "Đăng nhập"}
+            {loading ? "Logging in..." : "Login"}
           </Button>
         </Form.Item>
       </LoginForm>

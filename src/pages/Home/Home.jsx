@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 import {
   StyledLayout,
   StyledList,
@@ -10,50 +10,46 @@ import {
   FallbackAvatar,
   Info,
   Title,
-} from './Home.styled'
-import { UserAddOutlined } from '@ant-design/icons'
-import { List, Input } from 'antd'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { fetchUsersAction } from '../../stores/screens/user/user.action'
-import { setSelectedUser } from '../../stores/screens/user/user.reducer'
-import Loading from '../../components/Loading'
-import AddUserModal from '../../components/common/Modal/AddUserModal'
-import ParagraphStyled from '../../components/common/UI/ParagraphStyled'
-import { CiUser } from 'react-icons/ci'
-import { ButtonAdd } from '../../components/common/UI/Button'
-import ListStyled from '../../components/common/UI/ListStyled'
+} from "./Home.styled";
+import { UserAddOutlined } from "@ant-design/icons";
+import { List, Input } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { fetchUsersAction } from "../../stores/screens/user/user.action";
+import { setSelectedUser } from "../../stores/screens/user/user.reducer";
+import Loading from "../../components/Loading";
+import AddUserModal from "../../components/common/Modal/AddUserModal";
+import ParagraphStyled from "../../components/common/UI/ParagraphStyled";
+import { CiUser } from "react-icons/ci";
+import { ButtonAdd } from "../../components/common/UI/Button";
+import ListStyled from "../../components/common/UI/ListStyled";
 
-const { Search } = Input
+const { Search } = Input;
 
 export default function Home() {
-  const dispatch = useDispatch()
-  const users = useSelector((state) => state.user.data || [])
-  const { status, error } = useSelector((state) => state.user)
-  const [isModalVisible, setIsModalVisible] = useState(false)
-  const [searchTerm, setSearchTerm] = useState('')
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.user.data || []);
+  const { status, error } = useSelector((state) => state.user);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const handleOpenModal = () => {
-    setIsModalVisible(true)
-  }
-  const handleCloseModal = () => {
-    setIsModalVisible(false)
-  }
+  const handleOpenModal = () => setIsModalVisible(true);
+  const handleCloseModal = () => setIsModalVisible(false);
 
   useEffect(() => {
-    dispatch(fetchUsersAction())
-  }, [dispatch])
+    dispatch(fetchUsersAction());
+  }, [dispatch]);
 
-  if (status === 'loading') {
-    return <Loading />
-  } else if (status === 'failed') {
-    return <ParagraphStyled color='red'>Error: {error}</ParagraphStyled>
+  if (status === "loading") {
+    return <Loading />;
+  } else if (status === "failed") {
+    return <ParagraphStyled color="red">Error: {error}</ParagraphStyled>;
   }
 
-  // filter users theo searchTerm
+  // Filter users by search term
   const filteredUsers = users.filter((user) =>
     user.cv.personal_info.name.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+  );
 
   return (
     <StyledLayout>
@@ -61,22 +57,22 @@ export default function Home() {
         grid={{ gutter: 16, column: 3 }}
         header={
           <Header>
-            <div className='title'>
-              Lists User
-              <CiUser className='icon-user' />
+            <div className="title">
+              User List
+              <CiUser className="icon-user" />
             </div>
 
             <Search
-              style={{ width: '300px' }}
-              placeholder='Search user by name...'
+              style={{ width: "300px" }}
+              placeholder="Search user by name..."
               enterButton
               allowClear
               onSearch={(value) => setSearchTerm(value)}
             />
 
             <ButtonAdd
-              type='primary'
-              title='Add User'
+              type="primary"
+              title="Add User"
               onClick={handleOpenModal}
             >
               Add User
@@ -100,17 +96,19 @@ export default function Home() {
               <Card>
                 <CardContent>
                   {user.cv.personal_info.image ? (
-                    <Avatar src={user.cv.personal_info.image} alt='avatar' />
+                    <Avatar src={user.cv.personal_info.image} alt="avatar" />
                   ) : (
                     <FallbackAvatar>
-                      {user.cv.personal_info.name[0]}
+                      {user.cv.personal_info.name[0] || "U"}
                     </FallbackAvatar>
                   )}
                   <Info>
-                    <Title>{user.cv.personal_info.name}</Title>
+                    <Title>
+                      {user.cv.personal_info.name || "Unnamed User"}
+                    </Title>
                     <Description>
-                      <p>Email: {user.cv.personal_info.email || 'N/A'}</p>
-                      <p>Phone: {user.cv.personal_info.phone || 'N/A'}</p>
+                      <p>Email: {user.cv.personal_info.email || "N/A"}</p>
+                      <p>Phone: {user.cv.personal_info.phone || "N/A"}</p>
                     </Description>
                   </Info>
                 </CardContent>
@@ -122,6 +120,5 @@ export default function Home() {
 
       <AddUserModal visible={isModalVisible} onClose={handleCloseModal} />
     </StyledLayout>
-  )
+  );
 }
-

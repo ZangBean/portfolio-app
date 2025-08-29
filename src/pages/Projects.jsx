@@ -1,28 +1,28 @@
-import { Row, Col } from 'antd'
+import { Row, Col } from "antd";
 
-import CardProfile from '../components/CardProfile'
-import Container from '../components/common/UI/Container'
-import FeaturedWorkCard from '../components/common/UI/FeaturedWorkCard'
-import SectionTitle from '../components/common/UI/SectionTitle'
-import Loading from '../components/Loading'
-import useUserDetail from '../hooks/useUserDetail'
-import FlexBox from '../components/common/UI/Flexbox'
-import ParagraphStyled from '../components/common/UI/ParagraphStyled'
-import MarginTop from '../components/common/UI/MarginTop'
-import DescriptionCard from '../components/common/UI/DescriptionCard'
+import CardProfile from "../components/CardProfile";
+import Container from "../components/common/UI/Container";
+import FeaturedWorkCard from "../components/common/UI/FeaturedWorkCard";
+import SectionTitle from "../components/common/UI/SectionTitle";
+import Loading from "../components/Loading";
+import useUserDetail from "../hooks/useUserDetail";
+import FlexBox from "../components/common/UI/Flexbox";
+import ParagraphStyled from "../components/common/UI/ParagraphStyled";
+import MarginTop from "../components/common/UI/MarginTop";
+import DescriptionCard from "../components/common/UI/DescriptionCard";
 
 export default function Projects() {
-  const { selectedUser, status, error } = useUserDetail()
+  const { selectedUser, status, error } = useUserDetail();
 
-  if (status === 'loading' && !selectedUser) {
-    return <Loading />
+  if (status === "loading" && !selectedUser) {
+    return <Loading />;
   }
 
   if (error || !selectedUser) {
-    return <ParagraphStyled color='red'>Lỗi: {error}</ParagraphStyled>
+    return <ParagraphStyled color="red">Error: {error}</ParagraphStyled>;
   }
 
-  const { personal_info, projects = [] } = selectedUser.cv || {}
+  const { personal_info, projects = [] } = selectedUser.cv || {};
 
   return (
     <FlexBox>
@@ -34,7 +34,7 @@ export default function Projects() {
         <Container>
           <SectionTitle>Creative Showcase</SectionTitle>
 
-          <MarginTop mt='2rem'>
+          <MarginTop mt="2rem">
             <Row gutter={16}>
               {projects.map((project, index) => (
                 <Col span={12} key={index}>
@@ -44,15 +44,15 @@ export default function Projects() {
                         alt={project.title}
                         src={
                           project.image ||
-                          'https://picsum.photos/200/200?grayscale'
+                          "https://picsum.photos/200/200?grayscale"
                         }
                       />
                     }
                   >
                     <DescriptionCard>
                       <strong>{project.title}</strong>
-                      <p>{project.description}</p>
-                    </DescriptionCard>{' '}
+                      <p>{project.description || "No description available"}</p>
+                    </DescriptionCard>
                   </FeaturedWorkCard>
                 </Col>
               ))}
@@ -61,6 +61,5 @@ export default function Projects() {
         </Container>
       </Col>
     </FlexBox>
-  )
+  );
 }
-
