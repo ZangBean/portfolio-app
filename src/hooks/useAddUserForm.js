@@ -146,11 +146,6 @@ const useAddUserForm = (onClose, user, isEditMode = false) => {
         },
       };
 
-      console.log(
-        "Formatted values:",
-        JSON.stringify(formattedValues, null, 2)
-      );
-
       try {
         if (isEditMode && user && user.id) {
           await dispatch(
@@ -167,7 +162,6 @@ const useAddUserForm = (onClose, user, isEditMode = false) => {
         message.error(
           err || (isEditMode ? "Cập nhật thất bại!" : "Thêm user thất bại!")
         );
-        console.error("Submit error:", err);
       }
     },
   });
