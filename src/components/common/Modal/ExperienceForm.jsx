@@ -5,7 +5,6 @@ import { Title } from '../../../pages/Home/Home.styled'
 const ExperienceForm = ({ formik }) => {
   return (
     <>
-      {' '}
       <Title level={4}>Experience</Title>
       <Form layout='vertical'>
         <Form.Item label='Tên công ty' required>
