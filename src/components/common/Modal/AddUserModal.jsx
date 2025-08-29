@@ -1,17 +1,21 @@
-import { Modal, Button, Row, Col } from "antd";
-import useAddUserForm from "../../../hooks/useAddUserForm";
-import AboutForm from "./AboutForm";
-import ProjectsForm from "./ProjectsForm";
-import SkillsForm from "./SkillsForm";
-import ExperienceForm from "./ExperienceForm";
-import ContactForm from "./ContactForm";
-
+import { Modal, Button, Row, Col } from 'antd'
+import useAddUserForm from '../../../hooks/useAddUserForm'
+import AboutForm from './AboutForm'
+import ProjectsForm from './ProjectsForm'
+import SkillsForm from './SkillsForm'
+import ExperienceForm from './ExperienceForm'
+import ContactForm from './ContactForm'
+import styled from 'styled-components'
+const Wrap = styled.div`
+  text-align: right;
+  margin-top: 16px;
+`
 const AddUserModal = ({ visible, onClose, user, isEditMode = false }) => {
-  const { formik, loading } = useAddUserForm(onClose, user, isEditMode);
+  const { formik, loading } = useAddUserForm(onClose, user, isEditMode)
 
   return (
     <Modal
-      title={isEditMode ? "Sửa User" : "Thêm User"}
+      title={isEditMode ? 'Sửa User' : 'Thêm User'}
       open={visible}
       onCancel={onClose}
       footer={null}
@@ -43,17 +47,18 @@ const AddUserModal = ({ visible, onClose, user, isEditMode = false }) => {
             <ContactForm formik={formik} />
           </Col>
         </Row>
-        <div style={{ textAlign: "right", marginTop: 16 }}>
+        <Wrap>
           <Button onClick={onClose} style={{ marginRight: 8 }}>
             Hủy
           </Button>
-          <Button type="primary" htmlType="submit" loading={loading}>
-            {isEditMode ? "Cập nhật" : "Thêm"}
+          <Button type='primary' htmlType='submit' loading={loading}>
+            {isEditMode ? 'Cập nhật' : 'Thêm'}
           </Button>
-        </div>
+        </Wrap>
       </form>
     </Modal>
-  );
-};
+  )
+}
 
-export default AddUserModal;
+export default AddUserModal
+
