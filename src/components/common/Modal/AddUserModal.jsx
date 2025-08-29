@@ -1,24 +1,23 @@
-
-import { Modal, Button, Row, Col } from 'antd'
-import useAddUserForm from '../../../hooks/useAddUserForm'
-import AboutForm from './AboutForm'
-import ProjectsForm from './ProjectsForm'
-import SkillsForm from './SkillsForm'
-import ExperienceForm from './ExperienceForm'
-import ContactForm from './ContactForm'
+import { Modal, Button, Row, Col } from "antd";
+import useAddUserForm from "../../../hooks/useAddUserForm";
+import AboutForm from "./AboutForm";
+import ProjectsForm from "./ProjectsForm";
+import SkillsForm from "./SkillsForm";
+import ExperienceForm from "./ExperienceForm";
+import ContactForm from "./ContactForm";
 import { StyledModal } from "../UI/Title";
+import styled from "styled-components";
 const Wrap = styled.div`
   text-align: right;
   margin-top: 16px;
-`
+`;
 const AddUserModal = ({ visible, onClose, user, isEditMode = false }) => {
-  const { formik, loading } = useAddUserForm(onClose, user, isEditMode)
+  const { formik, loading } = useAddUserForm(onClose, user, isEditMode);
 
   return (
     <StyledModal
       className="custom-modal"
       title={isEditMode ? "Edit User" : "Add User"}
-
       open={visible}
       onCancel={onClose}
       footer={null}
@@ -57,16 +56,11 @@ const AddUserModal = ({ visible, onClose, user, isEditMode = false }) => {
 
           <Button type="primary" htmlType="submit" loading={loading}>
             {isEditMode ? "Update" : "Add"}
-
           </Button>
         </Wrap>
       </form>
-
     </StyledModal>
   );
 };
 
-
-export default AddUserModal
-
-
+export default AddUserModal;
