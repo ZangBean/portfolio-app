@@ -1,0 +1,13 @@
+import styled from 'styled-components'
+
+const Container = styled.div`
+  background-color: #333;
+  color: #fff;
+  min-height: 90vh;
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
+  border-radius: 20px;
+  margin-left: 20px;
+  border: 2px solid #494949;
+`
+export default Container
