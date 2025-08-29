@@ -3,12 +3,13 @@ import styled from 'styled-components'
 
 export const StyledLayout = styled.div`
   display: flex;
-  justify-content: center;
+
   padding: 20px;
 `
 
 export const StyledList = styled(List)`
-  width: 100%;
+  width: 1600px;
+  margin: 0 auto;
   @media (max-width: 768px) {
     width: 80%;
   }
