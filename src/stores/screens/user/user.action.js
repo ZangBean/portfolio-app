@@ -52,10 +52,7 @@ export const updateUserAction = createAsyncThunk(
   "user/updateUser",
   async ({ id, data }, { rejectWithValue }) => {
     try {
-      console.log("Data sent:", data);
       const response = await updateUser(id, data);
-      console.log("res", response);
-
       return response;
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);
