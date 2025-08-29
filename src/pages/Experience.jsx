@@ -82,7 +82,7 @@ const Experience = () => {
           </MarginTop>
 
           {/* Experience Timeline */}
-          {experiences && experiences.length > 0 ? (
+          {experiences && experiences.length > 0 && (
             <MarginTop mt="2rem">
               <SectionTitle level={3}>Experience</SectionTitle>
               <TimelineStyled
@@ -124,8 +124,6 @@ const Experience = () => {
                   .filter(Boolean)}
               />
             </MarginTop>
-          ) : (
-            <ParagraphStyled>No experience listed</ParagraphStyled>
           )}
 
           {education && (
