@@ -36,7 +36,7 @@ const Experience = () => {
 
   const experiences = Array.isArray(experience)
     ? experience
-    : [experience].filter(Boolean); // Loại bỏ undefined/null
+    : [experience].filter(Boolean);
 
   return (
     <FlexBox>
