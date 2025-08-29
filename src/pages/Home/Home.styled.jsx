@@ -8,15 +8,19 @@ export const StyledLayout = styled.div`
 `
 
 export const StyledList = styled(List)`
-  width: 100%; /* full width để hiển thị 4 cột */
+  width: 100%;
+  @media (max-width: 768px) {
+    width: 80%;
+  }
 `
 
 export const Header = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between; /* đẩy nội dung ra 2 bên */
+  justify-content: space-between;
   margin-bottom: 16px;
   color: #fff;
+  flex-wrap: wrap;
 
   .title {
     display: flex;
@@ -30,10 +34,41 @@ export const Header = styled.div`
     font-size: 24px;
     cursor: pointer;
     transition: transform 0.3s, color 0.3s;
-
     &:hover {
       color: #40a9ff;
       transform: scale(1.2);
+    }
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* responsive */
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+
+    .title {
+      font-size: 20px;
+      width: 100%; /* chiếm 1 hàng riêng */
+    }
+
+    .actions {
+      width: 100%;
+      display: flex;
+      justify-content: space-between; /* Search trái, Button phải */
+    }
+
+    .ant-input-search {
+      flex: 1;
+    }
+
+    button {
+      flex-shrink: 0;
     }
   }
 `
