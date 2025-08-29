@@ -1,11 +1,15 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { createUserAction } from "../stores/screens/user/user.action";
+import {
+  createUserAction,
+  updateUserAction,
+} from "../stores/screens/user/user.action";
 import moment from "moment";
 import { message } from "antd";
+import { useEffect } from "react";
 
-const useAddUserForm = (onClose) => {
+const useAddUserForm = (onClose, user, isEditMode = false) => {
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.user);
 
@@ -50,13 +54,15 @@ const useAddUserForm = (onClose) => {
     },
     validationSchema: Yup.object({
       username: Yup.string().required("Vui lòng nhập tên đăng nhập"),
-      password: Yup.string().required("Vui lòng nhập mật khẩu"),
+      password: isEditMode
+        ? Yup.string().optional()
+        : Yup.string().required("Vui lòng nhập mật khẩu"),
       email: Yup.string().email("Vui lòng nhập email hợp lệ").optional(),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const formattedValues = {
         username: values.username,
-        password: values.password,
+        password: values.password || undefined,
         cv: {
           personal_info: {
             name: values.name || undefined,
@@ -139,17 +145,96 @@ const useAddUserForm = (onClose) => {
           certifications_awards: values.certifications_awards || undefined,
         },
       };
-      dispatch(createUserAction(formattedValues))
-        .then(() => {
-          formik.resetForm();
-          onClose();
+
+      console.log(
+        "Formatted values:",
+        JSON.stringify(formattedValues, null, 2)
+      );
+
+      try {
+        if (isEditMode && user && user.id) {
+          await dispatch(
+            updateUserAction({ id: user.id, data: formattedValues })
+          ).unwrap();
+          message.success("Cập nhật user thành công!");
+        } else {
+          await dispatch(createUserAction(formattedValues)).unwrap();
           message.success("Thêm user thành công!");
-        })
-        .catch(() => {
-          message.error(error || "Thêm user thất bại!");
-        });
+        }
+        formik.resetForm();
+        onClose();
+      } catch (err) {
+        message.error(
+          err || (isEditMode ? "Cập nhật thất bại!" : "Thêm user thất bại!")
+        );
+        console.error("Submit error:", err);
+      }
     },
   });
+
+  useEffect(() => {
+    if (isEditMode && user && user.id) {
+      formik.setValues({
+        username: user.username || "",
+        password: user.password || "",
+        name: user.cv?.personal_info?.name || "",
+        position: user.cv?.personal_info?.position || "",
+        image: user.cv?.personal_info?.image || "",
+        birth_date: user.cv?.personal_info?.birth_date
+          ? moment(user.cv.personal_info.birth_date, "DD/MM/YY").toDate()
+          : null,
+        gender: user.cv?.personal_info?.gender || "",
+        email: user.cv?.personal_info?.email || "",
+        phone: user.cv?.personal_info?.phone || "",
+        github: user.cv?.personal_info?.github || "",
+        location: user.cv?.personal_info?.location || "",
+        github_image: user.cv?.personal_info?.github_image || "",
+        skills: user.cv?.skills || {
+          frontend: [],
+          backend: [],
+          database: [],
+          other: [],
+        },
+        languages: user.cv?.languages || [],
+        target: user.cv?.target || "",
+        education: user.cv?.education || {
+          institution: "",
+          faculty: "",
+          major: "",
+          period: { start: null, end: null },
+        },
+        experience: user.cv?.experience || {
+          company: "",
+          website: "",
+          period: { start: null, end: null },
+          description: [],
+          years_of_experience: 0,
+        },
+        projects:
+          user.cv?.projects?.map((project) => ({
+            title: project.title || "",
+            period: {
+              start: project.period?.start
+                ? moment(project.period.start, "MMMM YYYY").toDate()
+                : null,
+              end: project.period?.end
+                ? moment(project.period.end, "MMMM YYYY").toDate()
+                : null,
+            },
+            languages: project.languages || [],
+            frameworks: project.frameworks || [],
+            database: project.database || "",
+            description: project.description || "",
+            main_functions: project.main_functions || [],
+            image: project.image || "",
+          })) || [],
+        projects_completed: user.cv?.projects_completed || 0,
+        certifications_awards: user.cv?.certifications_awards || 0,
+      });
+    } else {
+      formik.resetForm();
+    }
+  }, [user, isEditMode]);
 
   const handleAddLanguage = () => {
     formik.setFieldValue("languages", [

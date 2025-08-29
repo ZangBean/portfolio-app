@@ -1,17 +1,17 @@
-import { Modal, Button, Row, Col } from 'antd'
-import useAddUserForm from '../../../hooks/useAddUserForm'
-import AboutForm from './AboutForm'
-import ProjectsForm from './ProjectsForm'
-import SkillsForm from './SkillsForm'
-import ExperienceForm from './ExperienceForm'
-import ContactForm from './ContactForm'
+import { Modal, Button, Row, Col } from "antd";
+import useAddUserForm from "../../../hooks/useAddUserForm";
+import AboutForm from "./AboutForm";
+import ProjectsForm from "./ProjectsForm";
+import SkillsForm from "./SkillsForm";
+import ExperienceForm from "./ExperienceForm";
+import ContactForm from "./ContactForm";
 
-const AddUserModal = ({ visible, onClose }) => {
-  const { formik, loading } = useAddUserForm(onClose)
+const AddUserModal = ({ visible, onClose, user, isEditMode = false }) => {
+  const { formik, loading } = useAddUserForm(onClose, user, isEditMode);
 
   return (
     <Modal
-      title='Add User'
+      title={isEditMode ? "Sửa User" : "Thêm User"}
       open={visible}
       onCancel={onClose}
       footer={null}
@@ -43,18 +43,17 @@ const AddUserModal = ({ visible, onClose }) => {
             <ContactForm formik={formik} />
           </Col>
         </Row>
-        <div style={{ textAlign: 'right', marginTop: 16 }}>
+        <div style={{ textAlign: "right", marginTop: 16 }}>
           <Button onClick={onClose} style={{ marginRight: 8 }}>
-            Cancel
+            Hủy
           </Button>
-          <Button type='primary' htmlType='submit' loading={loading}>
-            Add
+          <Button type="primary" htmlType="submit" loading={loading}>
+            {isEditMode ? "Cập nhật" : "Thêm"}
           </Button>
         </div>
       </form>
     </Modal>
-  )
-}
+  );
+};
 
-export default AddUserModal
-
+export default AddUserModal;

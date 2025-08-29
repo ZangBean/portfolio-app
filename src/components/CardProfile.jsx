@@ -1,4 +1,14 @@
-import { Card, Col, Typography, Tag, Button, Modal } from "antd";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteUserAction } from "../stores/screens/user/user.action";
+import { logoutUserAction } from "../stores/screens/login/login.action";
+import { selectUser } from "../stores/screens/rootSelector";
+import { Modal, Tag } from "antd";
+import { useState } from "react";
+import ProfileCardStyled from "./common/UI/ProfileCardStyled";
+import IconWrapper from "./common/UI/IconWrapper";
+import StyledTitle from "./common/UI/StyledTitle";
+import { ButtonDelete, ButtonBack, ButtonEdit } from "./common/UI/Button";
 import {
   MailOutlined,
   EnvironmentOutlined,
@@ -8,15 +18,7 @@ import {
   FacebookOutlined,
   TwitterOutlined,
 } from "@ant-design/icons";
-import { useNavigate, useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { deleteUserAction } from "../stores/screens/user/user.action";
-import { logoutUserAction } from "../stores/screens/login/login.action";
-import { selectUser } from "../stores/screens/rootSelector";
-import ProfileCardStyled from "./common/UI/ProfileCardStyled";
-import IconWrapper from "./common/UI/IconWrapper";
-import StyledTitle from "./common/UI/StyledTitle";
-import { ButtonDelete, ButtonBack } from "./common/UI/Button";
+import AddUserModal from "../components/common/Modal/AddUserModal";
 
 const { confirm } = Modal;
 
@@ -25,6 +27,15 @@ const CardProfile = ({ personal_info, selectedUser }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const handleEdit = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+  };
 
   const handleDelete = () => {
     if (selectedUser?.id !== id) return;
@@ -53,7 +64,7 @@ const CardProfile = ({ personal_info, selectedUser }) => {
             title: "Lỗi",
             content: "Xóa thất bại, vui lòng thử lại!",
           });
-          console.error("Delete failed", err);
+          console.error("Xóa thất bại", err);
         }
       },
     });
@@ -62,11 +73,9 @@ const CardProfile = ({ personal_info, selectedUser }) => {
   return (
     <ProfileCardStyled>
       <img src={personal_info.image} alt="avatar" />
-
       <StyledTitle level={4}>{personal_info.name}</StyledTitle>
-
       <Tag className="role">
-        {personal_info.position || "Software Developer"}
+        {personal_info.position || "Nhà phát triển phần mềm"}
       </Tag>
       <hr />
       <div className="contact-info">
@@ -80,7 +89,7 @@ const CardProfile = ({ personal_info, selectedUser }) => {
           <IconWrapper>
             <EnvironmentOutlined />
           </IconWrapper>
-          {personal_info.location || "Unknown"}
+          {personal_info.location || "Không xác định"}
         </p>
       </div>
       <div className="social-icons">
@@ -102,17 +111,20 @@ const CardProfile = ({ personal_info, selectedUser }) => {
       </div>
 
       {user ? (
-        <Button
-          style={{ margin: "20px", background: "#f10707" }}
-          onClick={handleDelete}
-        >
-          Delete
-        </Button>
+        <>
+          <ButtonDelete onClick={handleDelete}>Delete</ButtonDelete>
+          <ButtonEdit onClick={handleEdit}>Edit</ButtonEdit>
+        </>
       ) : (
-        <Button style={{ marginTop: "20px" }} onClick={() => navigate("/")}>
-          Back
-        </Button>
+        <ButtonBack onClick={() => navigate("/")}>Back</ButtonBack>
       )}
+
+      <AddUserModal
+        visible={isModalVisible}
+        onClose={handleCloseModal}
+        user={selectedUser}
+        isEditMode={true}
+      />
     </ProfileCardStyled>
   );
 };
