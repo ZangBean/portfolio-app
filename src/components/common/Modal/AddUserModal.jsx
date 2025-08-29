@@ -10,13 +10,7 @@ const AddUserModal = ({ visible, onClose }) => {
   const { formik, loading } = useAddUserForm(onClose)
 
   return (
-    <Modal
-      title='Add User'
-      open={visible}
-      onCancel={onClose}
-      footer={null}
-      width={1600}
-    >
+    <Modal open={visible} onCancel={onClose} footer={null} width={1600}>
       <form onSubmit={formik.handleSubmit}>
         <Row gutter={[16, 16]}>
           <Col span={5}>
