@@ -10,7 +10,6 @@ const AddUserModal = ({ visible, onClose, user, isEditMode = false }) => {
   const { formik, loading } = useAddUserForm(onClose, user, isEditMode);
 
   return (
-<<<<<<< HEAD
     <Modal
       title={isEditMode ? "Sửa User" : "Thêm User"}
       open={visible}
@@ -18,9 +17,6 @@ const AddUserModal = ({ visible, onClose, user, isEditMode = false }) => {
       footer={null}
       width={1600}
     >
-=======
-    <Modal open={visible} onCancel={onClose} footer={null} width={1600}>
->>>>>>> 033461d9085375706d7d84459526c0a21da2ea5e
       <form onSubmit={formik.handleSubmit}>
         <Row gutter={[16, 16]}>
           <Col span={5}>
