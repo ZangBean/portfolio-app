@@ -85,6 +85,12 @@ export default function Home() {
           </Header>
         }
         dataSource={filteredUsers}
+        pagination={{
+          pageSize: 9,
+          showSizeChanger: false,
+          position: 'bottom',
+          align: 'center',
+        }}
         renderItem={(user) => (
           <ListStyled key={user.id}>
             <Link
