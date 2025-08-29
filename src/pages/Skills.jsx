@@ -1,36 +1,34 @@
-import { Row, Col, Typography, Card, Tag } from 'antd'
-import CardProfile from '../components/CardProfile'
-import Container from '../components/common/UI/Container'
-import SectionTitle from '../components/common/UI/SectionTitle'
-import Loading from '../components/Loading'
-import styled from 'styled-components'
-import FeaturedWorkCard from '../components/common/UI/FeaturedWorkCard'
-import useUserDetail from '../hooks/useUserDetail'
-import FlexBox from '../components/common/UI/Flexbox'
-import DescriptionCard from '../components/common/UI/DescriptionCard'
-import DarkCard from '../components/common/UI/DarkCard'
-import MarginTop from '../components/common/UI/MarginTop'
-import ParagraphStyled from '../components/common/UI/ParagraphStyled'
-const { Paragraph } = Typography
+import { Row, Col, Tag } from "antd";
+import CardProfile from "../components/CardProfile";
+import Container from "../components/common/UI/Container";
+import SectionTitle from "../components/common/UI/SectionTitle";
+import Loading from "../components/Loading";
+import FeaturedWorkCard from "../components/common/UI/FeaturedWorkCard";
+import useUserDetail from "../hooks/useUserDetail";
+import FlexBox from "../components/common/UI/Flexbox";
+import DescriptionCard from "../components/common/UI/DescriptionCard";
+import DarkCard from "../components/common/UI/DarkCard";
+import MarginTop from "../components/common/UI/MarginTop";
+import ParagraphStyled from "../components/common/UI/ParagraphStyled";
 
 const Skills = () => {
-  const { selectedUser, status, error } = useUserDetail()
+  const { selectedUser, status, error } = useUserDetail();
 
-  if (status === 'loading' && !selectedUser) {
-    return <Loading />
+  if (status === "loading" && !selectedUser) {
+    return <Loading />;
   }
 
   if (error || !selectedUser) {
-    return <ParagraphStyled color='red'>Lỗi: {error}</ParagraphStyled>
+    return <ParagraphStyled color="red">Error: {error}</ParagraphStyled>;
   }
 
   const {
     personal_info,
     skills = {},
-    projects,
-    target,
-    languages,
-  } = selectedUser.cv || {}
+    projects = [],
+    target = "",
+    languages = [],
+  } = selectedUser.cv || {};
 
   return (
     <FlexBox>
@@ -42,21 +40,22 @@ const Skills = () => {
         <Container>
           <SectionTitle level={3}>Skills</SectionTitle>
 
-          <ParagraphStyled color='#fff'>{target}</ParagraphStyled>
+          <ParagraphStyled color="#fff">
+            {target || "No career goal set"}
+          </ParagraphStyled>
 
-          {languages && (
-            <MarginTop mt='2rem'>
+          {languages.length > 0 && (
+            <MarginTop mt="2rem">
               <SectionTitle level={3}>Languages</SectionTitle>
               {languages.map((lang, i) => (
                 <Tag
                   key={i}
-                  color='blue'
+                  color="blue"
                   style={{
-                    marginBottom: '0.5rem',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    // 🔹 để mỗi Tag chiếm 1 hàng
-                    width: 'fit-content', // 🔹 vừa với nội dung
+                    marginBottom: "0.5rem",
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "fit-content",
                   }}
                 >
                   {lang.language} ({lang.level})
@@ -65,16 +64,18 @@ const Skills = () => {
             </MarginTop>
           )}
 
-          {skills && (
-            <MarginTop mt='2rem'>
+          {skills && Object.keys(skills).length > 0 && (
+            <MarginTop mt="2rem">
               <SectionTitle level={3}>Technical Skills</SectionTitle>
               <Row gutter={16}>
                 {Object.entries(skills).map(([key, list]) => (
                   <Col span={12} key={key}>
                     <DarkCard title={key.toUpperCase()} variant={false}>
-                      {list.map((item, idx) => (
-                        <p key={idx}>• {item}</p>
-                      ))}
+                      {list && list.length > 0 ? (
+                        list.map((item, idx) => <p key={idx}>• {item}</p>)
+                      ) : (
+                        <p>• No skills listed</p>
+                      )}
                     </DarkCard>
                   </Col>
                 ))}
@@ -82,10 +83,10 @@ const Skills = () => {
             </MarginTop>
           )}
 
-          {projects && projects.length > 0 && (
-            <MarginTop mt='2rem'>
+          {projects.length > 0 && (
+            <MarginTop mt="2rem">
               <SectionTitle level={3}>Featured Work</SectionTitle>
-              <ParagraphStyled color='#fff'>
+              <ParagraphStyled color="#fff">
                 A glimpse into my professional journey.
               </ParagraphStyled>
               <Row gutter={16}>
@@ -97,15 +98,17 @@ const Skills = () => {
                           alt={project.title}
                           src={
                             project.image ||
-                            'https://picsum.photos/200/200?grayscale'
+                            "https://picsum.photos/200/200?grayscale"
                           }
                         />
                       }
                     >
                       <DescriptionCard>
                         <strong>{project.title}</strong>
-                        <p>{project.description}</p>
-                      </DescriptionCard>{' '}
+                        <p>
+                          {project.description || "No description available"}
+                        </p>
+                      </DescriptionCard>
                     </FeaturedWorkCard>
                   </Col>
                 ))}
@@ -115,8 +118,7 @@ const Skills = () => {
         </Container>
       </Col>
     </FlexBox>
-  )
-}
+  );
+};
 
-export default Skills
-
+export default Skills;

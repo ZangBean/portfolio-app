@@ -1,36 +1,35 @@
-import { Input, Select, Button, Row, Col, Form, Space } from 'antd'
-import SectionTitle from '../UI/SectionTitle'
-import { Title } from '../../../pages/Home/Home.styled'
+import { Input, Select, Button, Row, Col, Form } from "antd";
+import { TitleH3 } from "../UI/Title";
 
 const SkillsForm = ({ formik, handleAddLanguage, handleRemoveLanguage }) => {
   return (
     <>
-      <Title level={4}>Skills</Title>
+      <TitleH3 level={4}>Skills</TitleH3>
 
-      <Form layout='vertical'>
+      <Form layout="vertical">
         <Row gutter={16}>
           <Col span={24}>
-            <Form.Item label='Kỹ năng Frontend'>
+            <Form.Item label="Frontend Skills">
               <Select
-                mode='tags'
+                mode="tags"
                 value={formik.values.skills.frontend}
                 onChange={(value) =>
-                  formik.setFieldValue('skills.frontend', value)
+                  formik.setFieldValue("skills.frontend", value)
                 }
-                placeholder='Nhập kỹ năng frontend (VD: HTML, CSS)'
+                placeholder="Enter frontend skills (e.g., HTML, CSS)"
               />
             </Form.Item>
           </Col>
 
           <Col span={24}>
-            <Form.Item label='Kỹ năng Backend'>
+            <Form.Item label="Backend Skills">
               <Select
-                mode='tags'
+                mode="tags"
                 value={formik.values.skills.backend}
                 onChange={(value) =>
-                  formik.setFieldValue('skills.backend', value)
+                  formik.setFieldValue("skills.backend", value)
                 }
-                placeholder='Nhập kỹ năng backend (VD: PHP, Java)'
+                placeholder="Enter backend skills (e.g., PHP, Java)"
               />
             </Form.Item>
           </Col>
@@ -38,38 +37,38 @@ const SkillsForm = ({ formik, handleAddLanguage, handleRemoveLanguage }) => {
 
         <Row gutter={16}>
           <Col span={24}>
-            <Form.Item label='Kỹ năng Database'>
+            <Form.Item label="Database Skills">
               <Select
-                mode='tags'
+                mode="tags"
                 value={formik.values.skills.database}
                 onChange={(value) =>
-                  formik.setFieldValue('skills.database', value)
+                  formik.setFieldValue("skills.database", value)
                 }
-                placeholder='Nhập kỹ năng database (VD: SQL Server)'
+                placeholder="Enter database skills (e.g., SQL Server)"
               />
             </Form.Item>
           </Col>
 
           <Col span={24}>
-            <Form.Item label='Kỹ năng khác'>
+            <Form.Item label="Other Skills">
               <Select
-                mode='tags'
+                mode="tags"
                 value={formik.values.skills.other}
                 onChange={(value) =>
-                  formik.setFieldValue('skills.other', value)
+                  formik.setFieldValue("skills.other", value)
                 }
-                placeholder='Nhập kỹ năng khác (VD: GitHub)'
+                placeholder="Enter other skills (e.g., GitHub)"
               />
             </Form.Item>
           </Col>
         </Row>
 
-        <Form.Item label='Ngôn ngữ'>
+        <Form.Item label="Languages">
           {formik.values.languages.map((lang, index) => (
             <Row key={index} gutter={8} style={{ marginBottom: 8 }}>
               <Col span={10}>
                 <Input
-                  placeholder='Ngôn ngữ (VD: Japanese)'
+                  placeholder="Language (e.g., Japanese)"
                   value={lang.language}
                   onChange={(e) =>
                     formik.setFieldValue(
@@ -81,7 +80,7 @@ const SkillsForm = ({ formik, handleAddLanguage, handleRemoveLanguage }) => {
               </Col>
               <Col span={10}>
                 <Input
-                  placeholder='Trình độ (VD: N5+)'
+                  placeholder="Level (e.g., N5+)"
                   value={lang.level}
                   onChange={(e) =>
                     formik.setFieldValue(
@@ -93,19 +92,18 @@ const SkillsForm = ({ formik, handleAddLanguage, handleRemoveLanguage }) => {
               </Col>
               <Col span={4}>
                 <Button danger onClick={() => handleRemoveLanguage(index)}>
-                  Xóa
+                  Remove
                 </Button>
               </Col>
             </Row>
           ))}
-          <Button type='dashed' onClick={handleAddLanguage} block>
-            + Thêm ngôn ngữ
+          <Button type="dashed" onClick={handleAddLanguage} block>
+            + Add Language
           </Button>
         </Form.Item>
       </Form>
     </>
-  )
-}
+  );
+};
 
-export default SkillsForm
-
+export default SkillsForm;

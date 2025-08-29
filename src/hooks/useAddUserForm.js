@@ -65,7 +65,7 @@ const useAddUserForm = (onClose, user, isEditMode = false) => {
         password: values.password || undefined,
         cv: {
           personal_info: {
-            name: values.name || undefined,
+            name: values.name,
             position: values.position || undefined,
             image: values.image || undefined,
             birth_date: values.birth_date

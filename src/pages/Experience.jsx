@@ -1,4 +1,4 @@
-import { Row, Col, Typography, Card, Tag, Timeline } from "antd";
+import { Row, Col, Typography } from "antd";
 import CardProfile from "../components/CardProfile";
 import Container from "../components/common/UI/Container";
 import SectionTitle from "../components/common/UI/SectionTitle";
@@ -20,7 +20,7 @@ const Experience = () => {
   }
 
   if (error || !selectedUser) {
-    return <ParagraphStyled color="red">Lỗi: {error}</ParagraphStyled>;
+    return <ParagraphStyled color="red">Error: {error}</ParagraphStyled>;
   }
 
   const {
@@ -50,8 +50,9 @@ const Experience = () => {
         <Container>
           <SectionTitle level={3}>Career Snapshot</SectionTitle>
           <ParagraphStyled color="#fff">
-            {target || "Chưa có mục tiêu nghề nghiệp"}
+            {target || "No career goal set"}
           </ParagraphStyled>
+
           <MarginTop mt="2rem">
             <SectionTitle level={3}>Highlights & Successes</SectionTitle>
             <Row gutter={16}>
@@ -91,7 +92,7 @@ const Experience = () => {
                     children: exp ? (
                       <div>
                         <div className="experience-infor">
-                          {exp.company || "Công ty không xác định"}
+                          {exp.company || "Company not specified"}
                           {exp.website && (
                             <a
                               href={exp.website}
@@ -103,8 +104,8 @@ const Experience = () => {
                           )}
                         </div>
                         <div className="time-start">
-                          {exp.period?.start || "Không xác định"} -{" "}
-                          {exp.period?.end || "Hiện tại"}
+                          {exp.period?.start || "Unknown"} -{" "}
+                          {exp.period?.end || "Present"}
                         </div>
                         {exp.description && Array.isArray(exp.description) ? (
                           exp.description.map((desc, idx) => (
@@ -114,7 +115,7 @@ const Experience = () => {
                           ))
                         ) : (
                           <ParagraphStyled color="#fff">
-                            • Không có mô tả
+                            • No description
                           </ParagraphStyled>
                         )}
                       </div>
@@ -124,7 +125,7 @@ const Experience = () => {
               />
             </MarginTop>
           ) : (
-            <ParagraphStyled></ParagraphStyled>
+            <ParagraphStyled>No experience listed</ParagraphStyled>
           )}
 
           {education && (
@@ -132,15 +133,15 @@ const Experience = () => {
               <SectionTitle level={3}>Education</SectionTitle>
               <DarkCard>
                 <p>
-                  <b>{education.institution || "Chưa có thông tin"}</b>
+                  <b>{education.institution || "No information available"}</b>
                 </p>
                 <p>
-                  {education.faculty || "Không xác định"} -{" "}
-                  {education.major || "Không xác định"}
+                  {education.faculty || "Unknown"} -{" "}
+                  {education.major || "Unknown"}
                 </p>
                 <p className="time-start">
-                  {education.period?.start || "Không xác định"} -{" "}
-                  {education.period?.end || "Hiện tại"}
+                  {education.period?.start || "Unknown"} -{" "}
+                  {education.period?.end || "Present"}
                 </p>
               </DarkCard>
             </MarginTop>
@@ -156,7 +157,7 @@ const Experience = () => {
                       {list && Array.isArray(list) ? (
                         list.map((item, idx) => <p key={idx}>• {item}</p>)
                       ) : (
-                        <p>• Không có kỹ năng</p>
+                        <p>• No skills listed</p>
                       )}
                     </DarkCard>
                   </Col>

@@ -1,62 +1,61 @@
-import { Input, Form } from 'antd'
-import { Title } from '../../../pages/Home/Home.styled'
+import { Input, Form } from "antd";
+import { TitleH3 } from "../UI/Title";
 
 const ContactForm = ({ formik }) => {
   return (
     <>
-      <Title level={4}>Contact</Title>
-      <Form layout='vertical'>
-        <Form.Item label='Email' required>
+      <TitleH3 level={4}>Contact</TitleH3>
+      <Form layout="vertical">
+        <Form.Item label="Email" required>
           <Input
-            name='email'
+            name="email"
             value={formik.values.email}
             onChange={formik.handleChange}
           />
         </Form.Item>
 
-        <Form.Item label='Số điện thoại'>
+        <Form.Item label="Phone Number">
           <Input
-            name='phone'
+            name="phone"
             value={formik.values.phone}
             onChange={formik.handleChange}
           />
         </Form.Item>
 
-        <Form.Item label='Địa chỉ'>
+        <Form.Item label="Address">
           <Input
-            name='address'
+            name="address"
             value={formik.values.address}
             onChange={formik.handleChange}
           />
         </Form.Item>
 
-        <Form.Item label='Facebook'>
+        <Form.Item label="Facebook">
           <Input
-            name='facebook'
+            name="facebook"
             value={formik.values.facebook}
             onChange={formik.handleChange}
           />
         </Form.Item>
 
-        <Form.Item label='LinkedIn' hidden>
+        <Form.Item label="LinkedIn" hidden>
           <Input
-            name='linkedin'
+            name="linkedin"
             value={formik.values.linkedin}
             onChange={formik.handleChange}
           />
         </Form.Item>
 
-        <Form.Item label='Github'>
+        <Form.Item label="Github">
           <Input
-            name='github'
+            name="github"
             value={formik.values.github}
             onChange={formik.handleChange}
           />
         </Form.Item>
       </Form>
     </>
-  )
-}
+  );
+};
 
-export default ContactForm
-
+export default ContactForm;
