@@ -1,23 +1,21 @@
-import { Modal, Button, Row, Col } from "antd";
-import useAddUserForm from "../../../hooks/useAddUserForm";
-import AboutForm from "./AboutForm";
-import ProjectsForm from "./ProjectsForm";
-import SkillsForm from "./SkillsForm";
-import ExperienceForm from "./ExperienceForm";
-import ContactForm from "./ContactForm";
-import { StyledModal } from "../UI/Title";
-import styled from "styled-components";
+import { Modal, Button, Row, Col } from 'antd'
+import useAddUserForm from '../../../hooks/useAddUserForm'
+import AboutForm from './AboutForm'
+import ProjectsForm from './ProjectsForm'
+import SkillsForm from './SkillsForm'
+import ExperienceForm from './ExperienceForm'
+import ContactForm from './ContactForm'
+import styled from 'styled-components'
+import { ButtonClose } from '../UI/Button'
 const Wrap = styled.div`
-  text-align: right;
-  margin-top: 16px;
-`;
+  margin-top: 60px;
+`
 const AddUserModal = ({ visible, onClose, user, isEditMode = false }) => {
-  const { formik, loading } = useAddUserForm(onClose, user, isEditMode);
+  const { formik, loading } = useAddUserForm(onClose, user, isEditMode)
 
   return (
-    <StyledModal
-      className="custom-modal"
-      title={isEditMode ? "Edit User" : "Add User"}
+    <Modal
+      title={isEditMode ? 'Sửa User' : 'Thêm User'}
       open={visible}
       onCancel={onClose}
       footer={null}
@@ -50,17 +48,15 @@ const AddUserModal = ({ visible, onClose, user, isEditMode = false }) => {
           </Col>
         </Row>
         <Wrap>
-          <Button onClick={onClose} style={{ marginRight: 8 }}>
-            Cancel
-          </Button>
-
-          <Button type="primary" htmlType="submit" loading={loading}>
-            {isEditMode ? "Update" : "Add"}
+          <ButtonClose onClick={onClose}>Hủy</ButtonClose>
+          <Button type='primary' htmlType='submit' loading={loading}>
+            {isEditMode ? 'Cập nhật' : 'Thêm'}
           </Button>
         </Wrap>
       </form>
-    </StyledModal>
-  );
-};
+    </Modal>
+  )
+}
 
-export default AddUserModal;
+export default AddUserModal
+
