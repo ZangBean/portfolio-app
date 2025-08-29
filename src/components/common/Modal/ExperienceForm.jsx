@@ -5,9 +5,11 @@ import { TitleH3 } from "../UI/Title";
 const ExperienceForm = ({ formik }) => {
   return (
     <>
+
       <TitleH3 level={4}>Experience</TitleH3>
       <Form layout="vertical">
         <Form.Item label="Company Name" required>
+
           <Input
             name="company"
             value={formik.values.company}
