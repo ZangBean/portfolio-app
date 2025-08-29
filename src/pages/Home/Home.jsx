@@ -83,7 +83,7 @@ export default function Home() {
                 title='Add User'
                 onClick={handleOpenModal}
               >
-                Add User
+                Add
                 <UserAddOutlined />
               </ButtonAdd>
             </div>
